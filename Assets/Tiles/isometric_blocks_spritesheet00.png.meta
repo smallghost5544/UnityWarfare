@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: fc6434e0d14bc3840a64e4ca36df11a0
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 517
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 100cfa8f50b9f6b459f08c20b754bef1
+      internalID: 825161122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_1
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 57
+        width: 517
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d0ecc7e3b58c7447be89abaef7c2619
+      internalID: 214976523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_2
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 57
+        width: 517
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d3269fc3d0d6f4da6ce047df96327e
+      internalID: 1485007756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_3
+      rect:
+        serializedVersion: 2
+        x: 1571
+        y: 57
+        width: 517
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f87f62e02d167641968e8928479374b
+      internalID: 1964190853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_4
+      rect:
+        serializedVersion: 2
+        x: 2128
+        y: 57
+        width: 540
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77e69ea18395fce4ea4d4134df8ce6a7
+      internalID: 223909016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_5
+      rect:
+        serializedVersion: 2
+        x: 2678
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e53aafeecf19344953700874dd5e91
+      internalID: -2090691938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_6
+      rect:
+        serializedVersion: 2
+        x: 3187
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 460e5df098cc4724fbedd442b11322cd
+      internalID: 354525717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_7
+      rect:
+        serializedVersion: 2
+        x: 3697
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4b2b024ad07deb40bc2b2742b04c68a
+      internalID: 193904814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_8
+      rect:
+        serializedVersion: 2
+        x: 4210
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dea37cd582498f4a83f312762e0ed3b
+      internalID: 2012094244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_9
+      rect:
+        serializedVersion: 2
+        x: 4719
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7c7d86a43f87c2469c6ff678599acdc
+      internalID: 450855892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_10
+      rect:
+        serializedVersion: 2
+        x: 5226
+        y: 117
+        width: 418
+        height: 491
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b139bf4bdb68a47b2d561acdd79ff4
+      internalID: -960466948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_11
+      rect:
+        serializedVersion: 2
+        x: 5649
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09cab72a69b636a42b3d4a5eaf32e99a
+      internalID: -1359597450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_12
+      rect:
+        serializedVersion: 2
+        x: 6164
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b529bcd0cc061d54998e54197c9a3ba6
+      internalID: -23693807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_13
+      rect:
+        serializedVersion: 2
+        x: 6682
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdb2ad16fda5e5b4781c2f5bc8471873
+      internalID: -1279069673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_14
+      rect:
+        serializedVersion: 2
+        x: 7196
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a619b0b2ec5a5645868727f0fa28305
+      internalID: 1449633470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_15
+      rect:
+        serializedVersion: 2
+        x: 7706
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac75784483e19647a1ba4374a075bcc
+      internalID: 1372472392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_16
+      rect:
+        serializedVersion: 2
+        x: 8217
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 381e9831d28aa3b46bdbb1b61b247a04
+      internalID: 1517291541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_17
+      rect:
+        serializedVersion: 2
+        x: 8736
+        y: 122
+        width: 399
+        height: 486
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 5, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af866b3f7709d74da734db83ffe6cc9
+      internalID: -1164559908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_18
+      rect:
+        serializedVersion: 2
+        x: 9148
+        y: 125
+        width: 467
+        height: 483
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 2, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 224214553015bc341ae4bd657cae3263
+      internalID: -1147627341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_19
+      rect:
+        serializedVersion: 2
+        x: 9568
+        y: 57
+        width: 513
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e13b3a03524723b43a4c112de14ef7f7
+      internalID: 511856650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_20
+      rect:
+        serializedVersion: 2
+        x: 10094
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4eb073485f71e41a0875c610799984
+      internalID: -485683261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_21
+      rect:
+        serializedVersion: 2
+        x: 10615
+        y: 56
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e94b78f7443230e4dac6f860f827df2c
+      internalID: -1888595580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_22
+      rect:
+        serializedVersion: 2
+        x: 11132
+        y: 57
+        width: 497
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 5, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f55227a9bd4d544d8fbc8ebb1720850
+      internalID: -588710848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_23
+      rect:
+        serializedVersion: 2
+        x: 11631
+        y: 57
+        width: 507
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f67f98823dee3764f91d54f28d964ce3
+      internalID: 772341435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_24
+      rect:
+        serializedVersion: 2
+        x: 12159
+        y: 14
+        width: 507
+        height: 571
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0012cc6acbf4b7143a78ceac2f3ac539
+      internalID: -250562287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 12666
+        height: 551
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d929778b6b7811b4c93eda6c02a792f7
+      internalID: 212442291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isometric_blocks_spritesheet00_26
+      rect:
+        serializedVersion: 2
+        x: 2864
+        y: 0
+        width: 3515
+        height: 608
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f70ad4826665239438c5ba2951d9a378
+      internalID: 1859630719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 01a8658e0bdc4614cb9dbb263219990e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      isometric_blocks_spritesheet00_4: 223909016
+      isometric_blocks_spritesheet00_17: -1164559908
+      isometric_blocks_spritesheet00_22: -588710848
+      isometric_blocks_spritesheet00_12: -23693807
+      isometric_blocks_spritesheet00_19: 511856650
+      isometric_blocks_spritesheet00_15: 1372472392
+      isometric_blocks_spritesheet00_10: -960466948
+      isometric_blocks_spritesheet00_24: -250562287
+      isometric_blocks_spritesheet00_2: 1485007756
+      isometric_blocks_spritesheet00_1: 214976523
+      isometric_blocks_spritesheet00_11: -1359597450
+      isometric_blocks_spritesheet00_26: 1859630719
+      isometric_blocks_spritesheet00_5: -2090691938
+      isometric_blocks_spritesheet00_18: -1147627341
+      isometric_blocks_spritesheet00_20: -485683261
+      isometric_blocks_spritesheet00_6: 354525717
+      isometric_blocks_spritesheet00_7: 193904814
+      isometric_blocks_spritesheet00_0: 825161122
+      isometric_blocks_spritesheet00_23: 772341435
+      isometric_blocks_spritesheet00_13: -1279069673
+      isometric_blocks_spritesheet00_9: 450855892
+      isometric_blocks_spritesheet00_16: 1517291541
+      isometric_blocks_spritesheet00_3: 1964190853
+      isometric_blocks_spritesheet00_8: 2012094244
+      isometric_blocks_spritesheet00_21: -1888595580
+      isometric_blocks_spritesheet00_25: 212442291
+      isometric_blocks_spritesheet00_14: 1449633470
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
