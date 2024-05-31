@@ -20,10 +20,11 @@ public class UnitAction : MonoBehaviour
     bool isArriveTarget = true;
     bool inCommand = false;
     bool inAction = false;
-
+    Collider2D characterCollider = null;
     private void Awake()
     {
         movementArea = GameObject.Find("MoveSpaceCollider").gameObject.GetComponent<PolygonCollider2D>();
+        characterCollider = gameObject.GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -128,12 +129,11 @@ public class UnitAction : MonoBehaviour
     /// </summary>
     public IEnumerator Command(string command, Vector2 target = new Vector2(), float faceAngle = 1)
     {
-        inCommand = true;
-        //關閉collider避免碰撞改變陣行
-        CircleCollider2D col = gameObject.GetComponent<CircleCollider2D>();
-        col.isTrigger = true;
         if (command == "LineUp")
         {
+            inCommand = true;
+            //關閉collider避免碰撞改變陣行
+            characterCollider.isTrigger = true;
             targetPosition = target;
             yield return StartCoroutine(WalkToTarget());
             ChangeToward(faceAngle);
@@ -142,7 +142,7 @@ public class UnitAction : MonoBehaviour
         if (command == "TakeABreak")
         {
             inCommand = false;
-            col.isTrigger = false;
+            characterCollider.isTrigger = false;
         }
     }
 }

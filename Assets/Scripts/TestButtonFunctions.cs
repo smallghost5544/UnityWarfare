@@ -69,23 +69,24 @@ public class TestButtonFunctions : MonoBehaviour
     /// </summary>
     public void LineUpUnits()
     {
-        var current = 0;
-        float curRow = StartPoint.transform.position.x;
-        float curColummn = StartPoint.transform.position.y;
-        var maxRow = StartPoint.transform.position.x + rowMaxCount;
-        while (current < unitActions.Count)
-        {
-            var targetVector = new Vector2(curRow * RowValue, curColummn * ColumnValue);
-            StartCoroutine(unitActions[current].Command("LineUp", targetVector, 1));
-            curRow++;
-            //禬﹚程︽计玥传逼
-            if (curRow >= maxRow)
-            {
-                curColummn++;
-                curRow = StartPoint.transform.position.x;
-            }
-            current++;
-        }
+        Square();
+        //var current = 0;
+        //float curRow = StartPoint.transform.position.x;
+        //float curColummn = StartPoint.transform.position.y;
+        //var maxRow = StartPoint.transform.position.x + rowMaxCount;
+        //while (current < unitActions.Count)
+        //{
+        //    var targetVector = new Vector2(curRow * RowValue, curColummn * ColumnValue);
+        //    StartCoroutine(unitActions[current].Command("LineUp", targetVector, 1));
+        //    curRow++;
+        //    //禬﹚程︽计玥传逼
+        //    if (curRow >= maxRow)
+        //    {
+        //        curColummn++;
+        //        curRow = StartPoint.transform.position.x;
+        //    }
+        //    current++;
+        //}
     }
 
     public void TakeABreak()
@@ -109,4 +110,38 @@ public class TestButtonFunctions : MonoBehaviour
         rowCount.text = rowMaxCount.ToString();
     }
 
+    /// <summary>
+    /// ヘ玡﹚ パ逼オ パ  ゼㄓ┪砛эΘ计秖绢逼
+    /// </summary>
+    void Square()
+    {
+        //稱癬﹍翴い翴秨﹍逼
+        var currentUnit = 0;
+        //よ皚,┮羆计秨腹︽Τ碭
+        var maxColumn = Mathf.Round(Mathf.Sqrt(unitsOnStage.Count));
+        float curRow = Mathf.Round(StartPoint.transform.position.x * 10f) / 10f;
+        float curColumnPlace = Mathf.Round(StartPoint.transform.position.y * 10f) / 10f;
+        float saveFirstColumn = curColumnPlace;
+        float columnCount = 0;
+        while (currentUnit < unitActions.Count)
+        {
+            //眖いみ翴┕逼,┕逼
+            var targetVector = new Vector2(curRow * RowValue, (curColumnPlace + maxColumn / 2) * ColumnValue);
+            StartCoroutine(unitActions[currentUnit].Command("LineUp", targetVector, 1));
+            curColumnPlace--;
+            columnCount++;
+            //禬﹚程︽计玥传逼
+            if (columnCount >= maxColumn )
+            {
+                //パ┕オ,┮--
+                curRow--;
+                //耴材竚秨﹍逼
+                curColumnPlace = saveFirstColumn;
+                columnCount =0;
+            }
+            currentUnit++;
+        }
+    }
+
 }
+
