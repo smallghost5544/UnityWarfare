@@ -69,24 +69,9 @@ public class TestButtonFunctions : MonoBehaviour
     /// </summary>
     public void LineUpUnits()
     {
-        Square();
-        //var current = 0;
-        //float curRow = StartPoint.transform.position.x;
-        //float curColummn = StartPoint.transform.position.y;
-        //var maxRow = StartPoint.transform.position.x + rowMaxCount;
-        //while (current < unitActions.Count)
-        //{
-        //    var targetVector = new Vector2(curRow * RowValue, curColummn * ColumnValue);
-        //    StartCoroutine(unitActions[current].Command("LineUp", targetVector, 1));
-        //    curRow++;
-        //    //超出限定最大行數則換排
-        //    if (curRow >= maxRow)
-        //    {
-        //        curColummn++;
-        //        curRow = StartPoint.transform.position.x;
-        //    }
-        //    current++;
-        //}
+        //Square();
+        //Triangle();
+        CustomizedFormation();
     }
 
     public void TakeABreak()
@@ -110,38 +95,121 @@ public class TestButtonFunctions : MonoBehaviour
         rowCount.text = rowMaxCount.ToString();
     }
 
-    /// <summary>
-    /// 目前限定 由右排至左 由上至下  未來或許可改成直列數量大於橫排
-    /// </summary>
+    //fix 沒依照正中心開始排
     void Square()
     {
-        //想以起始點為中點開始排序
+        //以起始點為中點開始排序
         var currentUnit = 0;
-        //因為為方陣,所以取總數的開根號為一行有幾人
+        //因為為方陣,所以取總數的開根號為一列有幾人
         var maxColumn = Mathf.Round(Mathf.Sqrt(unitsOnStage.Count));
         float curRow = Mathf.Round(StartPoint.transform.position.x * 10f) / 10f;
-        float curColumnPlace = Mathf.Round(StartPoint.transform.position.y * 10f) / 10f;
-        float saveFirstColumn = curColumnPlace;
+        float curColumn = Mathf.Round(StartPoint.transform.position.y * 10f) / 10f;
+        float saveFirstPlace = curColumn;
         float columnCount = 0;
         while (currentUnit < unitActions.Count)
         {
             //從中心點往上排一半,往下排一半
-            var targetVector = new Vector2(curRow * RowValue, (curColumnPlace + maxColumn / 2) * ColumnValue);
+            var targetVector = new Vector2(curRow * RowValue, (curColumn + maxColumn / 2) * ColumnValue);
             StartCoroutine(unitActions[currentUnit].Command("LineUp", targetVector, 1));
-            curColumnPlace--;
+            curColumn--;
             columnCount++;
             //超出限定最大行數則換排
-            if (columnCount >= maxColumn )
+            if (columnCount >= maxColumn)
             {
                 //由右往左,所以--
                 curRow--;
                 //回歸第一個位置開始排
-                curColumnPlace = saveFirstColumn;
-                columnCount =0;
+                curColumn = saveFirstPlace;
+                columnCount = 0;
             }
             currentUnit++;
         }
     }
+    /// <summary>
+    /// 三角陣型 
+    /// </summary>
+    void Triangle()
+    {
+        var currentUnit = 0;
+        //因為為方陣,所以取總數的開根號為一列有幾人
+        var maxColumn = 1;
+        float curRow = Mathf.Round(StartPoint.transform.position.x * 10f) / 10f;
+        float curColumn = Mathf.Round(StartPoint.transform.position.y * 10f) / 10f;
+        float saveFirstPlace = curColumn;
+        float columnCount = 0;
+        while (currentUnit < unitActions.Count)
+        {
+            //從中心點往上排一半,往下排一半
+            var targetVector = new Vector2(curRow * RowValue, (curColumn + maxColumn / 2) * ColumnValue);
+            StartCoroutine(unitActions[currentUnit].Command("LineUp", targetVector, 1));
+            curColumn--;
+            columnCount++;
+            //超出限定最大行數則換排
+            if (columnCount >= maxColumn)
+            {
+                //由右往左,所以--
+                curRow--;
+                //回歸第一個位置開始排
+                curColumn = saveFirstPlace;
+                columnCount = 0;
+                maxColumn+=2;
+            }
+            currentUnit++;
+        }
+    }
+    
+    public void CustomizedFormation()
+    {
+        //自訂最大行數的版本,目前想用於長方形陣列
+        var current = 0;
+        float curRow = StartPoint.transform.position.x;
+        float curColummn = StartPoint.transform.position.y;
+        var maxRow = StartPoint.transform.position.x + rowMaxCount;
+        while (current < unitActions.Count)
+        {
+            var targetVector = new Vector2(curRow * RowValue, curColummn * ColumnValue);
+            StartCoroutine(unitActions[current].Command("LineUp", targetVector, 1));
+            curRow++;
+            if (curRow >= maxRow)
+            {
+                curColummn++;
+                curRow = StartPoint.transform.position.x;
+            }
+            current++;
+        }
+    }
+    /// <summary>
+    /// 由上排至下,最下面補齊的版本 discard
+    /// </summary>
+    //void Square()
+    //{
+    //    //想以起始點為中點開始排序
+    //    var currentUnit = 0;
+    //    //因為為方陣,所以取總數的開根號為一行有幾人
+    //    var maxColumn = Mathf.Round(Mathf.Sqrt(unitsOnStage.Count));
+    //    float curRow = Mathf.Round(StartPoint.transform.position.x * 10f) / 10f;
+    //    float curColumn = Mathf.Round(StartPoint.transform.position.y * 10f) / 10f;
+    //    float saveFirstPlace = curRow;
+    //    float counts = 0;
+    //    while (currentUnit < unitActions.Count)
+    //    {
+    //        //從中心點往上排一半,往下排一半
+    //        var targetVector = new Vector2(curRow  * RowValue, (curColumn + maxColumn / 2) * ColumnValue);
+    //        StartCoroutine(unitActions[currentUnit].Command("LineUp", targetVector, 1));
+    //        curRow--;
+    //        counts++;
+    //        //超出限定最大行數則換排
+    //        if (counts >= maxColumn)
+    //        {
+    //            //由右往左,所以--
+    //            curColumn--;
+    //            //回歸第一個位置開始排
+    //            curRow = saveFirstPlace;
+    //            counts =0;
+    //        }
+    //        currentUnit++;
+    //    }
+
 
 }
 
