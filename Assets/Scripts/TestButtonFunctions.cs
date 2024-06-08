@@ -262,7 +262,6 @@ public class TestButtonFunctions : MonoBehaviour
             // 將螢幕座標轉換為世界座標
             StartPoint.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
             StartPoint.transform.position = new Vector3(StartPoint.transform.position.x , StartPoint.transform.position.y , 0);
-            Debug.Log(StartPoint.transform.position);
             return;
         }
     }

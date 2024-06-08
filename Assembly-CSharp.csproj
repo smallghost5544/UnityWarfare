@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\UnitAction.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterBiomModel.cs" />
     <Compile Include="Assets\SPUM\Script\Ect\SpritePos.cs" />
+    <Compile Include="Assets\Scripts\UnitAbility.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\ObjectModel.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\Location Generating\LocationShapeGenerator.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Graphical Type\GraphicalMapGeneratorFactory.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Data Model Containers\BiomesDiagram.cs" />
-    <Compile Include="Assets\Scripts\CustomInspector.cs" />
+    <Compile Include="Assets\Scripts\Edittoor\CustomInspector.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Model Validation\DataModelValidator.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerObj.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Models with priority\LocationModelWithPriority.cs" />
@@ -110,9 +111,10 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\LocationModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Output Models\Vector2Int.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Model Validation\ValidationError.cs" />
+    <Compile Include="Assets\Scripts\Edittoor\CustomCharacter.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\BigObjectModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\Location Generating\LocationsMap.cs" />
-    <Compile Include="Assets\Scripts\CustomMap.cs" />
+    <Compile Include="Assets\Scripts\Edittoor\CustomMap.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Space  Orientation\SpaceOrientation3D.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Graphical Type\SpriteMapGenerator.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\ObjectsMap.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\BiomMapSmoother.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\TreeModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Space  Orientation\SpaceOrientationFactory.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\NoiseMapGenerator.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Output Models\AwaitingObject.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\GroundNoiseMapParameters.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Output Models\TilesMap.cs" />
+    <Compile Include="Assets\Scripts\Edittoor\CustomInspectorCharacter.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterNoiseMapParametersModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />

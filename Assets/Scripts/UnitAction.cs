@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UnitAction : MonoBehaviour
 {
@@ -13,13 +14,18 @@ public class UnitAction : MonoBehaviour
     public Collider2D movementArea;
     [Header("角色最大發呆時間")]
     public float randomIdleTime = 5;
+    private Vector2 _targetPosition;
     /// <summary>
     /// 移動目的地
     /// </summary>
-    public Vector2 targetPosition = Vector2.zero;
-    bool isArriveTarget = true;
+    public Vector2 targetPosition
+    {
+        get { return _targetPosition; }
+        set { _targetPosition = RoundToOneDecimal(value); }
+    }
+    public bool isArriveTarget = true;
     bool inCommand = false;
-    bool inAction = false;
+    public bool inAction = false;
     Collider2D characterCollider = null;
     private void Awake()
     {
@@ -53,7 +59,7 @@ public class UnitAction : MonoBehaviour
     /// <summary>
     /// 範圍內隨機選擇目的地
     /// </summary>
-    private void RandomSelectTarget()
+    public void RandomSelectTarget()
     {
         //以0.0方式選擇範圍內目的地
         Bounds bounds = movementArea.bounds;
@@ -64,8 +70,6 @@ public class UnitAction : MonoBehaviour
         {
             x = Random.Range(bounds.min.x, bounds.max.x);
             y = Random.Range(bounds.min.y, bounds.max.y);
-            x = Mathf.Round(x * 10f) / 10f;
-            y = Mathf.Round(y * 10f) / 10f;
         }
         targetPosition = new Vector2(x, y);
         StartCoroutine(WalkToTarget());
@@ -108,10 +112,10 @@ public class UnitAction : MonoBehaviour
     /// <summary>
     /// 更改角色面向
     /// </summary>
-    /// <param name="towardDiretionnn"></param>
-    void ChangeToward(float towardDiretionnn)
+    /// <param name="towardDiretion"></param>
+    public void ChangeToward(float towardDiretion)
     {
-        if (towardDiretionnn < 0)
+        if (towardDiretion < 0)
             unit.gameObject.transform.localScale = new Vector3(1, 1, 1);
         else
             unit.gameObject.transform.localScale = new Vector3(-1, 1, 1);
@@ -120,7 +124,7 @@ public class UnitAction : MonoBehaviour
     /// 設立行走動畫
     /// </summary>
     /// <param name="set"></param>
-    void StartWalkAnimation(bool start)
+    public void StartWalkAnimation(bool start)
     {
         animator.SetBool("Run", start);
     }
@@ -144,5 +148,29 @@ public class UnitAction : MonoBehaviour
             inCommand = false;
             characterCollider.isTrigger = false;
         }
+    }
+
+    public void AttackAnimation()
+    {
+        animator.SetTrigger("Attack");
+        ChangeToward(targetPosition.x - transform.position.x);
+    }
+    public void DieAnimation()
+    { 
+    }
+
+    public void StopWalking()
+    {
+        isArriveTarget = true;
+        StartWalkAnimation(false);
+        ChangeToward(targetPosition.x - transform.position.x);
+        targetPosition = transform.position;
+    }
+    private Vector2 RoundToOneDecimal(Vector2 vector)
+    {
+        return new Vector2(
+            Mathf.Round(vector.x * 10f) / 10f,
+            Mathf.Round(vector.y * 10f) / 10f
+        );
     }
 }
