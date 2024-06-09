@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8818735903387834552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7141075, y: -0.78012854, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54,7 +54,6 @@ MonoBehaviour:
   moveSpeed: 1.2
   movementArea: {fileID: 0}
   randomIdleTime: 1
-  isArriveTarget: 1
   inAction: 0
 --- !u!50 &4655814095864158106
 Rigidbody2D:
@@ -127,10 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad17815ca8618174c9a4537bf474fe8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
-  TeamNumber: 0
+  HP: 10
   AttackRange: 1
-  AttackSpeed: 0.5
   AttackDamage: 10
   SearchRange: 10
   Enemy: {fileID: 0}

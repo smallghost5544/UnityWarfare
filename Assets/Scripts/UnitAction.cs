@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class UnitAction : MonoBehaviour
 {
@@ -21,20 +22,32 @@ public class UnitAction : MonoBehaviour
     public Vector2 targetPosition
     {
         get { return _targetPosition; }
-        set { _targetPosition = RoundToOneDecimal(value); }
+        set
+        {
+            _targetPosition = RoundToOneDecimal(value);
+            float direction = _targetPosition.x - transform.position.x;
+            if (Mathf.Abs(direction) > 0.1f)
+                ChangeToward(direction);
+        }
     }
-    public bool isArriveTarget = true;
+    bool isArriveTarget = true;
     bool inCommand = false;
     public bool inAction = false;
     Collider2D characterCollider = null;
+
+    public float moveThreshold = 0.5f;
+    private Vector3 lastPosition;
     private void Awake()
     {
         movementArea = GameObject.Find("MoveSpaceCollider").gameObject.GetComponent<PolygonCollider2D>();
         characterCollider = gameObject.GetComponent<CircleCollider2D>();
+        lastPosition = transform.position;
     }
 
     void Update()
     {
+        if (inCommand)
+            WalkAnimationCheck();
         if (!inAction && !inCommand)
             UnCombatActions();
     }
@@ -54,6 +67,9 @@ public class UnitAction : MonoBehaviour
                 //發呆
                 StartCoroutine(Idle());
                 break;
+            //case 2:
+            //    WalkAnimationCheck ();
+            //    break;
         }
     }
     /// <summary>
@@ -61,17 +77,16 @@ public class UnitAction : MonoBehaviour
     /// </summary>
     public void RandomSelectTarget()
     {
-        //以0.0方式選擇範圍內目的地
-        Bounds bounds = movementArea.bounds;
-        float x = 1000;
-        float y = 1000;
-        //若產生的點不在指定範圍內,重新隨機一次
-        while (!movementArea.OverlapPoint(new Vector2(x, y)))
-        {
-            x = Random.Range(bounds.min.x, bounds.max.x);
-            y = Random.Range(bounds.min.y, bounds.max.y);
-        }
-        targetPosition = new Vector2(x, y);
+        //Bounds bounds = movementArea.bounds;
+        //float x = 1000;
+        //float y = 1000;
+        ////若產生的點不在指定範圍內,重新隨機一次
+        //while (!movementArea.OverlapPoint(new Vector2(x, y)))
+        //{
+        //    x = Random.Range(bounds.min.x, bounds.max.x);
+        //    y = Random.Range(bounds.min.y, bounds.max.y);
+        //}
+        //targetPosition = new Vector2(x, y);
         StartCoroutine(WalkToTarget());
     }
 
@@ -79,7 +94,6 @@ public class UnitAction : MonoBehaviour
     {
         isArriveTarget = false;
         StartWalkAnimation(true);
-        ChangeToward(targetPosition.x - transform.position.x);
         while (!isArriveTarget)
         {
             yield return null;
@@ -117,7 +131,7 @@ public class UnitAction : MonoBehaviour
     {
         if (towardDiretion < 0)
             unit.gameObject.transform.localScale = new Vector3(1, 1, 1);
-        else
+        else if (towardDiretion > 0)
             unit.gameObject.transform.localScale = new Vector3(-1, 1, 1);
     }
     /// <summary>
@@ -140,6 +154,7 @@ public class UnitAction : MonoBehaviour
             characterCollider.isTrigger = true;
             targetPosition = target;
             yield return StartCoroutine(WalkToTarget());
+            characterCollider.isTrigger = false;
             ChangeToward(faceAngle);
         }
         yield return null;
@@ -153,19 +168,25 @@ public class UnitAction : MonoBehaviour
     public void AttackAnimation()
     {
         animator.SetTrigger("Attack");
-        ChangeToward(targetPosition.x - transform.position.x);
     }
     public void DieAnimation()
-    { 
+    {
+        animator.SetTrigger("Death");
+        characterCollider.isTrigger = true;
+    }
+    //防守的一方可以用
+    void WalkAnimationCheck()
+    {
+        float distance = Vector3.Distance(transform.position, lastPosition);
+        if (distance > moveThreshold)
+        {
+            StartWalkAnimation(true);
+            lastPosition = transform.position;
+        }
+        else
+            StartWalkAnimation(false);
     }
 
-    public void StopWalking()
-    {
-        isArriveTarget = true;
-        StartWalkAnimation(false);
-        ChangeToward(targetPosition.x - transform.position.x);
-        targetPosition = transform.position;
-    }
     private Vector2 RoundToOneDecimal(Vector2 vector)
     {
         return new Vector2(
