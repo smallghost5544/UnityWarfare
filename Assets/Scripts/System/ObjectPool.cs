@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectPool : MonoBehaviour
+{
+    private Dictionary<string, List<GameObject>> objectPoolDictionary = new Dictionary<string, List<GameObject>>();
+    private static ObjectPool _instance;
+    public static ObjectPool Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<ObjectPool>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<ObjectPool>();
+                    singletonObject.name = typeof(ObjectPool).ToString() + " (Singleton)";
+                }
+            }
+
+            return _instance;
+        }
+    }
+    // 從對象池中獲取對象
+    public GameObject Get(string objectType , Vector3 SpawnPlace)
+    {
+        if (objectPoolDictionary.ContainsKey(objectType) && objectPoolDictionary[objectType].Count > 0)
+        {
+            GameObject obj = objectPoolDictionary[objectType][0];
+            objectPoolDictionary[objectType].Remove(obj);
+            obj.SetActive(true);
+            obj.transform.position = SpawnPlace;
+            return obj;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // 將對象返回到對象池
+    public void Return(string objectType, GameObject obj)
+    {
+        obj.SetActive(false);
+        if (objectPoolDictionary.ContainsKey(objectType))
+        {
+            objectPoolDictionary[objectType].Add(obj);
+        }
+        else
+        {
+            objectPoolDictionary.Add(objectType, new List<GameObject> { obj });
+        }
+    }
+
+    // 預先生成一定數量的對象
+    public void Preload(string objectType, GameObject prefab, int count)
+    {
+        if (!objectPoolDictionary.ContainsKey(objectType))
+        {
+            objectPoolDictionary.Add(objectType, new List<GameObject>());
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = Instantiate(prefab, transform);
+            obj.SetActive(false);
+            objectPoolDictionary[objectType].Add(obj);
+        }
+    }
+}

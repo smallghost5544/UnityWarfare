@@ -1,0 +1,21 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://assetstore.unity.com/packages/tools/sprite-management/texturepacker-importer-16641
+#
+# created with Free texture packer v0.6.7
+# http://free-tex-packer.com
+#
+:format=40300
+:texture=characcter.png
+:size=64x64
+:pivotpoints=enabled
+:borders=disabled
+
+New_Weapon_09.png;3;29;5;32; 0.5;0.5; 0;0;0;0
+F_SR_Cloth.png;14;51;31;10; 0.5;0.5; 0;0;0;0
+New_Armor_02.png;14;37;22;8; 0.5;0.5; 0;0;0;0
+Normal_Helmet3.png;3;3;17;20; 0.5;0.5; 0;0;0;0
+Back_3.png;26;19;17;12; 0.5;0.5; 0;0;0;0
+New_Pant_08.png;26;6;12;7; 0.5;0.5; 0;0;0;0

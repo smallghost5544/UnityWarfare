@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour
 {
     public Camera myCamera;
     public Slider slider;
-    public float dragSpeed = 0.005f; 
+    public float dragSpeed = 0.02f; 
 
     private Vector3 dragOrigin;
     void Start()

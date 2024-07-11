@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TestButtonFunctions : MonoBehaviour
@@ -30,7 +31,13 @@ public class TestButtonFunctions : MonoBehaviour
     public Slider columnValueSlider;
     public TextMeshProUGUI rowCount;
     List<GameObject> unitsOnStage = new List<GameObject>();
-    List<UnitAction> unitActions = new List<UnitAction>();
+    public List<UnitAction> unitActions = new List<UnitAction>();
+    public bool activeButtonOne = false;
+    public bool activeButtonTwo = false;
+    public Camera mainCamera;
+    public GameObject unitOne;
+    public GameObject unitTwo;
+    Vector3 worldPosition;
     private void Update()
     {
         RowValue = rowValueSlider.value;
@@ -40,7 +47,45 @@ public class TestButtonFunctions : MonoBehaviour
         if (Input.GetKey(DeleteButton))
             DeleteUnit();
         ChangeStartPoint();
+        if (activeButtonOne && (Input.GetMouseButtonDown(0)))
+        {
+            Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
+            worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
+            worldPosition.z = 0; // 確保生成位置在2D平面上
+            CreateUnitOnScreen(worldPosition, unitOne);
+        }
+        if (activeButtonTwo && (Input.GetMouseButtonDown(0)))
+        {
+            Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
+            worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
+            worldPosition.z = 0; // 確保生成位置在2D平面上
+            CreateUnitOnScreen(worldPosition, unitTwo);
+        }
     }
+    public void ActiveButton(int buttonNumber)
+    {
+        if (buttonNumber == 1)
+        {
+            if (activeButtonOne == true)
+                activeButtonOne = false;
+            else
+            {
+                activeButtonOne = true;
+                activeButtonTwo = false;
+            }
+        }
+        if (buttonNumber == 2)
+        {
+            if (activeButtonTwo == true)
+                activeButtonTwo = false;
+            else
+            {
+                activeButtonOne = false;
+                activeButtonTwo = true;
+            }
+        }
+    }
+
     /// <summary>
     /// 新增單位
     /// </summary>
@@ -51,6 +96,14 @@ public class TestButtonFunctions : MonoBehaviour
         unitActions.Add(obj.GetComponent<UnitAction>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
     }
+    public void CreateUnitOnScreen(Vector2 initPlace, GameObject unit)
+    {
+        var obj = Instantiate(unit, initPlace, Quaternion.identity);
+        unitsOnStage.Add(obj);
+        unitActions.Add(obj.GetComponent<UnitAction>());
+        onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
+    }
+
     /// <summary>
     /// 刪去最後一個創建的單位
     /// </summary>
@@ -71,7 +124,8 @@ public class TestButtonFunctions : MonoBehaviour
     /// </summary>
     public void LineUpUnits(int number)
     {
-
+        activeButtonOne = false;
+        activeButtonTwo = false;
         switch (number)
         {
             case 1:
@@ -112,7 +166,7 @@ public class TestButtonFunctions : MonoBehaviour
     void Square()
     {
         int currentUnit = 0;
-        int maxColumn = Mathf.RoundToInt(Mathf.Sqrt(unitsOnStage.Count));
+        int maxColumn = Mathf.RoundToInt(Mathf.Sqrt(unitActions.Count));
         float curRow = Mathf.Round(StartPoint.transform.position.x * 100f) / 100f;
         float curColumn = Mathf.Round(StartPoint.transform.position.y * 100f) / 100f;
         float initialColumn = curColumn;
@@ -204,7 +258,7 @@ public class TestButtonFunctions : MonoBehaviour
         float curColumn = Mathf.Round(StartPoint.transform.position.y * 100f) / 100f;
         while (current < unitActions.Count)
         {
-            var targetVector = new Vector3(curRow  * RowValue, (curColumn + maxColumn / 2)* ColumnValue);
+            var targetVector = new Vector3(curRow * RowValue, (curColumn + maxColumn / 2) * ColumnValue);
             StartCoroutine(unitActions[current].Command("LineUp", targetVector, 1));
             curRow--;
             rowCount++;
@@ -254,18 +308,36 @@ public class TestButtonFunctions : MonoBehaviour
         {
             return;
         }
-
+        if (IsPointerOverUIElement())
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = Camera.main.WorldToScreenPoint(StartPoint.transform.position).z; // 確保我們的點擊點有深度值
             // 將螢幕座標轉換為世界座標
             StartPoint.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
-            StartPoint.transform.position = new Vector3(StartPoint.transform.position.x , StartPoint.transform.position.y , 0);
+            StartPoint.transform.position = new Vector3(StartPoint.transform.position.x, StartPoint.transform.position.y, 0);
             return;
         }
     }
+    private bool IsPointerOverUIElement()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+        {
+            position = new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+        };
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+    public void Reset()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
 
-
+        // 使用場景名稱重新加載場景
+        SceneManager.LoadScene(currentScene.name);
+    }
 }
 
