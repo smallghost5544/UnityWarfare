@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public string TeamOneString = "Team1";
     public string TeamTwoString = "Team2";
     public TextMeshProUGUI onStageCountText;
-    public List<UnitAbility> unitLists = new List<UnitAbility>();
+    public List<UnitStats> unitLists = new List<UnitStats>();
     int enemyCount = 0;
     private static GameManager _instance;
     ObjectPool objectPool;
@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-    public Quadtree quadtree;
     //public List<GameObject> units = new List<GameObject>();
     private void Awake()
     {
@@ -51,8 +50,6 @@ public class GameManager : MonoBehaviour
             //Destroy(gameObject);
         }
         objectPool = GetComponent<ObjectPool>();
-        Bounds worldBounds = new Bounds(Vector3.zero, new Vector3(100, 100, 0));
-        quadtree = new Quadtree(worldBounds);
     }
     private void Start()
     {
@@ -68,28 +65,6 @@ public class GameManager : MonoBehaviour
         TestFunctionButtons();
     }
 
-    public GameObject SearchObjectsInArea(Vector2 center, float radius)
-    {
-        // 定義搜索範圍
-        Bounds searchBounds = new Bounds(center, new Vector3(radius * 2, radius * 2, 1f));
-
-        // 在Quadtree中搜索位於指定範圍內的遊戲對象
-        List<GameObject> objectsInArea = quadtree.Search(searchBounds);
-        print(objectsInArea.Count);
-        var closest = Mathf.Infinity;
-        GameObject answer = null;
-        // 處理搜索結果
-        foreach (GameObject obj in objectsInArea)
-        {
-            var distance = Vector3.Distance(center, obj.transform.position);
-            if (distance < closest)
-            {
-                closest = distance;
-                answer = obj;
-            }
-        }
-        return answer;
-    }
     void SetGameSpeed(float newSpeed)
     {
         Time.timeScale += newSpeed;

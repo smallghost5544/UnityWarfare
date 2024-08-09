@@ -3096,9 +3096,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7357271843187979836}
   - component: {fileID: 3373885847548767593}
-  - component: {fileID: 5461970276576676948}
   - component: {fileID: 2372584057495116336}
   - component: {fileID: 1705158395608982731}
+  - component: {fileID: 7891645596979664683}
   m_Layer: 0
   m_Name: NewTeam1
   m_TagString: Untagged
@@ -3145,31 +3145,9 @@ MonoBehaviour:
   inAction: 0
   teamString: Team1
   isArcher: 0
+  stayidle: 0
   arrowPrefab: {fileID: 0}
---- !u!114 &5461970276576676948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6958328389589292154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad17815ca8618174c9a4537bf474fe8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 10
-  MaxHp: 10
-  AttackRange: 1
-  AttackDamage: 10
-  SearchRange: 10
-  moveSpeed: 1.5
-  randomIdleTime: 1
-  moveThreshold: 0.1
-  moveTime: 1.5
-  currentTime: 0
-  TeamNumer: 6
-  attackType: 0
+  unitModel: {fileID: 0}
 --- !u!50 &2372584057495116336
 Rigidbody2D:
   serializedVersion: 4
@@ -3207,6 +3185,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.29043615}
   serializedVersion: 2
   m_Radius: 0.31147122
+--- !u!114 &7891645596979664683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958328389589292154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc974a0b6ab9c64dbd772887a1c6527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHP: 100
+  moveThreshold: 0.2
+  moveTime: 1.5
+  currentTime: 0
+  TeamNumer: 0
+  attackType: 0
+  unitModel: {fileID: 11400000, guid: 7ab7827ef63c7654d93acefd5ce9fb53, type: 2}
 --- !u!1 &6991319818376009284
 GameObject:
   m_ObjectHideFlags: 0

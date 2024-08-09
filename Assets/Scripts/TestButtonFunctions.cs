@@ -31,7 +31,7 @@ public class TestButtonFunctions : MonoBehaviour
     public Slider columnValueSlider;
     public TextMeshProUGUI rowCount;
     List<GameObject> unitsOnStage = new List<GameObject>();
-    public List<UnitAction> unitActions = new List<UnitAction>();
+    public List<UnitController> unitActions = new List<UnitController>();
     public bool activeButtonOne = false;
     public bool activeButtonTwo = false;
     public Camera mainCamera;
@@ -93,14 +93,14 @@ public class TestButtonFunctions : MonoBehaviour
     {
         var obj = Instantiate(LittleUnit, SpawnPoint);
         unitsOnStage.Add(obj);
-        unitActions.Add(obj.GetComponent<UnitAction>());
+        unitActions.Add(obj.GetComponent<UnitController>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
     }
     public void CreateUnitOnScreen(Vector2 initPlace, GameObject unit)
     {
         var obj = Instantiate(unit, initPlace, Quaternion.identity);
         unitsOnStage.Add(obj);
-        unitActions.Add(obj.GetComponent<UnitAction>());
+        unitActions.Add(obj.GetComponent<UnitController>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
     }
 
@@ -114,7 +114,7 @@ public class TestButtonFunctions : MonoBehaviour
             GameObject deleteUnit = unitsOnStage[unitsOnStage.Count - 1];
             Destroy(deleteUnit);
             unitsOnStage.RemoveAt(unitsOnStage.Count - 1);
-            unitActions.Remove(deleteUnit.GetComponent<UnitAction>());
+            unitActions.Remove(deleteUnit.GetComponent<UnitController>());
             onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
         }
     }

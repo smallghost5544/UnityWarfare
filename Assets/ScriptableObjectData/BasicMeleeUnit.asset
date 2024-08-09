@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7abda61d65bdaba4aa00a07cebcb57fd, type: 3}
-  m_Name: BasicUnit
+  m_Name: BasicMeleeUnit
   m_EditorClassIdentifier: 
   Team: 0
-  HP: 10
-  AttackRange: 10
+  MaxHP: 20
+  AttackRange: 1.5
   AttackDamage: 10
-  SearchRange: 10
-  moveSpeed: 1.5
+  SearchRange: 5
+  moveSpeed: 1
   randomIdleTime: 1
   moveThreshold: 0.1
   moveTime: 1.5
   currentTime: 0
+  attackType: 0
