@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BasicMeleeUnit
   m_EditorClassIdentifier: 
   Team: 0
-  MaxHP: 20
+  MaxHP: 10
   AttackRange: 1.5
   AttackDamage: 10
-  SearchRange: 5
+  SearchRange: 7
   moveSpeed: 1
   randomIdleTime: 1
-  moveThreshold: 0.1
+  moveThreshold: 0.05
   moveTime: 1.5
   currentTime: 0
   attackType: 0

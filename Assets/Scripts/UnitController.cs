@@ -1,13 +1,11 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnitStats;
 
 public class UnitController : MonoBehaviour
 {
-    [Header("敵方層級")]
-    public LayerMask enemyLayer;
-    [Header("目前鎖定敵方")]
     public UnitController Enemy;
     private Vector2 _targetPosition;
     /// <summary>
@@ -25,8 +23,6 @@ public class UnitController : MonoBehaviour
         }
     }
     private Vector3 lastPosition;
-    //public bool inAction = false;
-    bool isArriveTarget = true;
     public string teamString;
     //use for archer
     public bool isArcher = false;
@@ -37,10 +33,10 @@ public class UnitController : MonoBehaviour
 
     private void Awake()
     {
-        lastPosition = transform.position;
         unitStats = GetComponent<UnitStats>();
-        unitModel = unitStats.unitModel;
         unitView = GetComponent<UnitView>();
+        unitModel = unitStats.unitModel;
+        lastPosition = transform.position;
     }
     private void OnEnable()
     {
@@ -50,30 +46,20 @@ public class UnitController : MonoBehaviour
         unitView.GetCollider();
         StopAllCoroutines();
         CancelInvoke("UnitStatsSearch");
-        InvokeRepeating("UnitStatsSearch", 0f, 1.5f);
+        InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
         gameObject.layer = unitStats.TeamNumer;
     }
 
-
     void Update()
     {
-
-        //if (unitStats.CurrentState == UnitState.Idle && Enemy == null)
-        //    UnCombatActions();
-        //else if (unitStats.CurrentState == UnitState.Idle && Enemy != null)
-        //    WalkOrAttack();
-        if (unitStats.CurrentState == UnitState.Idle)
-        {
-            if (Enemy == null)
-                UnCombatActions();
-            else
-                WalkOrAttack();
-        }
         if (unitStats.CurrentState != UnitState.Idle)
         {
-            WalkAnimationCheck();
+            return;
         }
-        nextMoveTime();
+        if (Enemy == null)
+            UnCombatActions();
+        else
+            WalkOrAttack();
     }
     /// <summary>
     /// 角色行為
@@ -82,7 +68,7 @@ public class UnitController : MonoBehaviour
     {
         if (stayidle)
             return;
-        unitStats.CurrentState = UnitState.Patrol;
+        unitStats.SetUnitState(UnitState.Patrol);
         switch (Random.Range(0, 2))
         {
             case 0:
@@ -107,17 +93,18 @@ public class UnitController : MonoBehaviour
         StartCoroutine(WalkToTarget());
     }
 
-    public IEnumerator WalkToTarget()
+    public IEnumerator WalkToTarget(UnitState nextState = UnitState.Idle)
     {
-        isArriveTarget = false;
+        unitStats.SetUnitState(UnitState.Walk);
         unitView.StartWalkAnimation(true);
-        while (!isArriveTarget)
+        while (unitStats.CurrentState == UnitState.Walk)
         {
             yield return null;
+            WalkAnimationCheck();
             if (isArcher)
             {
                 if (Enemy != null && Vector3.Magnitude(Enemy.gameObject.transform.position - transform.position) < unitModel.AttackRange)
-                    isArriveTarget = true;
+                    unitStats.SetUnitState(UnitState.Idle);
             }
             Vector2 currentPosition = transform.position;
             // 計算方向向量
@@ -129,11 +116,9 @@ public class UnitController : MonoBehaviour
             // 檢查是否到達目標位置
             if (Vector2.Distance(currentPosition, targetPosition) < 0.01f)
             {
-                // 停止移動，並將位置設為精確的目標位置
-                if (unitStats.CurrentState != UnitState.Commannd)
-                    unitStats.SetUnitState(UnitState.Idle);
-                isArriveTarget = true;
+                unitStats.SetUnitState(nextState);
                 unitView.StartWalkAnimation(false);
+                // 停止移動，並將位置設為精確的目標位置
                 transform.position = targetPosition;
             }
         }
@@ -144,7 +129,6 @@ public class UnitController : MonoBehaviour
         var waitTime = Random.Range(0, unitModel.randomIdleTime);
         yield return new WaitForSeconds(waitTime);
         unitStats.CurrentState = UnitState.Idle;
-        //inAction = false;
     }
 
     /// <summary>
@@ -154,11 +138,11 @@ public class UnitController : MonoBehaviour
     {
         if (command == "LineUp")
         {
-            unitStats.SetUnitState(UnitState.Commannd);
+            StopAllCoroutines();
             //關閉collider避免碰撞改變陣行
             unitView.SetColldier(true);
             targetPosition = target;
-            yield return StartCoroutine(WalkToTarget());
+            yield return StartCoroutine(WalkToTarget(UnitState.Commannd));
             unitView.SetColldier(false);
             unitView.ChangeToward(faceAngle);
         }
@@ -166,7 +150,6 @@ public class UnitController : MonoBehaviour
         if (command == "TakeABreak")
         {
             unitStats.SetUnitState(UnitState.Idle);
-            Enemy = null;
             unitView.SetColldier(false);
         }
     }
@@ -187,6 +170,14 @@ public class UnitController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
+        //還沒走到目標前面 目標已消失要換目標
+        if (Enemy != null && Enemy.gameObject.activeSelf == false)
+        {
+            Enemy = null;
+            unitStats.Enemy = null;
+            unitStats.SetUnitState(UnitState.Idle);
+            unitView.StartWalkAnimation(false);
+        }
         unitStats.SearchEnemy();
         if (unitStats.Enemy != null)
             Enemy = unitStats.Enemy;
@@ -195,37 +186,36 @@ public class UnitController : MonoBehaviour
     void WalkOrAttack()
     {
         unitStats.CurrentTime = Random.Range(1, unitModel.moveTime * 2);
-        if (Enemy.gameObject.activeInHierarchy)
+        if (!Enemy.gameObject.activeInHierarchy)
+            return;
+        if (Vector3.Magnitude(Enemy.gameObject.transform.position - transform.position) > unitModel.AttackRange)
         {
-            if (Vector3.Magnitude(Enemy.gameObject.transform.position - transform.position) > unitModel.AttackRange)
-            {
-                targetPosition = Enemy.transform.position;
-                if (isArriveTarget)
-                    StartCoroutine(WalkToTarget());
-            }
-            else
-            {
-                Attack();
-            }
+            targetPosition = Enemy.transform.position;
+            StartCoroutine(WalkToTarget());
         }
+        else
+            Attack();
     }
     void Attack()
     {
         unitStats.SetUnitState(UnitState.Attack);
         Enemy.GetHurt(Random.Range(0, unitModel.AttackDamage));
         unitView.AttackAnimation(unitModel.attackType, Enemy);
+        StartCoroutine(nextMoveTime());
     }
     /// <summary>
     /// 戰鬥中下次行動時間
     /// </summary>
-    void nextMoveTime()
+    IEnumerator nextMoveTime()
     {
-        if (unitStats.CurrentState == UnitState.Attack)
+        while (unitStats.CurrentState == UnitState.Attack)
         {
             unitStats.CurrentTime -= Time.deltaTime;
+            yield return null;
             if (unitStats.CurrentTime <= 0.01f)
             {
                 unitStats.SetUnitState(UnitState.Idle);
+                yield break;
             }
         }
     }
@@ -241,14 +231,11 @@ public class UnitController : MonoBehaviour
         unitView.DieAnimation();
         var test = GameManager.Instance.GetComponentInChildren<TestButtonFunctions>();
         test.unitActions.Remove(this);
-        isArriveTarget = true;
         var layer = GetComponentInChildren<SortingGroup>();
         layer.sortingOrder -= 1;
         gameObject.layer = 0;
         unitStats.SetUnitState(UnitState.Dead);
         yield return new WaitForSeconds(1f);
-        //Destroy(unitAbility);
-        //Destroy(this);
         ResetDied();
     }
 
@@ -259,8 +246,6 @@ public class UnitController : MonoBehaviour
         gameObject.transform.position = new Vector3(100, 100, 100);
         unitView.SetColldier(false);
         Enemy = null;
-        isArriveTarget = true;
-        //CancelInvoke("SearchEnemy");
         //objectpool回收
         ObjectPool.Instance.Return(teamString, gameObject);
     }

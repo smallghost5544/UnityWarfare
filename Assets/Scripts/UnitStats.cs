@@ -1,6 +1,7 @@
 
 using System.Collections;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class UnitStats : MonoBehaviour
@@ -9,6 +10,7 @@ public class UnitStats : MonoBehaviour
     {
         Idle,
         Patrol,
+        Walk,
         Attack,
         Commannd,
         Dead
@@ -51,8 +53,14 @@ public class UnitStats : MonoBehaviour
     /// </summary>
     public void SearchEnemy()
     {
+        if (Enemy != null && Vector2.Distance(transform.position, Enemy.transform.position) <= unitModel.AttackRange)
+        {
+            // 如果當前目標仍在範圍內，則不進行新的搜尋
+            return;
+        }
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, unitModel.SearchRange, enemyLayer);
         float closestDistance = Mathf.Infinity;
+        Collider2D current = null;
         foreach (Collider2D collider in hitColliders)
         {
             float distance = Vector2.Distance(transform.position, collider.transform.position);
@@ -64,9 +72,11 @@ public class UnitStats : MonoBehaviour
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                Enemy = collider.GetComponent<UnitController>();
+                current = collider;
             }
         }
+        if(current != null)
+                Enemy = current.GetComponent<UnitController>();
     }
     /// <summary>
     /// 隨機選擇目的地

@@ -24,6 +24,8 @@ public class UnitModel : ScriptableObject
     public float moveTime = 1.5f;
     [Header("目前動作時間")]
     public float currentTime = 0;
+    [Header("搜尋敵方頻率")]
+    public float  searchTime = 0;
     [Header("攻擊動畫序號")]
     public int attackType = 0;
 }

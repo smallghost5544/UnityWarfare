@@ -94,6 +94,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Data Model Containers\BiomesDiagram.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Model Validation\DataModelValidator.cs" />
+    <Compile Include="Assets\Scripts\UnitView.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerObj.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Models with priority\LocationModelWithPriority.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\BiomMapGenerator.cs" />
@@ -166,7 +167,6 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterNoiseMapParametersModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
-    <Compile Include="Assets\Scripts\UnitView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
