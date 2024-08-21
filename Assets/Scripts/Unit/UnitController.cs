@@ -1,12 +1,15 @@
+
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnitStats;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UnitController : MonoBehaviour
 {
-    public UnitController Enemy;
+    [SerializeField]
+    private IDamageable target { get => unitStats.Target; }
+    //private UnitController Enemy;
     private Vector2 _targetPosition;
     /// <summary>
     /// 移動目的地
@@ -37,6 +40,8 @@ public class UnitController : MonoBehaviour
         unitView = GetComponent<UnitView>();
         unitModel = unitStats.unitModel;
         lastPosition = transform.position;
+        unitStats.OnDeathAction = HandleDeathAction;
+        unitStats.OnHitAction = unitView.OnHit;
     }
     private void OnEnable()
     {
@@ -45,20 +50,44 @@ public class UnitController : MonoBehaviour
         unitView.GetAnimator();
         unitView.GetCollider();
         StopAllCoroutines();
-        CancelInvoke("UnitStatsSearch");
-        InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
+        CancelInvoke();
         gameObject.layer = unitStats.TeamNumer;
+        InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
+        float randomMoveTime = Random.Range(unitModel.moveTime * 0.95f, unitModel.moveTime);
+        float randomStartTime = Random.Range(0, 1);
+        //是否改成 做完一個動作接續下一個behavior
+        InvokeRepeating("UnitBehavior", randomStartTime, randomMoveTime);
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        CancelInvoke();
     }
 
-    void Update()
+    //IEnumerator UnitBehavior()
+    //{
+    //    if (unitStats.CurrentState != UnitState.Idle)
+    //        yield break;
+    //    if (target == null)
+    //    {
+    //        print("notarget");
+    //        UnCombatActions();
+    //    }
+    //    if (target != null)
+    //        WalkOrAttack();
+    //    yield return new WaitForSeconds(1);
+    //    StartCoroutine(UnitBehavior()); 
+    //}
+    void UnitBehavior()
     {
         if (unitStats.CurrentState != UnitState.Idle)
-        {
             return;
-        }
-        if (Enemy == null)
+        if (target == null)
+        {
+            print("notarget");
             UnCombatActions();
-        else
+        }
+        if (target != null)
             WalkOrAttack();
     }
     /// <summary>
@@ -69,7 +98,7 @@ public class UnitController : MonoBehaviour
         if (stayidle)
             return;
         unitStats.SetUnitState(UnitState.Patrol);
-        switch (Random.Range(0, 2))
+        switch (Random.Range(0, 4))
         {
             case 0:
                 //選擇新目標並前進
@@ -77,11 +106,14 @@ public class UnitController : MonoBehaviour
                 break;
             case 1:
                 //發呆
-                StartCoroutine(Idle());
+                StartCoroutine(unitStats.Idle());
                 break;
-                //case 2:
-                //    WalkAnimationCheck ();
-                //    break;
+            case 2:
+                unitStats.DoExpert();
+                break;
+            case 3:
+                GetResource();
+                break;
         }
     }
     /// <summary>
@@ -100,10 +132,10 @@ public class UnitController : MonoBehaviour
         while (unitStats.CurrentState == UnitState.Walk)
         {
             yield return null;
-            WalkAnimationCheck();
+            //WalkAnimationCheck();
             if (isArcher)
             {
-                if (Enemy != null && Vector3.Magnitude(Enemy.gameObject.transform.position - transform.position) < unitModel.AttackRange)
+                if (target != null && Vector3.Magnitude((target as MonoBehaviour).transform.position - transform.position) < unitModel.AttackRange)
                     unitStats.SetUnitState(UnitState.Idle);
             }
             Vector2 currentPosition = transform.position;
@@ -114,7 +146,7 @@ public class UnitController : MonoBehaviour
             // 更新位置
             transform.position = newPosition;
             // 檢查是否到達目標位置
-            if (Vector2.Distance(currentPosition, targetPosition) < 0.01f)
+            if (Vector2.Distance(currentPosition, targetPosition) < 0.1f)
             {
                 unitStats.SetUnitState(nextState);
                 unitView.StartWalkAnimation(false);
@@ -122,13 +154,6 @@ public class UnitController : MonoBehaviour
                 transform.position = targetPosition;
             }
         }
-    }
-
-    IEnumerator Idle()
-    {
-        var waitTime = Random.Range(0, unitModel.randomIdleTime);
-        yield return new WaitForSeconds(waitTime);
-        unitStats.CurrentState = UnitState.Idle;
     }
 
     /// <summary>
@@ -154,7 +179,7 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    //防守的一方可以用
+    //防守的一方可以用,fix目前表現不佳 走路會卡
     void WalkAnimationCheck()
     {
         float distance = Vector3.Distance(transform.position, lastPosition);
@@ -171,36 +196,41 @@ public class UnitController : MonoBehaviour
     void UnitStatsSearch()
     {
         //還沒走到目標前面 目標已消失要換目標
-        if (Enemy != null && Enemy.gameObject.activeSelf == false)
+        if (target != null && (target as MonoBehaviour).gameObject.activeSelf == false )
         {
-            Enemy = null;
-            unitStats.Enemy = null;
+            unitStats.Target = null;
             unitStats.SetUnitState(UnitState.Idle);
             unitView.StartWalkAnimation(false);
         }
         unitStats.SearchEnemy();
-        if (unitStats.Enemy != null)
-            Enemy = unitStats.Enemy;
+        if (unitStats.Target != null)
+        {
+            MonoBehaviour targetMonoBehaviour = target as MonoBehaviour;
+            unitStats.SetUnitState(UnitState.Idle);
+            unitView.StartWalkAnimation(false);
+        }
     }
 
     void WalkOrAttack()
     {
-        unitStats.CurrentTime = Random.Range(1, unitModel.moveTime * 2);
-        if (!Enemy.gameObject.activeInHierarchy)
-            return;
-        if (Vector3.Magnitude(Enemy.gameObject.transform.position - transform.position) > unitModel.AttackRange)
+        if (!(target as MonoBehaviour).gameObject.activeInHierarchy || (target.CurrentHp <= 0))
         {
-            targetPosition = Enemy.transform.position;
+            unitStats.SetUnitState(UnitState.Idle);
+            unitStats.Target = null;
+            return;
+        }
+        if (Vector3.Magnitude((target as MonoBehaviour).gameObject.transform.position - transform.position) > unitModel.AttackRange)
+        {
+            targetPosition = (target as MonoBehaviour).transform.position;
             StartCoroutine(WalkToTarget());
         }
-        else
-            Attack();
+        else if (target != null)
+            DirectAttack();
     }
-    void Attack()
+    void DirectAttack()
     {
-        unitStats.SetUnitState(UnitState.Attack);
-        Enemy.GetHurt(Random.Range(0, unitModel.AttackDamage));
-        unitView.AttackAnimation(unitModel.attackType, Enemy);
+        float time = unitView.AttackAnimation(unitModel.attackType, target);
+        StartCoroutine(unitStats.Attack(time)); 
         StartCoroutine(nextMoveTime());
     }
     /// <summary>
@@ -211,19 +241,17 @@ public class UnitController : MonoBehaviour
         while (unitStats.CurrentState == UnitState.Attack)
         {
             unitStats.CurrentTime -= Time.deltaTime;
-            yield return null;
             if (unitStats.CurrentTime <= 0.01f)
             {
                 unitStats.SetUnitState(UnitState.Idle);
                 yield break;
             }
+            yield return null;
         }
     }
-    public void GetHurt(int damage)
+    public void HandleDeathAction()
     {
-        unitStats.CurrentHP -= damage;
-        if (unitStats.CurrentHP < 0)
-            StartCoroutine(Die());
+        StartCoroutine(Die());
     }
 
     IEnumerator Die()
@@ -235,6 +263,7 @@ public class UnitController : MonoBehaviour
         layer.sortingOrder -= 1;
         gameObject.layer = 0;
         unitStats.SetUnitState(UnitState.Dead);
+        CancelInvoke();
         yield return new WaitForSeconds(1f);
         ResetDied();
     }
@@ -245,7 +274,9 @@ public class UnitController : MonoBehaviour
         unitStats.SetUnitState(UnitState.Idle);
         gameObject.transform.position = new Vector3(100, 100, 100);
         unitView.SetColldier(false);
-        Enemy = null;
+        unitStats.Target = null;
+        var layer = GetComponentInChildren<SortingGroup>();
+        layer.sortingOrder -= 5;
         //objectpool回收
         ObjectPool.Instance.Return(teamString, gameObject);
     }
@@ -261,6 +292,29 @@ public class UnitController : MonoBehaviour
             if (layer != gameObject.layer)
                 targetPosition = transform.position;
         }
+        if (collision.gameObject.CompareTag("Neutral"))
+        {
+            targetPosition = transform.position;
+        }
+    }
+
+    private void GetResource()
+    {
+        print("getresource");
+        var obj = unitStats.FindNeutralObject();
+        if (obj == null || !obj.gameObject.activeInHierarchy)
+        {
+            unitStats.SetUnitState(UnitState.Idle);
+            return;
+        }
+
+        if (Vector3.Magnitude(obj.gameObject.transform.position - transform.position) > unitModel.AttackRange)
+        {
+            targetPosition = obj.transform.position;
+            StartCoroutine(WalkToTarget());
+        }
+        else if (target != null)
+            DirectAttack();
     }
 
 }

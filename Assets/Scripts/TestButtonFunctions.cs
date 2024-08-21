@@ -30,7 +30,7 @@ public class TestButtonFunctions : MonoBehaviour
     public Slider rowValueSlider;
     public Slider columnValueSlider;
     public TextMeshProUGUI rowCount;
-    List<GameObject> unitsOnStage = new List<GameObject>();
+    public List<GameObject> unitsOnStage = new List<GameObject>();
     public List<UnitController> unitActions = new List<UnitController>();
     public bool activeButtonOne = false;
     public bool activeButtonTwo = false;
@@ -38,6 +38,9 @@ public class TestButtonFunctions : MonoBehaviour
     public GameObject unitOne;
     public GameObject unitTwo;
     Vector3 worldPosition;
+
+    public float triggerRate = 10f; // 每秒最多觸發的次數
+    private float nextTriggerTime = 0f;
     private void Update()
     {
         RowValue = rowValueSlider.value;
@@ -47,14 +50,18 @@ public class TestButtonFunctions : MonoBehaviour
         if (Input.GetKey(DeleteButton))
             DeleteUnit();
         ChangeStartPoint();
-        if (activeButtonOne && (Input.GetMouseButtonDown(0)))
+        if (activeButtonOne && (Input.GetMouseButton(0)))
         {
-            Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
-            worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
-            worldPosition.z = 0; // 確保生成位置在2D平面上
-            CreateUnitOnScreen(worldPosition, unitOne);
+            if (Time.time >= nextTriggerTime)
+            {
+                Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
+                worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
+                worldPosition.z = 0; // 確保生成位置在2D平面上
+                CreateUnitOnScreen(worldPosition, unitOne);
+                nextTriggerTime = Time.time + 1f / triggerRate;
+            }
         }
-        if (activeButtonTwo && (Input.GetMouseButtonDown(0)))
+        if (activeButtonTwo && (Input.GetMouseButton(0)))
         {
             Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
             worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標

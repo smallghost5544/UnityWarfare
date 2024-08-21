@@ -14,7 +14,7 @@ public class CameraControl : MonoBehaviour
     private Vector3 dragOrigin;
     void Start()
     {
-        
+        myCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>() ;
     }
 
    

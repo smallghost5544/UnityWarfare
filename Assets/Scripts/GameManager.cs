@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     int enemyCount = 0;
     private static GameManager _instance;
     ObjectPool objectPool;
+    public TestButtonFunctions testButtonFunctions;
     public static GameManager Instance
     {
         get
@@ -33,11 +34,10 @@ public class GameManager : MonoBehaviour
                     singletonObject.name = typeof(GameManager).ToString() + " (Singleton)";
                 }
             }
-
             return _instance;
         }
     }
-    //public List<GameObject> units = new List<GameObject>();
+
     private void Awake()
     {
         if (_instance == null)
@@ -45,11 +45,8 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            //Destroy(gameObject);
-        }
         objectPool = GetComponent<ObjectPool>();
+        testButtonFunctions = GetComponent<TestButtonFunctions>();
     }
     private void Start()
     {
@@ -74,19 +71,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             //Instantiate(TeamOneUnit, TeamOneRespawnPoint);
-            var obj = objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
+            objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
             //quadtree.Insert(obj);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
             //Instantiate(TeamTwoUnit, TeamTwoRespawnPoint);
-           var obj = objectPool.Get(TeamTwoString, TeamTwoRespawnPoint.transform.position);
+           objectPool.Get(TeamTwoString, TeamTwoRespawnPoint.transform.position);
             //quadtree.Insert(obj);
         }
         if (Input.GetKey(KeyCode.B))
         {
             //Instantiate(TeamOneUnit, TeamOneRespawnPoint);
-           var obj = objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
+           var obj =objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
+            testButtonFunctions.unitsOnStage.Add(obj);
             //quadtree.Insert(obj);
             enemyCount += 1;
         }
@@ -106,9 +104,5 @@ public class GameManager : MonoBehaviour
         {
             SetGameSpeed(1.0f);
         }
-    }
-    public void SetUnitAbility()
-    {
-
     }
 }
