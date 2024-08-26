@@ -162,10 +162,13 @@ public class UnitStats : MonoBehaviour , IDamageable
 
     public void GetHurt(int damage)
     {
+        if (CurrentState == UnitState.Dead)
+            return;
         CurrentHP -= damage;
-        //sOnHitAction?.Invoke();
+        //OnHitAction?.Invoke();
         if (CurrentHP <= 0)
         {
+            CurrentState = UnitState.Dead;
             CurrentHP = 0;
             OnDeathAction?.Invoke(); // 當 currentHP 小於 0 時，觸發 Action
         }

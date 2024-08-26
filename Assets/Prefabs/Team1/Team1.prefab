@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4684102137840147801}
   - component: {fileID: 6608692785700260383}
   - component: {fileID: 7893201185081325037}
-  - component: {fileID: -5491788007139136684}
   m_Layer: 6
   m_Name: Team1
   m_TagString: Unit
@@ -141,21 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitFX: {fileID: 4296476322585853860, guid: 59d7e0b6baf297d44b4b454be95a5728, type: 3}
   arrowPrefab: {fileID: 0}
+  KnockDownAni: {fileID: 265852485206464225, guid: 4e7b7ad94c632a742aa890144193a95a, type: 3}
   spriteRenderers: []
   flashMaterial: {fileID: 2100000, guid: 53a0110aecd97f64e9f7f5c0d8f1e33b, type: 2}
   flashDuration: 0.1
---- !u!114 &-5491788007139136684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469982339236218130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c50148cc9da5f94ba732b31bf6af419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5469982338434928035
 PrefabInstance:
   m_ObjectHideFlags: 0

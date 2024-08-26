@@ -1,9 +1,9 @@
 
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-using static UnitStats;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class UnitController : MonoBehaviour
 {
@@ -64,30 +64,15 @@ public class UnitController : MonoBehaviour
         CancelInvoke();
     }
 
-    //IEnumerator UnitBehavior()
-    //{
-    //    if (unitStats.CurrentState != UnitState.Idle)
-    //        yield break;
-    //    if (target == null)
-    //    {
-    //        print("notarget");
-    //        UnCombatActions();
-    //    }
-    //    if (target != null)
-    //        WalkOrAttack();
-    //    yield return new WaitForSeconds(1);
-    //    StartCoroutine(UnitBehavior()); 
-    //}
     void UnitBehavior()
     {
         if (unitStats.CurrentState != UnitState.Idle)
             return;
         if (target == null)
         {
-            print("notarget");
             UnCombatActions();
         }
-        if (target != null)
+        else if (target != null)
             WalkOrAttack();
     }
     /// <summary>
@@ -152,10 +137,74 @@ public class UnitController : MonoBehaviour
                 unitView.StartWalkAnimation(false);
                 // 停止移動，並將位置設為精確的目標位置
                 transform.position = targetPosition;
+                if (target != null && unitStats.CurrentTime <= 0.1f)
+                    DirectAttack();
             }
         }
     }
 
+
+    //InvokeRepeat
+    void UnitStatsSearch()
+    {
+        //還沒走到目標前面 目標已消失要換目標
+        if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)
+        {
+            unitStats.Target = null;
+            unitStats.SetUnitState(UnitState.Idle);
+            unitView.StartWalkAnimation(false);
+        }
+        unitStats.SearchEnemy();
+        if (unitStats.Target != null)
+        {
+            targetPosition = (target as MonoBehaviour).transform.position;
+            //MonoBehaviour targetMonoBehaviour = target as MonoBehaviour;
+            //unitStats.SetUnitState(UnitState.Idle);
+            //unitView.StartWalkAnimation(false);
+        }
+    }
+
+    void WalkOrAttack()
+    {
+        if (!(target as MonoBehaviour).gameObject.activeInHierarchy || (target.CurrentHp <= 0))
+        {
+            unitStats.SetUnitState(UnitState.Idle);
+            unitStats.Target = null;
+            return;
+        }
+        bool attackable = Vector3.Magnitude((target as MonoBehaviour).gameObject.transform.position - transform.position) > unitModel.AttackRange;
+        if (attackable)
+        {
+            targetPosition = (target as MonoBehaviour).transform.position;
+            StartCoroutine(WalkToTarget());
+        }
+        else if (!attackable && target != null)
+            DirectAttack();
+    }
+    void DirectAttack()
+    {
+        unitView.AttackAnimation(unitModel.attackType, target);
+        unitStats.CurrentTime = unitModel.attackCD;
+        StartCoroutine(unitStats.Attack(0.5f));
+        StartCoroutine(nextAttackTime());
+    }
+    /// <summary>
+    /// 戰鬥中下次行動時間
+    /// </summary>
+    IEnumerator nextAttackTime()
+    {
+        while (unitStats.CurrentState == UnitState.Attack)
+        {
+            unitStats.CurrentTime -= 0.05f;
+            if (unitStats.CurrentTime <= 0.01f)
+            {
+                unitStats.CurrentTime = 0;
+                unitStats.SetUnitState(UnitState.Idle);
+                yield break;
+            }
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
     /// <summary>
     /// 針對角色的指令,輸入命令字串,目的地,面向角度1or-1
     /// </summary>
@@ -179,79 +228,10 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    //防守的一方可以用,fix目前表現不佳 走路會卡
-    void WalkAnimationCheck()
-    {
-        float distance = Vector3.Distance(transform.position, lastPosition);
-        if (distance > unitModel.moveThreshold)
-        {
-            unitView.StartWalkAnimation(true);
-            lastPosition = transform.position;
-        }
-        else
-            unitView.StartWalkAnimation(false);
-    }
-
-    //InvokeRepeat
-    void UnitStatsSearch()
-    {
-        //還沒走到目標前面 目標已消失要換目標
-        if (target != null && (target as MonoBehaviour).gameObject.activeSelf == false )
-        {
-            unitStats.Target = null;
-            unitStats.SetUnitState(UnitState.Idle);
-            unitView.StartWalkAnimation(false);
-        }
-        unitStats.SearchEnemy();
-        if (unitStats.Target != null)
-        {
-            MonoBehaviour targetMonoBehaviour = target as MonoBehaviour;
-            unitStats.SetUnitState(UnitState.Idle);
-            unitView.StartWalkAnimation(false);
-        }
-    }
-
-    void WalkOrAttack()
-    {
-        if (!(target as MonoBehaviour).gameObject.activeInHierarchy || (target.CurrentHp <= 0))
-        {
-            unitStats.SetUnitState(UnitState.Idle);
-            unitStats.Target = null;
-            return;
-        }
-        if (Vector3.Magnitude((target as MonoBehaviour).gameObject.transform.position - transform.position) > unitModel.AttackRange)
-        {
-            targetPosition = (target as MonoBehaviour).transform.position;
-            StartCoroutine(WalkToTarget());
-        }
-        else if (target != null)
-            DirectAttack();
-    }
-    void DirectAttack()
-    {
-        float time = unitView.AttackAnimation(unitModel.attackType, target);
-        StartCoroutine(unitStats.Attack(time)); 
-        StartCoroutine(nextMoveTime());
-    }
-    /// <summary>
-    /// 戰鬥中下次行動時間
-    /// </summary>
-    IEnumerator nextMoveTime()
-    {
-        while (unitStats.CurrentState == UnitState.Attack)
-        {
-            unitStats.CurrentTime -= Time.deltaTime;
-            if (unitStats.CurrentTime <= 0.01f)
-            {
-                unitStats.SetUnitState(UnitState.Idle);
-                yield break;
-            }
-            yield return null;
-        }
-    }
     public void HandleDeathAction()
     {
-        StartCoroutine(Die());
+        if (gameObject.activeSelf == true)
+            StartCoroutine(Die());
     }
 
     IEnumerator Die()
@@ -300,7 +280,6 @@ public class UnitController : MonoBehaviour
 
     private void GetResource()
     {
-        print("getresource");
         var obj = unitStats.FindNeutralObject();
         if (obj == null || !obj.gameObject.activeInHierarchy)
         {
@@ -315,6 +294,19 @@ public class UnitController : MonoBehaviour
         }
         else if (target != null)
             DirectAttack();
+    }
+
+    //防守的一方可以用,fix目前表現不佳 走路會卡
+    void WalkAnimationCheck()
+    {
+        float distance = Vector3.Distance(transform.position, lastPosition);
+        if (distance > unitModel.moveThreshold)
+        {
+            unitView.StartWalkAnimation(true);
+            lastPosition = transform.position;
+        }
+        else
+            unitView.StartWalkAnimation(false);
     }
 
 }

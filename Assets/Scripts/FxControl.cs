@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class FxControl : MonoBehaviour
 {
-    public float exitTime;
+    public float exitTime = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        exitTime = 0.5f;
 
     }
     void Update()

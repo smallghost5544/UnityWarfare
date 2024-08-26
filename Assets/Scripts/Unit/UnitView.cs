@@ -10,6 +10,7 @@ public class UnitView : MonoBehaviour
     [SerializeField]
     GameObject hitFX;
     public GameObject arrowPrefab;
+    public GameObject KnockDownAni;
     public SpriteRenderer[] spriteRenderers; // 存儲角色上所有的 SpriteRenderer
     public Material flashMaterial; // 閃爍時使用的紅色材質
     public float flashDuration = 0.1f; // 閃爍持續時間
@@ -74,10 +75,6 @@ public class UnitView : MonoBehaviour
     }
     public void StartWalkAnimation(bool start)
     {
-        //Debug.Log(start);
-        //if (isWalking == true && start == true)
-        //    return;
-        //isWalking = start;
         animator.SetBool("Run", start);
     }
 
@@ -85,18 +82,22 @@ public class UnitView : MonoBehaviour
     {
         animator.SetTrigger("Death");
         characterCollider.isTrigger = true;
+      // Invoke("InitKnockDownAnimation", 0.5f);
     }
-
-    public float AttackAnimation(int attackType, IDamageable target = null)
+    void InitKnockDownAnimation()
+    {
+        Instantiate(KnockDownAni, transform.position, Quaternion.identity);
+    }
+    public void AttackAnimation(int attackType, IDamageable target = null)
     {
         //animator.SetTrigger("Attack");
         float time = 0;
         if (attackType == 0)
         {
             animator.Play("2_Attack_Normal");
-            time = GetAnimatoinTime("2_Attack_Normal");
+            //time = GetAnimatoinTime("2_Attack_Normal");
             Vector3 effectPosition = (target as MonoBehaviour).transform.position + new Vector3(0, 0.25f, 0);
-            StartCoroutine(DelayFX(time, effectPosition));
+                //StartCoroutine(DelayFX(0.1f, effectPosition));
         }
         if (attackType == 1)
         {
@@ -105,7 +106,7 @@ public class UnitView : MonoBehaviour
             ChangeToward((target as MonoBehaviour).gameObject.transform.position.x - transform.position.x);
             ShootArrow(target);
         }
-        return time / 2; 
+        //return time / 2; 
     }
 
     void ShootArrow(IDamageable target)
@@ -124,7 +125,6 @@ public class UnitView : MonoBehaviour
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         foreach (var animationClip in animator.runtimeAnimatorController.animationClips)
         {
-            print(animationClip.name);
             // 檢查動畫片段的名字
             if (animationClip.name == animationName)
             {

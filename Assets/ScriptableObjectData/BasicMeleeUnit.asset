@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   MaxHP: 10
-  AttackRange: 1.2
+  AttackRange: 1.1
   AttackDamage: 10
   SearchRange: 7
   moveSpeed: 2.5
   randomIdleTime: 1
   moveThreshold: 0.1
   moveTime: 0.8
+  attackCD: 2
   currentTime: 0
-  searchTime: 2
+  searchTime: 1.2
   attackType: 0

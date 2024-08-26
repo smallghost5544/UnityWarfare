@@ -61,7 +61,6 @@
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\MinAttribute.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
-    <Compile Include="Assets\Scripts\Unit\BasicLancerWarrior.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\MapGeneratorTool.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\WaterMapSmoother.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\SortingLayers.cs" />
@@ -157,6 +156,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\ObjectGenerator.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Recorder.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\ObjectsGenerator.cs" />
+    <Compile Include="Assets\Scripts\FxControl.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\Location Generating\LocationShape.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SpriteSyncManager.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
@@ -171,7 +171,6 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterNoiseMapParametersModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
-    <Compile Include="Assets\Scripts\FxControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

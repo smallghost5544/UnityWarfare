@@ -17,14 +17,14 @@ public class ChestController : MonoBehaviour, IDamageable
 
     public int CurrentHp { get => ChestHp; set => ChestHp = value; }
 
-    Collider2D collider;
+    Collider2D objCollider = null;
 
     void OnEnable()
     {
         animator = GetComponent<Animator>();
         animator.SetBool("Open", false);
         state = ChestState.Close;
-        collider = GetComponent<CircleCollider2D>();      
+        objCollider = GetComponent<CircleCollider2D>();      
 
 
     }
@@ -36,7 +36,7 @@ public class ChestController : MonoBehaviour, IDamageable
         {
             state = ChestState.Open;
             animator.SetBool("Open", true);
-            Destroy(collider);
+            Destroy(objCollider);
         }
     }
 }

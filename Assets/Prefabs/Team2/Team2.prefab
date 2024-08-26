@@ -124,8 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b5584b1f6dd184a992e4c85e64e20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitFX: {fileID: 4003644705628539868, guid: 37846c059a6c21f4f94f01dcc588de26, type: 3}
+  hitFX: {fileID: 4296476322585853860, guid: 59d7e0b6baf297d44b4b454be95a5728, type: 3}
   arrowPrefab: {fileID: 0}
+  KnockDownAni: {fileID: 265852485206464225, guid: 1583f6eb1bff5a5478a062976849f070, type: 3}
   spriteRenderers: []
   flashMaterial: {fileID: 2100000, guid: 53a0110aecd97f64e9f7f5c0d8f1e33b, type: 2}
   flashDuration: 0.1

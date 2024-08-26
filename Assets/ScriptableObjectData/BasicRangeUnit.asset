@@ -21,6 +21,7 @@ MonoBehaviour:
   randomIdleTime: 1
   moveThreshold: 0.1
   moveTime: 1
+  attackCD: 1.5
   currentTime: 0
   searchTime: 2
   attackType: 1

@@ -22,6 +22,8 @@ public class UnitModel : ScriptableObject
     public float moveThreshold = 0.2f;
     [Header("下次動作時間")]
     public float moveTime = 1.5f;
+    [Header("攻擊頻率")]
+    public float attackCD = 0.9f;
     [Header("目前動作時間")]
     public float currentTime = 0;
     [Header("搜尋敵方頻率")]
