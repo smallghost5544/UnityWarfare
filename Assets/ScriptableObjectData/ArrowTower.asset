@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7abda61d65bdaba4aa00a07cebcb57fd, type: 3}
-  m_Name: BasicMeleeUnit
+  m_Name: ArrowTower
   m_EditorClassIdentifier: 
   Team: 0
-  MaxHP: 10
-  AttackRange: 1.1
-  AttackDamage: 10
-  SearchRange: 7
-  moveSpeed: 2
-  randomIdleTime: 1
-  moveThreshold: 0.1
-  moveTime: 0.8
-  attackCD: 2
+  MaxHP: 20
+  AttackRange: 15
+  AttackDamage: 20
+  SearchRange: 15
+  moveSpeed: 0
+  randomIdleTime: 0
+  moveThreshold: 0
+  moveTime: 0.5
+  attackCD: 0.5
   currentTime: 0
-  searchTime: 2
-  attackType: 0
+  searchTime: 0.5
+  attackType: 1

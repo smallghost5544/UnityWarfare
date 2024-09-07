@@ -30,6 +30,7 @@ public class UnitController : MonoBehaviour
     //use for archer
     public bool isArcher = false;
     public bool stayidle = false;
+    public bool isTower = false;
     private UnitModel unitModel;
     private UnitStats unitStats;
     private UnitView unitView;
@@ -47,6 +48,7 @@ public class UnitController : MonoBehaviour
     {
         unitStats.FindMovementArea();
         unitStats.SetCurentHP();
+        unitStats.SetSpecialty();
         unitView.GetAnimator();
         unitView.GetCollider();
         StopAllCoroutines();
@@ -62,6 +64,10 @@ public class UnitController : MonoBehaviour
     {
         StopAllCoroutines();
         CancelInvoke();
+    }
+    private void Update()
+    {
+        print(target); 
     }
 
     void UnitBehavior()
@@ -147,6 +153,7 @@ public class UnitController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
+        print(gameObject.name);
         //還沒走到目標前面 目標已消失要換目標
         if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)
         {
@@ -236,6 +243,7 @@ public class UnitController : MonoBehaviour
 
     IEnumerator Die()
     {
+        //預設為object pool 可以更加優化
         unitView.DieAnimation();
         var test = GameManager.Instance.GetComponentInChildren<TestButtonFunctions>();
         test.unitActions.Remove(this);

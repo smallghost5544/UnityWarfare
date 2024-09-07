@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -11,6 +12,7 @@ public class Arrow : MonoBehaviour
     bool arriveTarget = false;
     public float maxHeight = 5f;
     public float exitTime = 1.5f;
+    public bool CustomizedHeight = false;
     public void ShootArrow()
     {
         Vector2 velocity = CalculateInitialVelocity(shootPoint.position, target.position, shootTime, maxHeight);
@@ -21,8 +23,11 @@ public class Arrow : MonoBehaviour
     {
         Vector3 distance = end - start;
         float vx = distance.x / time;
-        //float vy = Mathf.Sqrt(2 * gravity * maxHeight);
-        float vy = (distance.y + 0.5f * gravity * Mathf.Pow(time, 2)) / time;
+        float vy = 0;
+        if (CustomizedHeight)
+             vy = Mathf.Sqrt(2 * gravity * maxHeight);
+        else
+             vy = (distance.y + 0.5f * gravity * Mathf.Pow(time, 2)) / time;
         return new Vector2(vx, vy);
     }
 

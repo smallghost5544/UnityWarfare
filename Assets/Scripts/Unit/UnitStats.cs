@@ -3,6 +3,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections;
+using UnityEditor;
+using static UnityEngine.GraphicsBuffer;
 
     public enum UnitState
     {
@@ -13,6 +15,12 @@ using System.Collections;
         Commannd,
         Dead
     }
+public enum SpecialtyType
+{
+    BuildTower,
+    MineResource,
+    Patrol
+}
 public class UnitStats : MonoBehaviour , IDamageable
 {
     public UnitState CurrentState = UnitState.Idle;
@@ -25,6 +33,7 @@ public class UnitStats : MonoBehaviour , IDamageable
     public UnitModel unitModel;
     [Header("目前鎖定敵方")]
     public IDamageable Target;
+    public UnitStats ShowTarget;
     [Header("敵方層級")]
     //fixx 自動填入對方陣營
     public LayerMask enemyLayer;
@@ -32,10 +41,18 @@ public class UnitStats : MonoBehaviour , IDamageable
     Collider2D movementArea;
     public Action OnDeathAction;
     public Action OnHitAction;
+    public SpecialtyType UnitSpecialty;
+    ISpecialty chooseSpecialty;
     public int CurrentHp { get => CurrentHP; set => throw new NotImplementedException(); }
 
 
-    public void SetUnitState(UnitState nextState)
+    public void SetSpecialty()
+    {
+        string loadSpecialtyString = UnitSpecialty.ToString();
+        chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<ISpecialty>();
+        //unitSpecialty = GetComponent<ISpecialty>();
+    }
+    public void SetUnitState(UnitState nextState = UnitState.Idle)
     {
         CurrentState = nextState;
     }
@@ -84,7 +101,10 @@ public class UnitStats : MonoBehaviour , IDamageable
             }
         }
         if (current != null)
+        {
             Target = current.GetComponent<IDamageable>();
+            ShowTarget = Target as UnitStats;
+        }
     }
     /// <summary>
     /// 隨機選擇目的地
@@ -120,12 +140,15 @@ public class UnitStats : MonoBehaviour , IDamageable
 
     public void DoExpert()
     {
-        IExportable exportable = GetComponent<IExportable>();
-        if (exportable != null)
+        if (chooseSpecialty != null)
         {
-            exportable.Export();
+            chooseSpecialty.DoSpecialize();
         }
-        SetUnitState(UnitState.Idle);
+        //fix 做完行動再恢復idle
+        //fix設定時間
+        //fix 避免重複觸發
+        Invoke("SetUnitSatate" ,4f);
+        //SetUnitState(UnitState.Idle);
     }
     public IEnumerator Attack(float animationTime = 0)
     {

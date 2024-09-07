@@ -57,9 +57,21 @@ public class UnitView : MonoBehaviour
     public void ChangeToward(float towardDiretion)
     {
         if (towardDiretion < 0)
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
+        {
+            Vector3 scale = gameObject.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(1);
+            gameObject.transform.localScale = scale;
+        }
         else if (towardDiretion > 0)
-            gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        {
+            Vector3 scale = gameObject.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(-1);
+            gameObject.transform.localScale = scale;
+        }
+        //if (towardDiretion < 0)
+        //    gameObject.transform.localScale = new Vector3(1, 1, 1);
+        //else if (towardDiretion > 0)
+        //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
     }
     public void GetAnimator()
     {
@@ -91,7 +103,7 @@ public class UnitView : MonoBehaviour
     public void AttackAnimation(int attackType, IDamageable target = null)
     {
         //animator.SetTrigger("Attack");
-        float time = 0;
+        
         if (attackType == 0)
         {
             animator.Play("2_Attack_Normal");
