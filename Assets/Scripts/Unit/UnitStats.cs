@@ -5,23 +5,25 @@ using UnityEngine.Rendering;
 using System.Collections;
 using UnityEditor;
 using static UnityEngine.GraphicsBuffer;
+using Unity.VisualScripting;
 
-    public enum UnitState
-    {
-        Idle,
-        Patrol,
-        Walk,
-        Attack,
-        Commannd,
-        Dead
-    }
+public enum UnitState
+{
+    Idle,
+    Patrol,
+    Walk,
+    Attack,
+    Commannd,
+    Dead
+}
 public enum SpecialtyType
 {
     BuildTower,
     MineResource,
-    Patrol
+    Patrol,
+    Nothing
 }
-public class UnitStats : MonoBehaviour , IDamageable
+public class UnitStats : MonoBehaviour, IDamageable
 {
     public UnitState CurrentState = UnitState.Idle;
     [Header("角色目前血量")]
@@ -49,6 +51,8 @@ public class UnitStats : MonoBehaviour , IDamageable
     public void SetSpecialty()
     {
         string loadSpecialtyString = UnitSpecialty.ToString();
+        if (loadSpecialtyString == "Nothing")
+            return;
         chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<ISpecialty>();
         //unitSpecialty = GetComponent<ISpecialty>();
     }
@@ -75,7 +79,7 @@ public class UnitStats : MonoBehaviour , IDamageable
     /// </summary>
     public void SearchEnemy()
     {
-        if (Target != null )
+        if (Target != null)
         {
             MonoBehaviour targetMonoBehaviour = Target as MonoBehaviour;
             if (Vector2.Distance(transform.position, targetMonoBehaviour.transform.position) <= unitModel.AttackRange)
@@ -87,7 +91,8 @@ public class UnitStats : MonoBehaviour , IDamageable
         Collider2D current = null;
         foreach (Collider2D collider in hitColliders)
         {
-            float distance = Vector2.Distance(transform.position, collider.transform.position);
+            //float distance = Vector2.Distance(transform.position, collider.transform.position);
+            float distance =(transform.position - collider.transform.position).sqrMagnitude;
             //要節省效能時再重新開啟
             //if (distance < unitModel.AttackRange)
             //{
@@ -147,15 +152,15 @@ public class UnitStats : MonoBehaviour , IDamageable
         //fix 做完行動再恢復idle
         //fix設定時間
         //fix 避免重複觸發
-        Invoke("SetUnitSatate" ,4f);
-        //SetUnitState(UnitState.Idle);
+        //Invoke("SetUnitSatate", 4f);
+        SetUnitState(UnitState.Idle);
     }
-    public IEnumerator Attack(float animationTime = 0)
+    public IEnumerator Attack(float hitAnimationStartTime = 0)
     {
         SetUnitState(UnitState.Attack);
         //CurrentTime = unitModel.moveTime;
-        yield return new WaitForSeconds(animationTime);
-        if (Target != null)
+        yield return new WaitForSeconds(hitAnimationStartTime);
+        if (Target != null )
             Target.GetHurt(UnityEngine.Random.Range(0, unitModel.AttackDamage));
     }
     //fix(沒找到該物件)
@@ -188,13 +193,14 @@ public class UnitStats : MonoBehaviour , IDamageable
         if (CurrentState == UnitState.Dead)
             return;
         CurrentHP -= damage;
-        //OnHitAction?.Invoke();
         if (CurrentHP <= 0)
         {
             CurrentState = UnitState.Dead;
-            CurrentHP = 0;
+            //CurrentHP = 0;
             OnDeathAction?.Invoke(); // 當 currentHP 小於 0 時，觸發 Action
+            return;
         }
+        OnHitAction?.Invoke();
     }
 
     public IEnumerator Idle()

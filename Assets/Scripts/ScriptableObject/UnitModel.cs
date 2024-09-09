@@ -30,4 +30,6 @@ public class UnitModel : ScriptableObject
     public float  searchTime = 0;
     [Header("攻擊動畫序號")]
     public int attackType = 0;
+    [Header("攻擊動畫擊中時間")]
+    public float attackAnimationHitTime = 0.3f;
 }

@@ -25,3 +25,4 @@ MonoBehaviour:
   currentTime: 0
   searchTime: 0.5
   attackType: 1
+  attackAnimationHitTime: 1

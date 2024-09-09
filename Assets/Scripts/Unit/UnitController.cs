@@ -65,10 +65,6 @@ public class UnitController : MonoBehaviour
         StopAllCoroutines();
         CancelInvoke();
     }
-    private void Update()
-    {
-        print(target); 
-    }
 
     void UnitBehavior()
     {
@@ -153,7 +149,6 @@ public class UnitController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
-        print(gameObject.name);
         //還沒走到目標前面 目標已消失要換目標
         if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)
         {
@@ -185,14 +180,14 @@ public class UnitController : MonoBehaviour
             targetPosition = (target as MonoBehaviour).transform.position;
             StartCoroutine(WalkToTarget());
         }
-        else if (!attackable && target != null)
+        else if (!attackable && target != null && (target as MonoBehaviour).gameObject.activeInHierarchy)
             DirectAttack();
     }
     void DirectAttack()
     {
         unitView.AttackAnimation(unitModel.attackType, target);
         unitStats.CurrentTime = unitModel.attackCD;
-        StartCoroutine(unitStats.Attack(0.5f));
+        StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
         StartCoroutine(nextAttackTime());
     }
     /// <summary>

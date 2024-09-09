@@ -15,7 +15,7 @@ public class UnitView : MonoBehaviour
     public Material flashMaterial; // 閃爍時使用的紅色材質
     public float flashDuration = 0.1f; // 閃爍持續時間
     private Material[] originalMaterials; // 存儲原始材質
-
+    bool onHitRecover = false;
 
     void Start()
     {
@@ -30,25 +30,53 @@ public class UnitView : MonoBehaviour
     }
     public void OnHit()
     {
+        if (gameObject.activeInHierarchy == false)
+            return; 
         StartCoroutine(FlashEffect());
     }
-
+    private float originalAlpha = 1f;
+    float fadeDuration = 0.6f;
+    float changeAlpha = 0.8f;
     private IEnumerator FlashEffect()
     {
-        // 將所有 SpriteRenderer 的材質設為閃爍材質
+        if (onHitRecover == true)
+            yield break;
+        onHitRecover = true;
+        // 1.設置透明度為目標值
         foreach (var spriteRenderer in spriteRenderers)
         {
-            spriteRenderer.material = flashMaterial;
+            Color color = spriteRenderer.color;
+            color.a = changeAlpha;
+            spriteRenderer.color = color;
         }
+        // 2. 等待指定的時間
+        //yield return new WaitForSeconds(0.1f);
 
-        // 等待閃爍持續時間
-        yield return new WaitForSeconds(flashDuration);
+        // 3. 緩慢恢復透明度
+        float elapsedTime = 0f; // 計時器
+        float currentAlpha = changeAlpha; // 當前透明度
 
-        // 還原所有 SpriteRenderer 的原始材質
-        for (int i = 0; i < spriteRenderers.Length; i++)
+        // 逐步恢復透明度
+        while (elapsedTime < fadeDuration)
         {
-            spriteRenderers[i].material = originalMaterials[i];
+            // 計算每幀新的透明度值
+            elapsedTime += Time.deltaTime;
+            foreach (var spriteRenderer in spriteRenderers)
+            {
+                Color color = spriteRenderer.color;
+                color.a = Mathf.Lerp(currentAlpha, originalAlpha, elapsedTime / fadeDuration);
+                spriteRenderer.color = color;
+            }
+            // 等待下一幀
+            yield return null;
         }
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            Color color = spriteRenderer.color;
+            color.a = originalAlpha;
+            spriteRenderer.color = color;
+        }
+        onHitRecover = false;
     }
     /// <summary>
     /// 更改角色面向
@@ -68,10 +96,6 @@ public class UnitView : MonoBehaviour
             scale.x = Mathf.Abs(scale.x) * Mathf.Sign(-1);
             gameObject.transform.localScale = scale;
         }
-        //if (towardDiretion < 0)
-        //    gameObject.transform.localScale = new Vector3(1, 1, 1);
-        //else if (towardDiretion > 0)
-        //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
     }
     public void GetAnimator()
     {
@@ -94,7 +118,7 @@ public class UnitView : MonoBehaviour
     {
         animator.SetTrigger("Death");
         characterCollider.isTrigger = true;
-      // Invoke("InitKnockDownAnimation", 0.5f);
+        // Invoke("InitKnockDownAnimation", 0.5f);
     }
     void InitKnockDownAnimation()
     {
@@ -103,18 +127,18 @@ public class UnitView : MonoBehaviour
     public void AttackAnimation(int attackType, IDamageable target = null)
     {
         //animator.SetTrigger("Attack");
-        
+
         if (attackType == 0)
         {
             animator.Play("2_Attack_Normal");
             //time = GetAnimatoinTime("2_Attack_Normal");
             Vector3 effectPosition = (target as MonoBehaviour).transform.position + new Vector3(0, 0.25f, 0);
-                //StartCoroutine(DelayFX(0.1f, effectPosition));
+            //StartCoroutine(DelayFX(0.1f, effectPosition));
         }
         if (attackType == 1)
         {
-            if(target!=null)
-            animator.Play("2_Attack_Bow");
+            if (target != null)
+                animator.Play("2_Attack_Bow");
             ChangeToward((target as MonoBehaviour).gameObject.transform.position.x - transform.position.x);
             ShootArrow(target);
         }
@@ -141,13 +165,13 @@ public class UnitView : MonoBehaviour
             if (animationClip.name == animationName)
             {
                 // 獲取該動畫片段的播放時間
-                 playbackTime = animationClip.length;
+                playbackTime = animationClip.length;
             }
         }
         print(playbackTime);
-            return playbackTime;
+        return playbackTime;
     }
-    IEnumerator DelayFX(float time , Vector3 effectPosition)
+    IEnumerator DelayFX(float time, Vector3 effectPosition)
     {
         yield return new WaitForSeconds(time);
         Instantiate(hitFX, effectPosition, Quaternion.identity);
@@ -155,4 +179,5 @@ public class UnitView : MonoBehaviour
 
 
 }
+
 

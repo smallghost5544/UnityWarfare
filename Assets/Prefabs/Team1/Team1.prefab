@@ -58,6 +58,7 @@ MonoBehaviour:
   teamString: Team1
   isArcher: 0
   stayidle: 0
+  isTower: 0
 --- !u!114 &3078738542229154796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,12 +76,14 @@ MonoBehaviour:
   TeamNumer: 6
   CurrentTime: 0
   unitModel: {fileID: 11400000, guid: 7ab7827ef63c7654d93acefd5ce9fb53, type: 2}
+  ShowTarget: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
   neutralObjectLayer:
     serializedVersion: 2
     m_Bits: 0
+  UnitSpecialty: 3
 --- !u!50 &8149246074813598256
 Rigidbody2D:
   serializedVersion: 4
@@ -143,7 +146,7 @@ MonoBehaviour:
   KnockDownAni: {fileID: 265852485206464225, guid: 4e7b7ad94c632a742aa890144193a95a, type: 3}
   spriteRenderers: []
   flashMaterial: {fileID: 2100000, guid: 53a0110aecd97f64e9f7f5c0d8f1e33b, type: 2}
-  flashDuration: 0.1
+  flashDuration: 2
 --- !u!1001 &5469982338434928035
 PrefabInstance:
   m_ObjectHideFlags: 0

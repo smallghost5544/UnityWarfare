@@ -15,14 +15,14 @@ GameObject:
   - component: {fileID: 397288804}
   - component: {fileID: 397288801}
   - component: {fileID: 397288802}
-  - component: {fileID: 397288803}
+  - component: {fileID: 397288806}
   m_Layer: 6
   m_Name: ArrowTower
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1536981941967696555
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +189,8 @@ MonoBehaviour:
   neutralObjectLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &397288803
+  UnitSpecialty: 0
+--- !u!114 &397288806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,10 +199,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1536981941967696552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f2b4433cad28d64bafbb408eb71e70f, type: 3}
+  m_Script: {fileID: 11500000, guid: 73229b7fc58c2c04bb217c49287a4769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teamString: Team1
-  isArcher: 0
-  stayidle: 0
-  isTower: 0

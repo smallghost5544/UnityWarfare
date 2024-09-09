@@ -80,7 +80,7 @@ public class BuildingController : MonoBehaviour
     {
         unitView.AttackAnimation(unitModel.attackType, target);
         unitStats.CurrentTime = unitModel.attackCD;
-        StartCoroutine(unitStats.Attack(0.5f));
+        StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
         StartCoroutine(nextAttackTime());
     }
     /// <summary>

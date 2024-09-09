@@ -23,5 +23,6 @@ MonoBehaviour:
   moveTime: 1
   attackCD: 1.5
   currentTime: 0
-  searchTime: 2
+  searchTime: 1
   attackType: 1
+  attackAnimationHitTime: 1.5

@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BuildingController.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\MapGeneratorTool.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\WaterMapSmoother.cs" />
+    <Compile Include="Assets\Scripts\Unit\UnitSpecialty\LancerSpecialty.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\SortingLayers.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Prefabs.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Manager.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterNoiseMapParameters.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\PriorityModel.cs" />
+    <Compile Include="Assets\Scripts\Unit\ISpecialty.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\FenceModel.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Graphical Type\IGraphicalMapGenerator.cs" />
@@ -171,8 +173,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterNoiseMapParametersModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
-    <Compile Include="Assets\Scripts\Unit\ISpecialty.cs" />
-    <Compile Include="Assets\Scripts\Unit\UnitSpecialty\LancerSpecialty.cs" />
+    <Compile Include="Assets\Scripts\PerformanceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
