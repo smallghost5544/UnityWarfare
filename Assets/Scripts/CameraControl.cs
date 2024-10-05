@@ -35,7 +35,8 @@ public class CameraControl : MonoBehaviour
             dragOrigin = Input.mousePosition;
             return;
         }
-
+        if (GameManager.Instance.IsPressingCreateUnitButton == true)
+            return;
         if (!Input.GetMouseButton(0)) return;
 
         Vector3 pos = myCamera.ScreenToViewportPoint(dragOrigin - Input.mousePosition);

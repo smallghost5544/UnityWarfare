@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8214838943144099502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11671386, y: 0.46261457, z: 62.896355}
+  m_LocalPosition: {x: 1.52, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,3 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517eccc8d9cd5ff4db23d9501581c697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specialtyModel: {fileID: 11400000, guid: 58b69c94d1689424bb489a0ae8f44bff, type: 2}
+  BuildingPlace:
+  - {x: 0.37, y: -1.08}
+  - {x: 1.42, y: -2.16}
+  - {x: -0.75, y: 0.029999971}
+  - {x: -1.8199999, y: 0.78}
+  - {x: -2.79, y: 1.7599999}
+  - {x: 2.4299998, y: -3.25}
+  - {x: 3.35, y: -2.17}
+  - {x: -1.87, y: 2.84}
+  - {x: -0.90000004, y: 1.86}
+  - {x: 0.16999999, y: 1.11}
+  - {x: 2.34, y: -1.08}
+  - {x: 1.29, y: 0}
+  buildingProgress: 0

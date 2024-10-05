@@ -63,10 +63,14 @@ public class TestButtonFunctions : MonoBehaviour
         }
         if (activeButtonTwo && (Input.GetMouseButton(0)))
         {
-            Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
-            worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
-            worldPosition.z = 0; // 確保生成位置在2D平面上
-            CreateUnitOnScreen(worldPosition, unitTwo);
+            if (Time.time >= nextTriggerTime)
+            {
+                Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
+                worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
+                worldPosition.z = 0; // 確保生成位置在2D平面上
+                CreateUnitOnScreen(worldPosition, unitTwo);
+                nextTriggerTime = Time.time + 1f / triggerRate;
+            }
         }
     }
     public void ActiveButton(int buttonNumber)
@@ -103,6 +107,9 @@ public class TestButtonFunctions : MonoBehaviour
         unitActions.Add(obj.GetComponent<UnitController>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
     }
+    /// <summary>
+    /// 按下該單位按鈕後,於螢幕上點擊位置可生成單位
+    /// </summary>
     public void CreateUnitOnScreen(Vector2 initPlace, GameObject unit)
     {
         var obj = Instantiate(unit, initPlace, Quaternion.identity);
@@ -148,6 +155,14 @@ public class TestButtonFunctions : MonoBehaviour
                 Circle();
                 break;
         }
+        //若正在建築的單位 手中武器恢復原本武器
+        //fix 注意效能
+        foreach (var obj in unitsOnStage)
+        {
+            
+            var view = obj.GetComponent<UnitView>();
+            view.BuildingSpecialtyFinishAction(needTrigger: true);
+        }
     }
 
     public void TakeABreak()
@@ -158,6 +173,9 @@ public class TestButtonFunctions : MonoBehaviour
             StartCoroutine(unitActions[current].Command("TakeABreak"));
             current++;
         }
+        //檢查建築物
+        var ChekBuilding = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<BuildingTowerSpecialty>();
+        ChekBuilding.CheckAllBuildingPlace();
     }
 
     public void AddRowMax()

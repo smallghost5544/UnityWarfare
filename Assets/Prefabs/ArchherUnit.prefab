@@ -49,20 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2b4433cad28d64bafbb408eb71e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  unit: {fileID: 6031268773221423411}
-  animator: {fileID: 8227774042061686352}
-  movementArea: {fileID: 0}
-  Enemy: {fileID: 0}
-  unitStats: {fileID: 0}
-  inAction: 0
   teamString: Team1
   isArcher: 1
   stayidle: 0
-  arrowPrefab: {fileID: 2118818170589020688, guid: 7251d5220cb5eee4c91cffaa20cc2136, type: 3}
-  unitModel: {fileID: 0}
+  unitStats: {fileID: 0}
   unitView: {fileID: 0}
 --- !u!50 &1903520986
 Rigidbody2D:
@@ -113,14 +103,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc974a0b6ab9c64dbd772887a1c6527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentState: 0
   CurrentHP: 100
   TeamNumer: 6
   CurrentTime: 0
   unitModel: {fileID: 11400000, guid: 033b6f40bcf172547a4c82202c10ba6e, type: 2}
-  Enemy: {fileID: 0}
+  ShowTarget: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  neutralObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  UnitSpecialty: 0
+  currentSearchRange: 0
 --- !u!114 &7045740875573675848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b5584b1f6dd184a992e4c85e64e20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitFX: {fileID: 0}
   arrowPrefab: {fileID: 2118818170589020688, guid: 7251d5220cb5eee4c91cffaa20cc2136, type: 3}
+  KnockDownAni: {fileID: 0}
+  spriteRenderers: []
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.1
+  GetObjPoolArrowString: unitArrow
 --- !u!1001 &5106770906601052552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,7 +145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 118509217838491444, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 203418804797406113, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
       propertyPath: m_Pivot.x
@@ -371,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6352049629807061388, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6355086536949334809, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
       propertyPath: m_Color.b
@@ -466,15 +468,5 @@ PrefabInstance:
 --- !u!224 &4903387855278318121 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 203418804797406113, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
-  m_PrefabInstance: {fileID: 5106770906601052552}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6031268773221423411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1544096868093755579, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
-  m_PrefabInstance: {fileID: 5106770906601052552}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8227774042061686352 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3814559824201719768, guid: 7259829bbeaada24a8c14de57d9db060, type: 3}
   m_PrefabInstance: {fileID: 5106770906601052552}
   m_PrefabAsset: {fileID: 0}

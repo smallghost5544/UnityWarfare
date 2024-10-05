@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private Dictionary<string, List<GameObject>> objectPoolDictionary = new Dictionary<string, List<GameObject>>();
+    public Dictionary<string, List<GameObject>> objectPoolDictionary = new Dictionary<string, List<GameObject>>();
     private static ObjectPool _instance;
     public static ObjectPool Instance
     {
@@ -28,6 +28,10 @@ public class ObjectPool : MonoBehaviour
     // 從對象池中獲取對象
     public GameObject Get(string objectType , Vector3 SpawnPlace)
     {
+        if (objectPoolDictionary[objectType].Count <=5)
+        {
+            Preload(objectType, objectPoolDictionary[objectType][0], 10); // 當池中沒有物件時，擴展10個
+        }
         if (objectPoolDictionary.ContainsKey(objectType) && objectPoolDictionary[objectType].Count > 0)
         {
             GameObject obj = objectPoolDictionary[objectType][0];
@@ -53,6 +57,7 @@ public class ObjectPool : MonoBehaviour
         else
         {
             objectPoolDictionary.Add(objectType, new List<GameObject> { obj });
+            Debug.LogWarning($"Key '{objectType}' does not exist in the pool.");
         }
     }
 

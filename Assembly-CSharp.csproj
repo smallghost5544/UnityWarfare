@@ -64,7 +64,7 @@
     <Compile Include="Assets\Scripts\BuildingController.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\MapGeneratorTool.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\WaterMapSmoother.cs" />
-    <Compile Include="Assets\Scripts\Unit\UnitSpecialty\LancerSpecialty.cs" />
+    <Compile Include="Assets\Scripts\Unit\UnitSpecialty\BuildingTowerSpecialty.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\SortingLayers.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Prefabs.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Manager.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Assets\SPUM\Sample\Script\PlayerManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\GroundNoiseMapParametersModel.cs" />
+    <Compile Include="Assets\Scripts\PerformanceTest.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Graphical Type\GraphicalGenerationType.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\UnitModel.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\ObjectModel.cs" />
     <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObject\ObjectPoolModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\Location Generating\LocationShapeGenerator.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Object Generation\Location Generating\LocationInstance.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Models with priority\ObjectModelWithPriority.cs" />
@@ -170,10 +172,10 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\GroundNoiseMapParameters.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Output Models\TilesMap.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObject\SpecialtyModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\WaterNoiseMapParametersModel.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
-    <Compile Include="Assets\Scripts\PerformanceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -8,6 +8,7 @@ TagManager:
   - LocalScale
   - Chest
   - Neutral
+  - ArcherTowerPlace
   layers:
   - Default
   - TransparentFX

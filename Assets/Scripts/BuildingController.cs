@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static BuildingTowerSpecialty;
 
 public class BuildingController : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class BuildingController : MonoBehaviour
     private UnitModel unitModel;
     private UnitStats unitStats;
     private UnitView unitView;
-
+     SpecialtyModel specialtyModel;
     private void Awake()
     {
         unitStats = GetComponent<UnitStats>();
@@ -19,11 +21,13 @@ public class BuildingController : MonoBehaviour
         unitModel = unitStats.unitModel;
         unitStats.OnDeathAction = HandleDeathAction;
         unitStats.OnHitAction = unitView.OnHit;
+        specialtyModel  = Resources.Load<SpecialtyModel>("ScriptableObjectData/SpecialtyData");
     }
     private void OnEnable()
     {
         unitStats.FindMovementArea();
         unitStats.SetCurentHP();
+        unitStats.SetUnitState(UnitState.Building);
         unitView.GetAnimator();
         unitView.GetCollider();
         StopAllCoroutines();
@@ -32,11 +36,17 @@ public class BuildingController : MonoBehaviour
         InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
         //是否改成 做完一個動作接續下一個behavior
         InvokeRepeating("UnitBehavior", 0, unitModel.attackCD);
+        Invoke("FinishBuilding", specialtyModel.BuildingArcherTowerTime);
     }
     private void OnDisable()
     {
         StopAllCoroutines();
         CancelInvoke();
+    }
+
+    void FinishBuilding()
+    {
+        unitStats.SetUnitState(UnitState.Idle);
     }
 
     void UnitBehavior()
@@ -52,18 +62,21 @@ public class BuildingController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
+        if (unitStats.CurrentState == UnitState.Building)
+            return;
         //還沒走到目標前面 目標已消失要換目標
         if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)
         {
             unitStats.Target = null;
             unitStats.SetUnitState(UnitState.Idle);
-            unitView.StartWalkAnimation(false);
         }
         unitStats.SearchEnemy();
     }
 
     void CheckAttack()
     {
+        if (unitStats.CurrentState == UnitState.Building)
+            return;
         if (!(target as MonoBehaviour).gameObject.activeInHierarchy || (target.CurrentHp <= 0))
         {
             unitStats.SetUnitState(UnitState.Idle);
@@ -110,6 +123,9 @@ public class BuildingController : MonoBehaviour
     IEnumerator Die()
     {
         //預設為object pool 可以更加優化
+        unitView.DieAnimation();
+        CallBuildingTowerSpecialty();
+        yield return new WaitForSeconds(1.5f);
         var layer = GetComponentInChildren<SpriteRenderer>();
         layer.sortingOrder -= 1;
         gameObject.layer = 0;
@@ -117,8 +133,10 @@ public class BuildingController : MonoBehaviour
         CancelInvoke();
         gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);
+
         ResetDied();
     }
+
 
     void ResetDied()
     {
@@ -132,5 +150,19 @@ public class BuildingController : MonoBehaviour
         //objectpool回收
     }
 
-
+    //確保沒有建築物的目標地上不被錯誤判定有建築物
+    void CallBuildingTowerSpecialty()
+    {
+        //呼叫buildinngTowerSpecialty
+        var List = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<BuildingTowerSpecialty>().buildingPlaceLsit;
+        for (int i = 0; i < List.Count; i++)
+        {
+            if (List[i].builldController == this)
+            {
+                List[i].hasSpace = true;
+                List[i].builldController = null;
+                break;
+            }
+        }
+    }
 }

@@ -58,7 +58,8 @@ MonoBehaviour:
   teamString: Team1
   isArcher: 0
   stayidle: 0
-  isTower: 0
+  unitStats: {fileID: 0}
+  unitView: {fileID: 0}
 --- !u!114 &3078738542229154796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +84,7 @@ MonoBehaviour:
   neutralObjectLayer:
     serializedVersion: 2
     m_Bits: 0
-  UnitSpecialty: 3
+  UnitSpecialty: 0
 --- !u!50 &8149246074813598256
 Rigidbody2D:
   serializedVersion: 4
@@ -118,9 +119,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009539187, y: 0.24081701}
+  m_Offset: {x: 0.009, y: 0.3}
   serializedVersion: 2
-  m_Radius: 0.42976886
+  m_Radius: 0.33
 --- !u!222 &6608692785700260383
 CanvasRenderer:
   m_ObjectHideFlags: 0

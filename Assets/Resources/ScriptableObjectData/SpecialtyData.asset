@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a137aee0414924c9d36ea8d7c42ebe, type: 3}
+  m_Name: SpecialtyData
+  m_EditorClassIdentifier: 
+  BuildingArcherTowerTime: 3.5
+  BuildingArcherTowerIntervalTime: 0.4
+  OpenChestMultiply: 1.5
+  PatrolTime: 6
+  EnableMine: 1
+  MineMultiply: 1.5
+  LastBloodStanding: 1
+  BetterStaminaMultiply: 1.2

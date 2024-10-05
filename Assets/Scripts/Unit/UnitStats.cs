@@ -1,17 +1,15 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 using System.Collections;
-using UnityEditor;
-using static UnityEngine.GraphicsBuffer;
-using Unity.VisualScripting;
 
 public enum UnitState
 {
     Idle,
     Patrol,
     Walk,
+    DoSpecialty,
+    Building,
     Attack,
     Commannd,
     Dead
@@ -44,22 +42,17 @@ public class UnitStats : MonoBehaviour, IDamageable
     public Action OnDeathAction;
     public Action OnHitAction;
     public SpecialtyType UnitSpecialty;
-    ISpecialty chooseSpecialty;
+    public ISpecialty chooseSpecialty;
     public int CurrentHp { get => CurrentHP; set => throw new NotImplementedException(); }
+    public float currentSearchRange = 0;
+    float maxSearchRange => unitModel.SearchRange;
 
 
-    public void SetSpecialty()
-    {
-        string loadSpecialtyString = UnitSpecialty.ToString();
-        if (loadSpecialtyString == "Nothing")
-            return;
-        chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<ISpecialty>();
-        //unitSpecialty = GetComponent<ISpecialty>();
-    }
     public void SetUnitState(UnitState nextState = UnitState.Idle)
     {
         CurrentState = nextState;
     }
+
     /// <summary>
     /// 設定當前HP為最大HP
     /// </summary>
@@ -74,6 +67,7 @@ public class UnitStats : MonoBehaviour, IDamageable
     {
         movementArea = GameObject.Find("MoveSpaceCollider").gameObject.GetComponent<PolygonCollider2D>();
     }
+
     /// <summary>
     /// 找尋敵方單位
     /// </summary>
@@ -82,17 +76,19 @@ public class UnitStats : MonoBehaviour, IDamageable
         if (Target != null)
         {
             MonoBehaviour targetMonoBehaviour = Target as MonoBehaviour;
-            if (Vector2.Distance(transform.position, targetMonoBehaviour.transform.position) <= unitModel.AttackRange)
+            var distance = Vector2.Distance(transform.position, targetMonoBehaviour.transform.position);
+            if (distance <= unitModel.AttackRange)
                 // 如果當前目標仍在範圍內，則不進行新的搜尋
                 return;
+            else
+                currentSearchRange = distance;
         }
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, unitModel.SearchRange, enemyLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentSearchRange, enemyLayer);
         float closestDistance = Mathf.Infinity;
         Collider2D current = null;
         foreach (Collider2D collider in hitColliders)
         {
-            //float distance = Vector2.Distance(transform.position, collider.transform.position);
-            float distance =(transform.position - collider.transform.position).sqrMagnitude;
+            float distance = (transform.position - collider.transform.position).sqrMagnitude;
             //要節省效能時再重新開啟
             //if (distance < unitModel.AttackRange)
             //{
@@ -109,6 +105,10 @@ public class UnitStats : MonoBehaviour, IDamageable
         {
             Target = current.GetComponent<IDamageable>();
             ShowTarget = Target as UnitStats;
+        }
+        else
+        {
+            currentSearchRange = maxSearchRange;
         }
     }
     /// <summary>
@@ -143,24 +143,12 @@ public class UnitStats : MonoBehaviour, IDamageable
         );
     }
 
-    public void DoExpert()
-    {
-        if (chooseSpecialty != null)
-        {
-            chooseSpecialty.DoSpecialize();
-        }
-        //fix 做完行動再恢復idle
-        //fix設定時間
-        //fix 避免重複觸發
-        //Invoke("SetUnitSatate", 4f);
-        SetUnitState(UnitState.Idle);
-    }
     public IEnumerator Attack(float hitAnimationStartTime = 0)
     {
         SetUnitState(UnitState.Attack);
         //CurrentTime = unitModel.moveTime;
         yield return new WaitForSeconds(hitAnimationStartTime);
-        if (Target != null )
+        if (Target != null)
             Target.GetHurt(UnityEngine.Random.Range(0, unitModel.AttackDamage));
     }
     //fix(沒找到該物件)
@@ -203,11 +191,22 @@ public class UnitStats : MonoBehaviour, IDamageable
         OnHitAction?.Invoke();
     }
 
-    public IEnumerator Idle()
+    public void DelayIdle()
     {
         var waitTime = UnityEngine.Random.Range(0, unitModel.randomIdleTime);
-        yield return new WaitForSeconds(waitTime);
+        Invoke("setIdle", waitTime);
+    }
+    void setIdle()
+    {
         CurrentState = UnitState.Idle;
     }
 
+    public void SetSpecialty( )
+    {
+        string loadSpecialtyString = UnitSpecialty.ToString();
+        if (loadSpecialtyString == "Nothing")
+            return;
+        //fix 要增加擴充性質 
+        chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<ISpecialty>();
+    }
 }

@@ -27,13 +27,20 @@ public class UnitController : MonoBehaviour
     }
     private Vector3 lastPosition;
     public string teamString;
-    //use for archer
     public bool isArcher = false;
     public bool stayidle = false;
-    public bool isTower = false;
+    /// <summary>
+    /// unit Scriptable
+    /// </summary>
     private UnitModel unitModel;
-    private UnitStats unitStats;
-    private UnitView unitView;
+    /// <summary>
+    /// unit 邏輯
+    /// </summary>
+    public UnitStats unitStats;
+    /// <summary>
+    /// unit視圖
+    /// </summary>
+    public UnitView unitView;
 
     private void Awake()
     {
@@ -51,6 +58,7 @@ public class UnitController : MonoBehaviour
         unitStats.SetSpecialty();
         unitView.GetAnimator();
         unitView.GetCollider();
+        unitView.SaveOriginalWeapon();
         StopAllCoroutines();
         CancelInvoke();
         gameObject.layer = unitStats.TeamNumer;
@@ -82,23 +90,28 @@ public class UnitController : MonoBehaviour
     /// </summary>
     void UnCombatActions()
     {
+        //fix 調整整體行動機率
         if (stayidle)
             return;
+        //避免過快出去,重複觸發
         unitStats.SetUnitState(UnitState.Patrol);
-        switch (Random.Range(0, 4))
+        int randomValue = Random.Range(1, 12);
+        switch (randomValue)
         {
-            case 0:
+            case int n when (n <= 8):
                 //選擇新目標並前進
                 GetTargetAndWalk();
                 break;
-            case 1:
+            case 9:
                 //發呆
-                StartCoroutine(unitStats.Idle());
+                unitStats.DelayIdle();
                 break;
-            case 2:
-                unitStats.DoExpert();
+            case 10:
+                //執行專長
+                DoSpecialize();
                 break;
-            case 3:
+            case 11:
+                //尋找資源
                 GetResource();
                 break;
         }
@@ -123,7 +136,10 @@ public class UnitController : MonoBehaviour
             if (isArcher)
             {
                 if (target != null && Vector3.Magnitude((target as MonoBehaviour).transform.position - transform.position) < unitModel.AttackRange)
+                {
                     unitStats.SetUnitState(UnitState.Idle);
+                    unitView.StartWalkAnimation(false);
+                }
             }
             Vector2 currentPosition = transform.position;
             // 計算方向向量
@@ -149,6 +165,8 @@ public class UnitController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
+        if (unitStats.CurrentState == UnitState.Building)
+            return;
         //還沒走到目標前面 目標已消失要換目標
         if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)
         {
@@ -160,9 +178,6 @@ public class UnitController : MonoBehaviour
         if (unitStats.Target != null)
         {
             targetPosition = (target as MonoBehaviour).transform.position;
-            //MonoBehaviour targetMonoBehaviour = target as MonoBehaviour;
-            //unitStats.SetUnitState(UnitState.Idle);
-            //unitView.StartWalkAnimation(false);
         }
     }
 
@@ -257,9 +272,10 @@ public class UnitController : MonoBehaviour
         unitStats.SetUnitState(UnitState.Idle);
         gameObject.transform.position = new Vector3(100, 100, 100);
         unitView.SetColldier(false);
+        unitView.RecoverAlpha();
         unitStats.Target = null;
         var layer = GetComponentInChildren<SortingGroup>();
-        layer.sortingOrder -= 5;
+        layer.sortingOrder = 5;
         //objectpool回收
         ObjectPool.Instance.Return(teamString, gameObject);
     }
@@ -310,6 +326,19 @@ public class UnitController : MonoBehaviour
         }
         else
             unitView.StartWalkAnimation(false);
+    }
+    public void DoSpecialize()
+    {
+        if (unitStats.chooseSpecialty != null)
+        {
+            //fix 要能隨著技能改為特定目標
+            StartCoroutine(unitStats.chooseSpecialty.DoSpecialize(gameObject.transform.position , 
+                                                                                                                   this.gameObject ,
+                                                                                                                    unitView , 
+                                                                                                                    unitStats));
+        }
+        else
+            unitStats.SetUnitState();
     }
 
 }

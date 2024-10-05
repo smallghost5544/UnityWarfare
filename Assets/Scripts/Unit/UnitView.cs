@@ -2,27 +2,34 @@ using System.Collections;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
+using UnityEngine.Pool;
 
+public enum ArrowType
+{
+    unitArrow,
+    towerArrow
+}
 public class UnitView : MonoBehaviour
 {
     Animator animator;
     Collider2D characterCollider = null;
     [SerializeField]
     GameObject hitFX;
-    public GameObject arrowPrefab;
+    //public GameObject arrowPrefab;
     public GameObject KnockDownAni;
     public SpriteRenderer[] spriteRenderers; // 存儲角色上所有的 SpriteRenderer
     public Material flashMaterial; // 閃爍時使用的紅色材質
     public float flashDuration = 0.1f; // 閃爍持續時間
     private Material[] originalMaterials; // 存儲原始材質
     bool onHitRecover = false;
-
+    ObjectPool objPool;
+    public ArrowType arrowtype;
     void Start()
     {
         // 收集所有 SpriteRenderer 的原始材質
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         originalMaterials = new Material[spriteRenderers.Length];
-
+        objPool = ObjectPool.Instance;
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             originalMaterials[i] = spriteRenderers[i].material;
@@ -31,12 +38,21 @@ public class UnitView : MonoBehaviour
     public void OnHit()
     {
         if (gameObject.activeInHierarchy == false)
-            return; 
+            return;
         StartCoroutine(FlashEffect());
+    }
+    public void RecoverAlpha()
+    {
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            Color color = spriteRenderer.color;
+            color.a = 1;
+            spriteRenderer.color = color;
+        }
     }
     private float originalAlpha = 1f;
     float fadeDuration = 0.6f;
-    float changeAlpha = 0.8f;
+    float changeAlpha = 0.5f;
     private IEnumerator FlashEffect()
     {
         if (onHitRecover == true)
@@ -78,6 +94,32 @@ public class UnitView : MonoBehaviour
         }
         onHitRecover = false;
     }
+    float knockDownFadeTime = 1f;
+    private IEnumerator DestroyFlashEffect()
+    {
+        float elapsedTime = 0f; // 計時器
+        float currentAlpha = 1; // 當前透明度
+        // 逐步透明
+        while (elapsedTime < knockDownFadeTime)
+        {
+            // 計算每幀新的透明度值
+            elapsedTime += Time.deltaTime;
+            foreach (var spriteRenderer in spriteRenderers)
+            {
+                Color color = spriteRenderer.color;
+                color.a = Mathf.Lerp(currentAlpha, 0, elapsedTime / knockDownFadeTime);
+                spriteRenderer.color = color;
+            }
+            // 等待下一幀
+            yield return null;
+        }
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            Color color = spriteRenderer.color;
+            color.a = 0;
+            spriteRenderer.color = color;
+        }
+    }
     /// <summary>
     /// 更改角色面向
     /// </summary>
@@ -100,6 +142,8 @@ public class UnitView : MonoBehaviour
     public void GetAnimator()
     {
         animator = GetComponentInChildren<Animator>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
     public void GetCollider()
     {
@@ -118,36 +162,42 @@ public class UnitView : MonoBehaviour
     {
         animator.SetTrigger("Death");
         characterCollider.isTrigger = true;
+        StartCoroutine(DestroyFlashEffect());
         // Invoke("InitKnockDownAnimation", 0.5f);
     }
     void InitKnockDownAnimation()
     {
         Instantiate(KnockDownAni, transform.position, Quaternion.identity);
     }
-    public void AttackAnimation(int attackType, IDamageable target = null)
+    public void AttackAnimation(int attackType = 0, IDamageable target = null)
     {
-        //animator.SetTrigger("Attack");
-
+        //可改成switch
+        //for melee unit
         if (attackType == 0)
         {
             animator.Play("2_Attack_Normal");
-            //time = GetAnimatoinTime("2_Attack_Normal");
-            Vector3 effectPosition = (target as MonoBehaviour).transform.position + new Vector3(0, 0.25f, 0);
-            //StartCoroutine(DelayFX(0.1f, effectPosition));
         }
+        //for archer
         if (attackType == 1)
         {
             if (target != null)
                 animator.Play("2_Attack_Bow");
             ChangeToward((target as MonoBehaviour).gameObject.transform.position.x - transform.position.x);
-            ShootArrow(target);
+            StartCoroutine(ShootArrow(target , 0.3f));
         }
-        //return time / 2; 
+        //for tower
+        if (attackType == 2)
+        {
+            if (target != null)
+                StartCoroutine(ShootArrow(target , 0));
+        }
     }
 
-    void ShootArrow(IDamageable target)
+    IEnumerator ShootArrow(IDamageable target , float delayTime)
     {
-        var arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(delayTime);
+        //var arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        var arrow = objPool.Get(arrowtype.ToString(), transform.position);
         var arrowScript = arrow.GetComponent<Arrow>();
         arrowScript.target = (target as MonoBehaviour).transform;
         arrowScript.shootPoint = transform;
@@ -177,7 +227,59 @@ public class UnitView : MonoBehaviour
         Instantiate(hitFX, effectPosition, Quaternion.identity);
     }
 
+    SpriteRenderer leftHand = null;
+    SpriteRenderer rightHand = null;
+    Sprite originalWeaponLeft = null;
+    Sprite originalWeaponRight = null;
+    Sprite BuildingWeapon;
+    public void SaveOriginalWeapon()
+    {
+        // 確保 leftHand 和 rightHand 不為 null
+        leftHand ??= FindChildByName(gameObject.transform, "L_Weapon")?.GetComponent<SpriteRenderer>();
+        rightHand ??= FindChildByName(gameObject.transform, "R_Weapon")?.GetComponent<SpriteRenderer>();
 
+        // 確保 originalWeaponLeft 和 originalWeaponRight 被正確保存
+        originalWeaponLeft ??= leftHand?.sprite;
+        originalWeaponRight ??= rightHand?.sprite;
+    }
+    public void BuildingSpecialtyAction()
+    {
+        // 加載 BuildingWeapon 資源
+        characterCollider.isTrigger = true;
+        if (BuildingWeapon == null)
+        {
+            BuildingWeapon = Resources.Load<Sprite>("Building/BuildingWeapon");
+        }
+        // 更新武器顯示
+
+        leftHand.sprite = BuildingWeapon;
+        rightHand.sprite = null; // 直接賦值為 null
+
+        AttackAnimation(); // 攻擊動畫
+    }
+    public void BuildingSpecialtyFinishAction(bool needTrigger = false)
+    {
+        leftHand.sprite = originalWeaponLeft;
+        rightHand.sprite = originalWeaponRight;
+        characterCollider.isTrigger = needTrigger;
+    }
+
+    Transform FindChildByName(Transform parent, string childName)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == childName)
+            {
+                return child;
+            }
+            Transform found = FindChildByName(child, childName);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+        return null;
+    }
 }
 
 

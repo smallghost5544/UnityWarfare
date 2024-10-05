@@ -18,11 +18,11 @@ MonoBehaviour:
   AttackDamage: 10
   SearchRange: 7
   moveSpeed: 2
-  randomIdleTime: 1
+  randomIdleTime: 3
   moveThreshold: 0.1
   moveTime: 0.8
   attackCD: 2
   currentTime: 0
-  searchTime: 1
+  searchTime: 0.5
   attackType: 0
   attackAnimationHitTime: 0.3

@@ -3134,20 +3134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2b4433cad28d64bafbb408eb71e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  unit: {fileID: 7757905683613303701}
-  animator: {fileID: 1303986484838862634}
-  movementArea: {fileID: 0}
-  Enemy: {fileID: 0}
-  unitAbility: {fileID: 0}
-  inAction: 0
   teamString: Team1
   isArcher: 0
   stayidle: 0
-  arrowPrefab: {fileID: 0}
-  unitModel: {fileID: 0}
+  unitStats: {fileID: 0}
+  unitView: {fileID: 0}
 --- !u!50 &2372584057495116336
 Rigidbody2D:
   serializedVersion: 4
@@ -3197,13 +3188,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc974a0b6ab9c64dbd772887a1c6527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentState: 0
   CurrentHP: 100
-  moveThreshold: 0.2
-  moveTime: 1.5
-  currentTime: 0
   TeamNumer: 0
-  attackType: 0
+  CurrentTime: 0
   unitModel: {fileID: 11400000, guid: 7ab7827ef63c7654d93acefd5ce9fb53, type: 2}
+  ShowTarget: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  neutralObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  UnitSpecialty: 3
 --- !u!1 &6991319818376009284
 GameObject:
   m_ObjectHideFlags: 0
