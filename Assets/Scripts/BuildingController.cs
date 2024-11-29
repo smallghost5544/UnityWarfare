@@ -21,7 +21,8 @@ public class BuildingController : MonoBehaviour
         unitModel = unitStats.unitModel;
         unitStats.OnDeathAction = HandleDeathAction;
         unitStats.OnHitAction = unitView.OnHit;
-        specialtyModel  = Resources.Load<SpecialtyModel>("ScriptableObjectData/SpecialtyData");
+        //specialtyModel  = Resources.Load<SpecialtyModel>("ScriptableObjectData/SpecialtyData");
+        specialtyModel = ScriptableManager.Instance.AllSpecialtyModel;
     }
     private void OnEnable()
     {
@@ -33,10 +34,11 @@ public class BuildingController : MonoBehaviour
         StopAllCoroutines();
         CancelInvoke();
         gameObject.layer = unitStats.TeamNumer;
+        StartCoroutine(BuildingScalingFX(specialtyModel.BuildingArcherTowerTime , specialtyModel.BuildingArcherTowerIntervalTime));
         InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
         //是否改成 做完一個動作接續下一個behavior
         InvokeRepeating("UnitBehavior", 0, unitModel.attackCD);
-        Invoke("FinishBuilding", specialtyModel.BuildingArcherTowerTime);
+        Invoke(nameof(FinishBuilding), specialtyModel.BuildingArcherTowerTime);
     }
     private void OnDisable()
     {
@@ -91,9 +93,10 @@ public class BuildingController : MonoBehaviour
 
     void DirectAttack()
     {
-        unitView.AttackAnimation(unitModel.attackType, target);
+        unitView.AttackAnimation(unitModel.attackType, target , enemyLayer: unitStats.enemyLayer);
         unitStats.CurrentTime = unitModel.attackCD;
-        StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
+        unitStats.SetUnitState(UnitState.Attack);
+        //StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
         StartCoroutine(nextAttackTime());
     }
     /// <summary>
@@ -103,14 +106,14 @@ public class BuildingController : MonoBehaviour
     {
         while (unitStats.CurrentState == UnitState.Attack)
         {
-            unitStats.CurrentTime -= 0.05f;
+            unitStats.CurrentTime -= 0.1f;
             if (unitStats.CurrentTime <= 0.01f)
             {
                 unitStats.CurrentTime = 0;
                 unitStats.SetUnitState(UnitState.Idle);
                 yield break;
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -163,6 +166,41 @@ public class BuildingController : MonoBehaviour
                 List[i].builldController = null;
                 break;
             }
+        }
+    }
+
+    /// <summary>
+    ///模擬建築被敲擊時,晃動之特效
+    /// </summary>
+    /// <param name="fullTime"></param>
+    /// <param name="intervalTime"></param>
+    /// <returns></returns>
+    IEnumerator BuildingScalingFX(float fullTime , float intervalTime)
+    {
+        var originalScale = gameObject.transform.localScale;
+        var newScale = originalScale;
+        var originTransform = gameObject.transform.position;
+        var changeTransform = originTransform;
+        newScale *= 0.95f;
+        changeTransform.x += 0.02f;
+        float recoverTime = 0.1f;
+        yield return new WaitForSeconds(0.15f);
+        gameObject.transform.localScale = newScale;
+        gameObject.transform.position = changeTransform;
+        yield return new WaitForSeconds(recoverTime);
+        gameObject.transform.localScale = originalScale;
+        gameObject.transform.position = originTransform;
+        while (fullTime >= 0)
+        {
+            yield return new WaitForSeconds(intervalTime- recoverTime);
+            gameObject.transform.localScale = newScale;
+            gameObject.transform.position = changeTransform;
+            yield return new WaitForSeconds(recoverTime);
+            gameObject.transform.localScale = originalScale;
+            gameObject.transform.position = originTransform;
+            fullTime -= intervalTime;
+            if (fullTime < intervalTime)
+                yield break;
         }
     }
 }

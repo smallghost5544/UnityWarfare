@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public Transform TeamOneRespawnPoint;
     public Transform TeamTwoRespawnPoint;
     public GameObject TeamOneUnit;
+    public GameObject TeamOneArcher;
     public GameObject TeamTwoUnit;
     public GameObject unitArrow;
     public GameObject towerArrow;
@@ -18,11 +19,13 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     ObjectPool objectPool;
     public TestButtonFunctions testButtonFunctions;
-    List<ISpecialty> specialties= new List<ISpecialty>();
-    public ObjectPoolModel objectPoolData;
+    List<ISpecialty> specialties = new List<ISpecialty>();
+    public ObjectPoolModel objectPoolData => scriptableManager.AllObjectPoolModel;
+    ScriptableManager scriptableManager;
+    public int unitNumber = 0;
     public bool IsPressingCreateUnitButton
     {
-        get { return isUseCreateButtons();  }
+        get { return isUseCreateButtons(); }
     }
     public static GameManager Instance
     {
@@ -50,22 +53,35 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        scriptableManager = ScriptableManager.Instance;
         objectPool = GetComponent<ObjectPool>();
         testButtonFunctions = GetComponent<TestButtonFunctions>();
-        if(objectPoolData == null)
-        {
-            objectPoolData = Resources.Load<ObjectPoolModel>("ScriptableObjectData/ObjectPoolData") ;
-        }
+        //if(objectPoolData == null)
+        //{
+        //    objectPoolData = Resources.Load<ObjectPoolModel>("ScriptableObjectData/ObjectPoolData") ;
+        //}
     }
     private void Start()
     {
-        objectPool.Preload(objectPoolData.UnitOnePoolString, TeamOneUnit, objectPoolData.UnitOnePoolCount);
-        objectPool.Preload(objectPoolData.UnitTwoPoolString, TeamTwoUnit, objectPoolData.UnitTwoPoolCount);
-        objectPool.Preload(objectPoolData.UnitArrowPoolString, unitArrow, objectPoolData.UnitArrowCount);
-        objectPool.Preload(objectPoolData.TowerArrowPoolString, towerArrow, objectPoolData.TowerArrowCount);
+        PreloadObjects();
         ResetSpeciality();
         //Bounds worldBounds = new Bounds(Vector3.zero, new Vector3(100, 100, 0)); // Example world bounds
         //quadtree = new Quadtree(worldBounds);
+    }
+
+    void PreloadObjects()
+    {
+        for (int i = 0; i < objectPoolData.PreloadGameObjects.Count; i++)
+        {
+            objectPool.Preload(objectPoolData.PreloadGameObjects[i].gameObject.name,
+                                                objectPoolData.PreloadGameObjects[i],
+                                                objectPoolData.PreloadCount);
+        }
+        //objectPool.Preload(objectPoolData.UnitOnePoolString, TeamOneUnit, objectPoolData.UnitOnePoolCount);
+        //objectPool.Preload(objectPoolData.UnitTwoPoolString, TeamTwoUnit, objectPoolData.UnitTwoPoolCount);
+        //objectPool.Preload(objectPoolData.UnitArrowPoolString, unitArrow, objectPoolData.UnitArrowCount);
+        //objectPool.Preload(objectPoolData.TowerArrowPoolString, towerArrow, objectPoolData.TowerArrowCount);
+        //objectPool.Preload(objectPoolData.TeamOneArcherString, TeamOneArcher, objectPoolData.TeamOneArcherCount);
     }
 
     void Update()
@@ -79,29 +95,17 @@ public class GameManager : MonoBehaviour
     }
     void TestFunctionButtons()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            //Instantiate(TeamOneUnit, TeamOneRespawnPoint);
-            objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
-            //quadtree.Insert(obj);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            //Instantiate(TeamTwoUnit, TeamTwoRespawnPoint);
-           objectPool.Get(TeamTwoString, TeamTwoRespawnPoint.transform.position);
-            //quadtree.Insert(obj);
-        }
         if (Input.GetKey(KeyCode.B))
         {
             //Instantiate(TeamOneUnit, TeamOneRespawnPoint);
-           var obj =objectPool.Get(TeamOneString, TeamOneRespawnPoint.transform.position);
+            var obj = objectPool.Get(objectPoolData.PreloadGameObjects[0].gameObject.name, TeamOneRespawnPoint.transform.position);
             testButtonFunctions.unitsOnStage.Add(obj);
             //quadtree.Insert(obj);
         }
         if (Input.GetKey(KeyCode.N))
         {
             //Instantiate(TeamTwoUnit, TeamTwoRespawnPoint);
-            var obj =objectPool.Get(TeamTwoString, TeamTwoRespawnPoint.transform.position);
+            var obj = objectPool.Get(objectPoolData.PreloadGameObjects[1].gameObject.name, TeamTwoRespawnPoint.transform.position);
             //quadtree.Insert(obj);
         }
         if (Input.GetKeyDown(KeyCode.O))
@@ -113,8 +117,18 @@ public class GameManager : MonoBehaviour
         {
             SetGameSpeed(1.0f);
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SetGameSpeed(-0.1f);
+            print("currentGameSpeed: " + Time.timeScale);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SetGameSpeed(0.1f);
+            print("currentGameSpeed: " + Time.timeScale);
+        }
     }
-    
+
     //fix 要隨製造單位按鍵數量來判定true false
     bool isUseCreateButtons()
     {

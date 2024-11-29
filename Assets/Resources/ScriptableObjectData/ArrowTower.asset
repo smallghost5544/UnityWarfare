@@ -17,12 +17,14 @@ MonoBehaviour:
   AttackRange: 15
   AttackDamage: 20
   SearchRange: 15
+  SearchNetutralRange: 10
   moveSpeed: 0
   randomIdleTime: 0
   moveThreshold: 0
   moveTime: 0.5
-  attackCD: 0.5
+  attackCD: 2
   currentTime: 0
   searchTime: 0.5
   attackType: 2
   attackAnimationHitTime: 1.5
+  usualActionIntervalTime: 0.3

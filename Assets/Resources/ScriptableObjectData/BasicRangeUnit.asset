@@ -17,6 +17,7 @@ MonoBehaviour:
   AttackRange: 5
   AttackDamage: 3
   SearchRange: 15
+  SearchNetutralRange: 15
   moveSpeed: 2
   randomIdleTime: 1
   moveThreshold: 0.1
@@ -26,3 +27,4 @@ MonoBehaviour:
   searchTime: 1
   attackType: 1
   attackAnimationHitTime: 1.5
+  usualActionIntervalTime: 1.5

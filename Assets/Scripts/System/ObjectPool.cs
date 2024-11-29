@@ -64,14 +64,17 @@ public class ObjectPool : MonoBehaviour
     // 預先生成一定數量的對象
     public void Preload(string objectType, GameObject prefab, int count)
     {
+        //如果沒有這個池子則創立一個list
         if (!objectPoolDictionary.ContainsKey(objectType))
         {
             objectPoolDictionary.Add(objectType, new List<GameObject>());
         }
-
+        //生成指定數量的單位
         for (int i = 0; i < count; i++)
         {
             GameObject obj = Instantiate(prefab, transform);
+            obj.name = GameManager.Instance.unitNumber.ToString();
+            GameManager.Instance.unitNumber++;
             obj.SetActive(false);
             objectPoolDictionary[objectType].Add(obj);
         }

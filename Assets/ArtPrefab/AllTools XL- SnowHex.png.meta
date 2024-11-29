@@ -1,0 +1,1973 @@
+fileFormatVersion: 2
+guid: 10210290a77a5694e8649978d7a28610
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1600
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_0
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 8195
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df65c37a3ce01a448ac6bf50df8b04ae
+      internalID: 1497790415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_1
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 8033
+        width: 511
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b06f2f76999308a43bf66c4e4dc7877a
+      internalID: 64554525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_2
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 7635
+        width: 294
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fd7075ecab728746b14ccee920b43d4
+      internalID: -1464399140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_3
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 7354
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83daad68121da4e479060aba2326ef36
+      internalID: -2024657352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_4
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 7354
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7276ce7191ae3458957818bf68033f
+      internalID: 744740433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_5
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 7395
+        width: 610
+        height: 610
+      alignment: 9
+      pivot: {x: 0.2, y: 0.19}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca31eff5e0a14b43a4e773d0dc7ffcc
+      internalID: 184275421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_6
+      rect:
+        serializedVersion: 2
+        x: 3975
+        y: 7395
+        width: 651
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94f33a3ad1ae674fb0534cd9413b86a
+      internalID: -2063065681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_7
+      rect:
+        serializedVersion: 2
+        x: 4753
+        y: 7395
+        width: 651
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03d02ce4d24891b48a46805d12fd66a0
+      internalID: 1094749436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_8
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 7074
+        width: 470
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e70caca3b175040ada1ba424ff0cd6
+      internalID: 261908706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_9
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 6676
+        width: 294
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b1971a43c0241458b2145d171ebafe
+      internalID: 470787887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_10
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 6396
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7465748ba5567c4ea6c5e501cc9afbb
+      internalID: -1100675888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_11
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 6396
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1882551527293f4aa7f321cb63b32ec
+      internalID: 812393542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_12
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 6433
+        width: 610
+        height: 614
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 432b2a6a599c2154c8be9260326bf091
+      internalID: 451179038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_13
+      rect:
+        serializedVersion: 2
+        x: 3975
+        y: 6433
+        width: 651
+        height: 591
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9437f0b0ab9187949b60aa118f8cb0a0
+      internalID: 413745610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_14
+      rect:
+        serializedVersion: 2
+        x: 4753
+        y: 6433
+        width: 651
+        height: 573
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be85373a01202f145bf210da63795e66
+      internalID: -1755106632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_15
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 6192
+        width: 73
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a7e54408380c94c9eec1ef619b3b4c
+      internalID: -1443513784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_16
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 6192
+        width: 72
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b2998d5625913e4db42cbf27c652404
+      internalID: 412950332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_17
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 6193
+        width: 72
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4259c06f30263ad4f901f67e58d1503f
+      internalID: -1100320543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_18
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 6192
+        width: 32
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef65acff746fc940805bac329ad0778
+      internalID: -698195785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_19
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 6192
+        width: 31
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34f8ea0b3c0f4d84bb0c443b029b84b6
+      internalID: 429627395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_20
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 6192
+        width: 31
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3bd6f892ddef448b9e4fc22de78670
+      internalID: -126516486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_21
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 6115
+        width: 348
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1250b917bf0516c44b0b9354c0ea9f62
+      internalID: -542561938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_22
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 5673
+        width: 334
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86b306a00e844154ebe81cda0ecc9e17
+      internalID: 1509286238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_23
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 5835
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7048d5b09f54b429c107385aa11faa
+      internalID: 1854238659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_24
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 5433
+        width: 651
+        height: 654
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d3c79b81d18804b8088354b4f85d72
+      internalID: -1795944364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_25
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 5433
+        width: 651
+        height: 654
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af383ea252948b5459388d167b00db8a
+      internalID: -1721634799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_26
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 5473
+        width: 610
+        height: 614
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfda6bf2825aeaa48876bebb8f940c64
+      internalID: 372371135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_27
+      rect:
+        serializedVersion: 2
+        x: 3975
+        y: 5473
+        width: 651
+        height: 593
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0caebb5b289ef64383357b6ced7743d
+      internalID: -1000136866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_28
+      rect:
+        serializedVersion: 2
+        x: 4753
+        y: 5473
+        width: 651
+        height: 574
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb6732d16fa43744b476b4a77d4f51a
+      internalID: 616638691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_29
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 5153
+        width: 569
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73efc83b4d9c877499e34e414adade9b
+      internalID: -1967597530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_30
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 4714
+        width: 330
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 816fbff4cf072fe4d83b8cbf73949948
+      internalID: -1873787502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_31
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 4873
+        width: 94
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8c77677faabb5c49aca072fefc781c9
+      internalID: 1455738882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_32
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 4474
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ce3ec64adc163946911fe82d19778d6
+      internalID: 401043678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_33
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 4474
+        width: 651
+        height: 651
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649e7646a1bdaa9468ce235a400a9e3e
+      internalID: 817168926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_34
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 4515
+        width: 610
+        height: 610
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c5ade87e94091044ad772c1a9bafceb
+      internalID: -1900439215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_35
+      rect:
+        serializedVersion: 2
+        x: 3975
+        y: 4515
+        width: 651
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b89b6e2b3e2fafc4385ef6a9d273cb10
+      internalID: 1448514654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_36
+      rect:
+        serializedVersion: 2
+        x: 4753
+        y: 4515
+        width: 651
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 778d1fcdbee128f4db7a55c922413b6c
+      internalID: -634884837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_37
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 4113
+        width: 371
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cbc879c74380674da990e5283d16040
+      internalID: -2011432502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_38
+      rect:
+        serializedVersion: 2
+        x: 3253
+        y: 3954
+        width: 252
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb42a82623ac22a45a8e36f296ce8451
+      internalID: 1963443553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_39
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 3593
+        width: 332
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848985f077368d141809d7565bc8a1c0
+      internalID: -519752545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_40
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 3475
+        width: 371
+        height: 411
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af16d5cb2f39804cac72a9b7d64617f
+      internalID: 332592912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_41
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 3493
+        width: 371
+        height: 374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a73fb40a3e0dc478128aaebb661ca1
+      internalID: -1918059892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_42
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 3493
+        width: 371
+        height: 374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d925088e4179d5408ff117ce4911bad
+      internalID: 186659038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_43
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 3493
+        width: 374
+        height: 374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c2bde948b0a604095b1388c50fa016
+      internalID: 419157984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_44
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 3493
+        width: 371
+        height: 352
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef8e8925a93ecf94eafb81dda6db9121
+      internalID: 421425680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_45
+      rect:
+        serializedVersion: 2
+        x: 4814
+        y: 3493
+        width: 373
+        height: 352
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13cf013fbb5421249aeebe9c007e4e20
+      internalID: 2001580923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_46
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 3615
+        width: 514
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb809e84092083342900cd521d5482c4
+      internalID: 1413737527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_47
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 2955
+        width: 293
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f35e3ae15439aca4bafe1db06992b768
+      internalID: -1618062649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_48
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 2833
+        width: 371
+        height: 411
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ef70b1af9486e4ebcb5cdb79ab8804
+      internalID: 1172435653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_49
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 2855
+        width: 371
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad72d6dfb0f1a32439a558cc93ea7940
+      internalID: 206383463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_50
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 2855
+        width: 371
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4df2e0882ffc0949b77ea749aa58432
+      internalID: 1566730422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_51
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 2855
+        width: 374
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ed8ce6e5de199f4eb691dda4251f940
+      internalID: 2104782858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_52
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 2855
+        width: 371
+        height: 352
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04419fcb5315c1d46bc525f82264dcf1
+      internalID: 1251824057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_53
+      rect:
+        serializedVersion: 2
+        x: 4814
+        y: 2855
+        width: 373
+        height: 352
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a92a84be6100f3d41a92b87dc254f667
+      internalID: -1079030531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_54
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 2973
+        width: 474
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587b3bc2b426f8643a5d67e65d5d56cb
+      internalID: -1085388808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_55
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 2272
+        width: 330
+        height: 335
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77639da4dccf2994796d80c4eb12d8db
+      internalID: -2090115205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_56
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 2313
+        width: 332
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 073c0d7d81c8ee64da6606f74be36d97
+      internalID: -1234078251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_57
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 2476
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2225ddf6578a5b049b078a309662778a
+      internalID: 1618085147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_58
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 2195
+        width: 371
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd252341b4aac13439122b17d691aca6
+      internalID: 2095245702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_59
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 2213
+        width: 371
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 186e354338e9ae6459d9d0962fdea5eb
+      internalID: 160599093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_60
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 2213
+        width: 371
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b944043fec6aec4fba2cad4f028e3d8
+      internalID: 981181590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_61
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 2213
+        width: 374
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9607779c721c344f80594e9763f6946
+      internalID: -2118888322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_62
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 2213
+        width: 371
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef8d95dd134b608438b94c06dd96f73b
+      internalID: -1431969515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_63
+      rect:
+        serializedVersion: 2
+        x: 4814
+        y: 2213
+        width: 373
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a265ab36a455b4499df8b605f33071
+      internalID: 1042695154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_64
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 2335
+        width: 352
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e0ead885699c7d4d93bf3d2087b9636
+      internalID: -581261611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_65
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 2014
+        width: 434
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 979bd3cde67b7424ba1a0314a2f1e29a
+      internalID: 961220670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_66
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 1675
+        width: 332
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ffe9dec29ffdd9419937c15eeb27e90
+      internalID: -1659572182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_67
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 1834
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cad182ecce4c054eb8a59d93f4f498b
+      internalID: -145079912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_68
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 1553
+        width: 371
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab8a68dd6c3b43446becc7c445358cd5
+      internalID: -1814763202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_69
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 1576
+        width: 371
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee0bb689774335244966ff1acc7e21d8
+      internalID: -1884100375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_70
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 1576
+        width: 371
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabfab54705e6254b9c5ef8befe3e867
+      internalID: -1255100937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_71
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 1576
+        width: 374
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4829758f0257fc48abec2bf5f2d36a5
+      internalID: -1488613018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_72
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 1576
+        width: 371
+        height: 348
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d984e6ac66025c4ea36c7a82f8ed5cf
+      internalID: -415947866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_73
+      rect:
+        serializedVersion: 2
+        x: 4814
+        y: 1576
+        width: 373
+        height: 348
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efb426994fd484e4abf956767075e6d9
+      internalID: 1604273175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_74
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 1693
+        width: 573
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f84a31376c7ee6047bab1ab697f48d53
+      internalID: 1956005511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_75
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 1033
+        width: 293
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960f69e400cac624c81f8cba40aa1d21
+      internalID: 1026656701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_76
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 916
+        width: 389
+        height: 411
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ec994a8609e8749927024a9d6065d9
+      internalID: 1894697454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_77
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 916
+        width: 371
+        height: 411
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 354d04d05b48e9c4eb2d0aa092f14596
+      internalID: 464209021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_78
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 934
+        width: 371
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d94188ba7d68b4296a0dae83add5d6
+      internalID: -1561935315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_79
+      rect:
+        serializedVersion: 2
+        x: 3533
+        y: 934
+        width: 374
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf857d217088d114593fdd94397d4dff
+      internalID: -1893757695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_80
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 934
+        width: 371
+        height: 352
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e770af06ce5a23845b4ad1aa62a5e4ae
+      internalID: -1780579603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_81
+      rect:
+        serializedVersion: 2
+        x: 4814
+        y: 934
+        width: 373
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288da3bfe55282f43bff493a1877a700
+      internalID: 1532890522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTools XL- SnowHex_82
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 1056
+        width: 573
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f5fe48d5d5d5c4a9a551d54a970a35
+      internalID: -478056619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 6466e10b2b0806f4cbf6ee03ecdb135c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      AllTools XL- SnowHex_51: 2104782858
+      AllTools XL- SnowHex_30: -1873787502
+      AllTools XL- SnowHex_67: -145079912
+      AllTools XL- SnowHex_47: -1618062649
+      AllTools XL- SnowHex_52: 1251824057
+      AllTools XL- SnowHex_55: -2090115205
+      AllTools XL- SnowHex_76: 1894697454
+      AllTools XL- SnowHex_56: -1234078251
+      AllTools XL- SnowHex_20: -126516486
+      AllTools XL- SnowHex_29: -1967597530
+      AllTools XL- SnowHex_62: -1431969515
+      AllTools XL- SnowHex_65: 961220670
+      AllTools XL- SnowHex_73: 1604273175
+      AllTools XL- SnowHex_0: 1497790415
+      AllTools XL- SnowHex_69: -1884100375
+      AllTools XL- SnowHex_19: 429627395
+      AllTools XL- SnowHex_53: -1079030531
+      AllTools XL- SnowHex_68: -1814763202
+      AllTools XL- SnowHex_42: 186659038
+      AllTools XL- SnowHex_9: 470787887
+      AllTools XL- SnowHex_59: 160599093
+      AllTools XL- SnowHex_12: 451179038
+      AllTools XL- SnowHex_49: 206383463
+      AllTools XL- SnowHex_81: 1532890522
+      AllTools XL- SnowHex_2: -1464399140
+      AllTools XL- SnowHex_57: 1618085147
+      AllTools XL- SnowHex_66: -1659572182
+      AllTools XL- SnowHex_64: -581261611
+      AllTools XL- SnowHex_80: -1780579603
+      AllTools XL- SnowHex_70: -1255100937
+      AllTools XL- SnowHex_25: -1721634799
+      AllTools XL- SnowHex_28: 616638691
+      AllTools XL- SnowHex_39: -519752545
+      AllTools XL- SnowHex_78: -1561935315
+      AllTools XL- SnowHex_36: -634884837
+      AllTools XL- SnowHex_43: 419157984
+      AllTools XL- SnowHex_22: 1509286238
+      AllTools XL- SnowHex_40: 332592912
+      AllTools XL- SnowHex_82: -478056619
+      AllTools XL- SnowHex_27: -1000136866
+      AllTools XL- SnowHex_38: 1963443553
+      AllTools XL- SnowHex_50: 1566730422
+      AllTools XL- SnowHex_54: -1085388808
+      AllTools XL- SnowHex_79: -1893757695
+      AllTools XL- SnowHex_7: 1094749436
+      AllTools XL- SnowHex_77: 464209021
+      AllTools XL- SnowHex_44: 421425680
+      AllTools XL- SnowHex_46: 1413737527
+      AllTools XL- SnowHex_1: 64554525
+      AllTools XL- SnowHex_3: -2024657352
+      AllTools XL- SnowHex_17: -1100320543
+      AllTools XL- SnowHex_58: 2095245702
+      AllTools XL- SnowHex_18: -698195785
+      AllTools XL- SnowHex_33: 817168926
+      AllTools XL- SnowHex_23: 1854238659
+      AllTools XL- SnowHex_16: 412950332
+      AllTools XL- SnowHex_37: -2011432502
+      AllTools XL- SnowHex_21: -542561938
+      AllTools XL- SnowHex_45: 2001580923
+      AllTools XL- SnowHex_74: 1956005511
+      AllTools XL- SnowHex_75: 1026656701
+      AllTools XL- SnowHex_8: 261908706
+      AllTools XL- SnowHex_11: 812393542
+      AllTools XL- SnowHex_24: -1795944364
+      AllTools XL- SnowHex_5: 184275421
+      AllTools XL- SnowHex_60: 981181590
+      AllTools XL- SnowHex_34: -1900439215
+      AllTools XL- SnowHex_63: 1042695154
+      AllTools XL- SnowHex_72: -415947866
+      AllTools XL- SnowHex_31: 1455738882
+      AllTools XL- SnowHex_4: 744740433
+      AllTools XL- SnowHex_41: -1918059892
+      AllTools XL- SnowHex_13: 413745610
+      AllTools XL- SnowHex_14: -1755106632
+      AllTools XL- SnowHex_61: -2118888322
+      AllTools XL- SnowHex_35: 1448514654
+      AllTools XL- SnowHex_32: 401043678
+      AllTools XL- SnowHex_26: 372371135
+      AllTools XL- SnowHex_6: -2063065681
+      AllTools XL- SnowHex_48: 1172435653
+      AllTools XL- SnowHex_10: -1100675888
+      AllTools XL- SnowHex_15: -1443513784
+      AllTools XL- SnowHex_71: -1488613018
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

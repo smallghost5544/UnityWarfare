@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 500
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -191,7 +191,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   UnitSpecialty: 3
-  currentSearchRange: 0
+  ChooseUnitModel: 2
+  ObjType: 1
 --- !u!114 &397288806
 MonoBehaviour:
   m_ObjectHideFlags: 0

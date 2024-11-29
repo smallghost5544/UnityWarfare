@@ -12,8 +12,10 @@ public class UnitModel : ScriptableObject
     public float AttackRange = 1.5f;
     [Header("角色傷害")]
     public int AttackDamage = 10;
-    [Header("搜索範圍")]
-    public float SearchRange = 10f;
+    [Header("搜索敵方範圍")]
+    public float SearchRange = 10f; 
+    [Header("搜索中立物件範圍")]
+    public float SearchNetutralRange = 10f;
     [Header("角色移動速度")]
     public float moveSpeed = 1;
     [Header("角色最大發呆時間")]
@@ -32,4 +34,6 @@ public class UnitModel : ScriptableObject
     public int attackType = 0;
     [Header("攻擊動畫擊中時間")]
     public float attackAnimationHitTime = 0.3f;
+    [Header("通常行為動作間隔時間")]
+    public float usualActionIntervalTime = 0.3f;
 }

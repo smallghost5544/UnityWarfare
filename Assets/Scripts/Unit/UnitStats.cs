@@ -2,6 +2,14 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using static TreeEditor.TreeEditorHelper;
+
+public enum UnitModelType
+{
+    BasicMeleeUnitModel,
+    BasicRangeUnitModel,
+    ArcherTowerModel
+}
 
 public enum UnitState
 {
@@ -10,6 +18,7 @@ public enum UnitState
     Walk,
     DoSpecialty,
     Building,
+    Mining,
     Attack,
     Commannd,
     Dead
@@ -26,6 +35,7 @@ public class UnitStats : MonoBehaviour, IDamageable
     public UnitState CurrentState = UnitState.Idle;
     [Header("角色目前血量")]
     public int CurrentHP = 100;
+    public int CurrentHp { get => CurrentHP; set => throw new NotImplementedException(); }
     [Header("角色陣營序號")]
     //fix 自動填入陣營
     public int TeamNumer = 0;
@@ -38,16 +48,41 @@ public class UnitStats : MonoBehaviour, IDamageable
     //fixx 自動填入對方陣營
     public LayerMask enemyLayer;
     public LayerMask neutralObjectLayer;
-    Collider2D movementArea;
     public Action OnDeathAction;
     public Action OnHitAction;
+    [Header("選取單位的專長")]
     public SpecialtyType UnitSpecialty;
+    /// <summary>
+    /// 單位專長的實際功能
+    /// </summary>
     public ISpecialty chooseSpecialty;
-    public int CurrentHp { get => CurrentHP; set => throw new NotImplementedException(); }
-    public float currentSearchRange = 0;
-    float maxSearchRange => unitModel.SearchRange;
+    public UnitModelType ChooseUnitModel = 0;
+    public ObjectType ObjType;
+    //預設移動區域
+    Collider2D movementArea;
 
-
+    public UnitModel SetUnitModel()
+    {
+        switch (ChooseUnitModel)
+        {
+            case UnitModelType.BasicMeleeUnitModel:
+                unitModel = ScriptableManager.Instance.BasicMeleeModel;
+                return ScriptableManager.Instance.BasicMeleeModel;
+            case UnitModelType.BasicRangeUnitModel:
+                unitModel = ScriptableManager.Instance.BasicRangeModel;
+                return ScriptableManager.Instance.BasicRangeModel; ;
+            case UnitModelType.ArcherTowerModel:
+                unitModel = ScriptableManager.Instance.ArcherTowerModel;
+                return ScriptableManager.Instance.ArcherTowerModel;
+            default:
+                return null;
+        }
+    }
+    public IEnumerator DelaySetState(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetUnitState();
+    }
     public void SetUnitState(UnitState nextState = UnitState.Idle)
     {
         CurrentState = nextState;
@@ -68,6 +103,7 @@ public class UnitStats : MonoBehaviour, IDamageable
         movementArea = GameObject.Find("MoveSpaceCollider").gameObject.GetComponent<PolygonCollider2D>();
     }
 
+    float currentSearchRange = 0;
     /// <summary>
     /// 找尋敵方單位
     /// </summary>
@@ -83,6 +119,7 @@ public class UnitStats : MonoBehaviour, IDamageable
             else
                 currentSearchRange = distance;
         }
+        //會依據敵方標籤搜尋,不會隨便找中立物件
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentSearchRange, enemyLayer);
         float closestDistance = Mathf.Infinity;
         Collider2D current = null;
@@ -108,7 +145,7 @@ public class UnitStats : MonoBehaviour, IDamageable
         }
         else
         {
-            currentSearchRange = maxSearchRange;
+            currentSearchRange = unitModel.SearchRange;
         }
     }
     /// <summary>
@@ -151,11 +188,11 @@ public class UnitStats : MonoBehaviour, IDamageable
         if (Target != null)
             Target.GetHurt(UnityEngine.Random.Range(0, unitModel.AttackDamage));
     }
-    //fix(沒找到該物件)
+    
     public Collider2D FindNeutralObject()
     {
         neutralObjectLayer = LayerMask.GetMask("NeutralObject");
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, unitModel.SearchRange, neutralObjectLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, unitModel.SearchNetutralRange, neutralObjectLayer);
         float closestDistance = Mathf.Infinity;
         Collider2D current = null;
         foreach (Collider2D collider in hitColliders)
@@ -201,12 +238,17 @@ public class UnitStats : MonoBehaviour, IDamageable
         CurrentState = UnitState.Idle;
     }
 
-    public void SetSpecialty( )
+    public void SetSpecialty()
     {
         string loadSpecialtyString = UnitSpecialty.ToString();
         if (loadSpecialtyString == "Nothing")
             return;
-        //fix 要增加擴充性質 
-        chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/BuildTower").GetComponent<ISpecialty>();
+        //字串需要與讀取的物件完全相同
+        chooseSpecialty = Resources.Load<GameObject>("LoadSpecialtyPrefab/" + loadSpecialtyString).GetComponent<ISpecialty>();
+    }
+
+    public ObjectType GetObjectType()
+    {
+        return ObjType;
     }
 }

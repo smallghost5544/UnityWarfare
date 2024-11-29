@@ -1,9 +1,14 @@
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.UIElements;
+using static UnityEngine.UI.CanvasScaler;
 
 public class UnitController : MonoBehaviour
 {
@@ -22,13 +27,17 @@ public class UnitController : MonoBehaviour
             _targetPosition = unitStats.RoundToOneDecimal(value);
             float direction = _targetPosition.x - transform.position.x;
             if (Mathf.Abs(direction) > 0.1f)
+            {
                 unitView.ChangeToward(direction);
+                unitView.ChangeNameTagDirection(direction);
+            }
         }
     }
     private Vector3 lastPosition;
-    public string teamString;
+    public string UnitFormerName;
     public bool isArcher = false;
     public bool stayidle = false;
+    bool getResource = false;
     /// <summary>
     /// unit Scriptable
     /// </summary>
@@ -36,12 +45,13 @@ public class UnitController : MonoBehaviour
     /// <summary>
     /// unit 邏輯
     /// </summary>
-    public UnitStats unitStats;
+    private UnitStats unitStats;
     /// <summary>
     /// unit視圖
     /// </summary>
-    public UnitView unitView;
-
+    private UnitView unitView;
+    [Header("走到目標,發呆,專長,採資源")]
+    public List<int> ActionProb = new List<int>() { 1, 1, 1, 1 };
     private void Awake()
     {
         unitStats = GetComponent<UnitStats>();
@@ -56,6 +66,8 @@ public class UnitController : MonoBehaviour
         unitStats.FindMovementArea();
         unitStats.SetCurentHP();
         unitStats.SetSpecialty();
+        unitModel = unitStats.SetUnitModel();
+        unitView.ShowNameOnStart();
         unitView.GetAnimator();
         unitView.GetCollider();
         unitView.SaveOriginalWeapon();
@@ -63,7 +75,7 @@ public class UnitController : MonoBehaviour
         CancelInvoke();
         gameObject.layer = unitStats.TeamNumer;
         InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
-        float randomMoveTime = Random.Range(unitModel.moveTime * 0.95f, unitModel.moveTime);
+        float randomMoveTime = Random.Range(unitModel.moveTime, unitModel.moveTime);
         float randomStartTime = Random.Range(0, 1);
         //是否改成 做完一個動作接續下一個behavior
         InvokeRepeating("UnitBehavior", randomStartTime, randomMoveTime);
@@ -73,9 +85,11 @@ public class UnitController : MonoBehaviour
         StopAllCoroutines();
         CancelInvoke();
     }
-
+    public bool notAttack = false;
     void UnitBehavior()
     {
+        if (notAttack)
+            return;
         if (unitStats.CurrentState != UnitState.Idle)
             return;
         if (target == null)
@@ -85,6 +99,31 @@ public class UnitController : MonoBehaviour
         else if (target != null)
             WalkOrAttack();
     }
+
+    int ActionProbability()
+    {
+        int allProbCount = 0;
+        foreach (var prob in ActionProb)
+        {
+            allProbCount += prob;
+        }
+        int chooseAction = Random.Range(0, allProbCount + 1);
+        for (int i = 0; i < ActionProb.Count; i++)
+        {
+            if (ActionProb[i] == 0)
+                continue;
+
+            chooseAction -= ActionProb[i];
+            if (chooseAction <= 0)
+            {
+                return i;
+            }
+        }
+        //最大值
+        print(3);
+        return ActionProb.Count - 1;
+    }
+
     /// <summary>
     /// 角色行為
     /// </summary>
@@ -95,24 +134,25 @@ public class UnitController : MonoBehaviour
             return;
         //避免過快出去,重複觸發
         unitStats.SetUnitState(UnitState.Patrol);
-        int randomValue = Random.Range(1, 12);
-        switch (randomValue)
+
+        // int randomValue = Random.Range(1, maxRandom);
+        switch (ActionProbability())
         {
-            case int n when (n <= 8):
+            case 0:
                 //選擇新目標並前進
                 GetTargetAndWalk();
                 break;
-            case 9:
+            case 1:
                 //發呆
                 unitStats.DelayIdle();
                 break;
-            case 10:
+            case 2:
                 //執行專長
                 DoSpecialize();
                 break;
-            case 11:
+            case 3:
                 //尋找資源
-                GetResource();
+                StartCoroutine(GetResource());
                 break;
         }
     }
@@ -125,13 +165,22 @@ public class UnitController : MonoBehaviour
         StartCoroutine(WalkToTarget());
     }
 
-    public IEnumerator WalkToTarget(UnitState nextState = UnitState.Idle)
+    public IEnumerator WalkToTarget(UnitState nextState = UnitState.Idle, bool needAttack = true)
     {
         unitStats.SetUnitState(UnitState.Walk);
         unitView.StartWalkAnimation(true);
+
+        float stopThreshold = 0.5f; // 移動量的閾值
+        float checkInterval = 0.5f; // 檢查間隔
+        float elapsedTime = 0f; // 計時器
+        int stuckCount = 0; // 卡住計數器
+        int maxStuckCount = 10; // 卡住的最大次數
+        Vector2 lastPosition = transform.position; // 紀錄上一個位置
+
         while (unitStats.CurrentState == UnitState.Walk)
         {
             yield return null;
+            elapsedTime += Time.deltaTime;
             //WalkAnimationCheck();
             if (isArcher)
             {
@@ -155,12 +204,51 @@ public class UnitController : MonoBehaviour
                 unitView.StartWalkAnimation(false);
                 // 停止移動，並將位置設為精確的目標位置
                 transform.position = targetPosition;
-                if (target != null && unitStats.CurrentTime <= 0.1f)
+                if (target != null && unitStats.CurrentTime <= 0.1f && needAttack)
+                {
                     DirectAttack();
+                }
             }
+            if (CheckStuck(ref stuckCount, ref elapsedTime, checkInterval, stopThreshold, maxStuckCount, lastPosition, currentPosition))
+            {
+                unitStats.SetUnitState(UnitState.Idle);
+                unitView.StartWalkAnimation(false);
+                yield break; // 停止協程
+            }
+
+            lastPosition = currentPosition; // 更新最後位置
         }
     }
 
+    private bool CheckStuck
+        (ref int stuckCount, ref float elapsedTime,
+        float checkInterval, float stopThreshold,
+        int maxStuckCount, Vector2 lastPosition,
+        Vector2 currentPosition)
+    {
+        if (elapsedTime >= checkInterval)
+        {
+            float movedDistance = Vector2.Distance(lastPosition, currentPosition);
+
+            if (movedDistance < stopThreshold)
+            {
+                stuckCount++;
+                if (stuckCount >= maxStuckCount)
+                {
+                    Debug.Log("Unit stuck detected. Stopping movement.");
+                    return true; // 表示卡住了
+                }
+            }
+            else
+            {
+                stuckCount = 0; // 重置卡住計數器
+            }
+
+            elapsedTime = 0f; // 重置計時器
+        }
+
+        return false; // 未卡住
+    }
 
     //InvokeRepeat
     void UnitStatsSearch()
@@ -185,26 +273,38 @@ public class UnitController : MonoBehaviour
     {
         if (!(target as MonoBehaviour).gameObject.activeInHierarchy || (target.CurrentHp <= 0))
         {
-            unitStats.SetUnitState(UnitState.Idle);
             unitStats.Target = null;
+            targetPosition = transform.position;
+            unitStats.SetUnitState(UnitState.Idle);
+            //StartCoroutine(unitStats.DelaySetState(unitModel.moveTime));
             return;
         }
-        bool attackable = Vector3.Magnitude((target as MonoBehaviour).gameObject.transform.position - transform.position) > unitModel.AttackRange;
-        if (attackable)
+        bool notAttackable = Vector3.Magnitude((target as MonoBehaviour).gameObject.transform.position - transform.position) > unitModel.AttackRange;
+        if (notAttackable)
         {
             targetPosition = (target as MonoBehaviour).transform.position;
             StartCoroutine(WalkToTarget());
         }
-        else if (!attackable && target != null && (target as MonoBehaviour).gameObject.activeInHierarchy)
+        else if (target != null && (target as MonoBehaviour).gameObject.activeInHierarchy)
+        {
             DirectAttack();
+        }
     }
     void DirectAttack()
     {
-        unitView.AttackAnimation(unitModel.attackType, target);
+        unitView.AttackAnimation(unitModel.attackType, target, enemyLayer: unitStats.enemyLayer);
         unitStats.CurrentTime = unitModel.attackCD;
-        StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
+        if (isArcher)
+        {
+            unitStats.SetUnitState(UnitState.Attack);
+        }
+        else
+        {
+            StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
+        }
         StartCoroutine(nextAttackTime());
     }
+
     /// <summary>
     /// 戰鬥中下次行動時間
     /// </summary>
@@ -212,14 +312,14 @@ public class UnitController : MonoBehaviour
     {
         while (unitStats.CurrentState == UnitState.Attack)
         {
-            unitStats.CurrentTime -= 0.05f;
+            unitStats.CurrentTime -= 0.1f;
             if (unitStats.CurrentTime <= 0.01f)
             {
                 unitStats.CurrentTime = 0;
                 unitStats.SetUnitState(UnitState.Idle);
                 yield break;
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     /// <summary>
@@ -229,6 +329,8 @@ public class UnitController : MonoBehaviour
     {
         if (command == "LineUp")
         {
+            unitStats.SetUnitState(UnitState.Commannd);
+            unitStats.Target = null;
             StopAllCoroutines();
             //關閉collider避免碰撞改變陣行
             unitView.SetColldier(true);
@@ -251,23 +353,42 @@ public class UnitController : MonoBehaviour
             StartCoroutine(Die());
     }
 
+    Rigidbody2D rb;
     IEnumerator Die()
     {
         //預設為object pool 可以更加優化
         unitView.DieAnimation();
+        //若正在挖礦則解除動作與排除該對象
+        if (currentMine != null)
+        {
+            currentMine.MinerList.Remove(this);
+            currentMine.currentMinerCount--;
+        }
+        getResource = false;
+        //gamemanager相關
         var test = GameManager.Instance.GetComponentInChildren<TestButtonFunctions>();
         test.unitActions.Remove(this);
+
+        CancelInvoke();
+        StopCoroutine(WalkToTarget());
+
+        //view 相關
+        unitView.SetColldier(true);
+        rb = GetComponent<Rigidbody2D>();
+        rb.simulated = false;
+        unitView.BuildingSpecialtyFinishAction();
         var layer = GetComponentInChildren<SortingGroup>();
         layer.sortingOrder -= 1;
         gameObject.layer = 0;
+
         unitStats.SetUnitState(UnitState.Dead);
-        CancelInvoke();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(unitView.knockDownFadeTime);
         ResetDied();
     }
 
     void ResetDied()
     {
+        rb.simulated = true;
         unitStats.CurrentHP = unitStats.unitModel.MaxHP;
         unitStats.SetUnitState(UnitState.Idle);
         gameObject.transform.position = new Vector3(100, 100, 100);
@@ -277,7 +398,7 @@ public class UnitController : MonoBehaviour
         var layer = GetComponentInChildren<SortingGroup>();
         layer.sortingOrder = 5;
         //objectpool回收
-        ObjectPool.Instance.Return(teamString, gameObject);
+        ObjectPool.Instance.Return(UnitFormerName, gameObject);
     }
     /// <summary>
     /// 碰到敵方單位停止走動
@@ -291,28 +412,97 @@ public class UnitController : MonoBehaviour
             if (layer != gameObject.layer)
                 targetPosition = transform.position;
         }
-        if (collision.gameObject.CompareTag("Neutral"))
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (getResource == false)
+            return;
+        //碰到礦物後,會進行挖礦動作
+        if (collision.gameObject.CompareTag("Mine"))
         {
             targetPosition = transform.position;
+            //unitStats.SetUnitState(UnitState.Mining);
+        }
+        if (collision.gameObject.CompareTag("Chest"))
+        {
+            targetPosition = transform.position;
+            //unitStats.SetUnitState(UnitState.Attack);
         }
     }
 
-    private void GetResource()
+    bool archerSaving;
+    MineControl currentMine;
+    private IEnumerator GetResource()
     {
         var obj = unitStats.FindNeutralObject();
         if (obj == null || !obj.gameObject.activeInHierarchy)
         {
             unitStats.SetUnitState(UnitState.Idle);
-            return;
+            yield break;
         }
-
-        if (Vector3.Magnitude(obj.gameObject.transform.position - transform.position) > unitModel.AttackRange)
+        targetPosition = obj.transform.position;
+        var targetType = target.GetObjectType();
+        //挖礦執行以下功能
+        if (targetType == ObjectType.Mine)
         {
-            targetPosition = obj.transform.position;
-            StartCoroutine(WalkToTarget());
+            archerSaving = isArcher;
+            isArcher = false;
+            currentMine = target as MineControl;
+            //單一挖礦的最大人數限制
+            //fix正在挖礦的不會撤出
+            if (currentMine.currentMinerCount > currentMine.MaxMinerCount)
+            {
+                cancelMine();
+                yield break;
+            }
+            getResource = true;
+            currentMine.AddMinerInSpace(this);
+            yield return StartCoroutine(WalkToTarget(UnitState.Mining, needAttack: false));
+            yield return StartCoroutine(MineAction());
         }
-        else if (target != null)
-            DirectAttack();
+        else if (targetType == ObjectType.Chest)
+        {
+            //getresource如何解除為false
+            getResource = true;
+            WalkOrAttack();
+        }
+        else
+        {
+            unitStats.SetUnitState(UnitState.Idle);
+        }
+    }
+
+    IEnumerator MineAction()
+    {
+        while (unitStats.Target != null)
+        {
+            //希望靠近一點去進行挖礦動作
+            if (Vector2.Distance(transform.position, (target as MonoBehaviour).transform.position) > 0.2f)
+            {
+                yield return StartCoroutine(WalkToTarget(UnitState.Mining, needAttack: false));
+            }
+            unitView.MineAction();
+            yield return new WaitForSeconds(0.6f);
+            if (target != null)
+                target.GetHurt(unitModel.AttackDamage);
+            yield return new WaitForSeconds(unitModel.usualActionIntervalTime - 0.3f);
+            //fix CALL GAMANGER 給錢
+        }
+        cancelMine();
+        yield return null;
+    }
+
+
+    public void cancelMine()
+    {
+        if (unitStats.CurrentState == UnitState.Walk)
+            return;
+        isArcher = archerSaving;
+        getResource = false;
+        unitView.BuildingSpecialtyFinishAction();
+        //unitStats.SetUnitState(UnitState.Idle);
+        unitStats.Target = null;
+        GetTargetAndWalk();
     }
 
     //防守的一方可以用,fix目前表現不佳 走路會卡
@@ -332,13 +522,15 @@ public class UnitController : MonoBehaviour
         if (unitStats.chooseSpecialty != null)
         {
             //fix 要能隨著技能改為特定目標
-            StartCoroutine(unitStats.chooseSpecialty.DoSpecialize(gameObject.transform.position , 
-                                                                                                                   this.gameObject ,
-                                                                                                                    unitView , 
+            StartCoroutine(unitStats.chooseSpecialty.DoSpecialize(gameObject.transform.position,
+                                                                                                                   this.gameObject,
+                                                                                                                    unitView,
                                                                                                                     unitStats));
         }
         else
             unitStats.SetUnitState();
     }
+
+
 
 }

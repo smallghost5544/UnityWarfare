@@ -1,6 +1,8 @@
 
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Arrow : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class Arrow : MonoBehaviour
     public float exitTime = 1.5f;
     public bool CustomizedHeight = false;
     public ArrowType arrowType;
+    public int arrorDamage = 5;
+    public LayerMask enemyLayer;
+    public float arrowWidth = 1f;
     public void ShootArrow()
     {
         Vector2 velocity = CalculateInitialVelocity(shootPoint.position, target.position, shootTime, maxHeight);
@@ -48,7 +53,9 @@ public class Arrow : MonoBehaviour
             arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
             if (timeElapsed >= shootTime)
             {
+                //偵測是否擊中目標
                 arriveTarget = true;
+                HitEnemyCheck();
                 yield return new WaitForSeconds(exitTime);
             }
             yield return null;
@@ -61,4 +68,25 @@ public class Arrow : MonoBehaviour
     {
         arriveTarget = false;
     }
+
+    IDamageable Target;
+    private void HitEnemyCheck()
+    {
+        //會依據敵方標籤搜尋,不會隨便找中立物件
+        Collider2D hitColliders = Physics2D.OverlapCircle(transform.position, arrowWidth, enemyLayer);
+        if (hitColliders != null)
+        {
+            Target = hitColliders.GetComponent<IDamageable>();
+            if (Target != null)
+                Target.GetHurt(UnityEngine.Random.Range(arrorDamage/2, arrorDamage));
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, arrowWidth);
+    }
+
+
 }

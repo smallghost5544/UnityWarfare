@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -57,7 +58,7 @@ public class TestButtonFunctions : MonoBehaviour
                 Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
                 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
                 worldPosition.z = 0; // 確保生成位置在2D平面上
-                CreateUnitOnScreen(worldPosition, unitOne);
+                CreateUnitOnScreen(worldPosition, 0);
                 nextTriggerTime = Time.time + 1f / triggerRate;
             }
         }
@@ -68,7 +69,7 @@ public class TestButtonFunctions : MonoBehaviour
                 Vector3 mousePosition = Input.mousePosition; // 獲取滑鼠在螢幕上的座標
                 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // 轉換為世界座標
                 worldPosition.z = 0; // 確保生成位置在2D平面上
-                CreateUnitOnScreen(worldPosition, unitTwo);
+                CreateUnitOnScreen(worldPosition, 2);
                 nextTriggerTime = Time.time + 1f / triggerRate;
             }
         }
@@ -97,6 +98,8 @@ public class TestButtonFunctions : MonoBehaviour
         }
     }
 
+    //ObjectPool objectPool = ObjectPool.Instance;
+
     /// <summary>
     /// 新增單位
     /// </summary>
@@ -110,9 +113,13 @@ public class TestButtonFunctions : MonoBehaviour
     /// <summary>
     /// 按下該單位按鈕後,於螢幕上點擊位置可生成單位
     /// </summary>
-    public void CreateUnitOnScreen(Vector2 initPlace, GameObject unit)
+    public void CreateUnitOnScreen(Vector2 initPlace, int unitNumber)
     {
-        var obj = Instantiate(unit, initPlace, Quaternion.identity);
+        // var obj = Instantiate(unit, initPlace, Quaternion.identity);
+        //var obj = ObjectPool.Instance.Get("Team1", initPlace);
+        var objPool = ObjectPool.Instance;
+        var objData = GameManager.Instance.objectPoolData;
+        var obj = objPool.Get(objData.PreloadGameObjects[unitNumber].gameObject.name, initPlace);
         unitsOnStage.Add(obj);
         unitActions.Add(obj.GetComponent<UnitController>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;
@@ -161,7 +168,7 @@ public class TestButtonFunctions : MonoBehaviour
         {
             
             var view = obj.GetComponent<UnitView>();
-            view.BuildingSpecialtyFinishAction(needTrigger: true);
+            view.BuildingSpecialtyFinishAction();
         }
     }
 

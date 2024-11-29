@@ -1,8 +1,10 @@
 using System.Collections;
+using TMPro;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 using UnityEngine.Pool;
+using UnityEngine.TextCore.Text;
 
 public enum ArrowType
 {
@@ -24,9 +26,18 @@ public class UnitView : MonoBehaviour
     bool onHitRecover = false;
     ObjectPool objPool;
     public ArrowType arrowtype;
+    int arrowTypeNum = 0;       
     void Start()
     {
         // 收集所有 SpriteRenderer 的原始材質
+        if (arrowtype == ArrowType.unitArrow)
+        {
+            arrowTypeNum = 3;
+        }
+        else
+        {
+            arrowTypeNum = 4;
+        }
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         originalMaterials = new Material[spriteRenderers.Length];
         objPool = ObjectPool.Instance;
@@ -94,7 +105,7 @@ public class UnitView : MonoBehaviour
         }
         onHitRecover = false;
     }
-    float knockDownFadeTime = 1f;
+    public float knockDownFadeTime = 2f;
     private IEnumerator DestroyFlashEffect()
     {
         float elapsedTime = 0f; // 計時器
@@ -169,7 +180,7 @@ public class UnitView : MonoBehaviour
     {
         Instantiate(KnockDownAni, transform.position, Quaternion.identity);
     }
-    public void AttackAnimation(int attackType = 0, IDamageable target = null)
+    public void AttackAnimation(int attackType = 0, IDamageable target = null , int enemyLayer = 0)
     {
         //可改成switch
         //for melee unit
@@ -183,24 +194,29 @@ public class UnitView : MonoBehaviour
             if (target != null)
                 animator.Play("2_Attack_Bow");
             ChangeToward((target as MonoBehaviour).gameObject.transform.position.x - transform.position.x);
-            StartCoroutine(ShootArrow(target , 0.3f));
+            StartCoroutine(ShootArrow(target, 0.55f , enemyLayer = enemyLayer));
         }
         //for tower
         if (attackType == 2)
         {
             if (target != null)
-                StartCoroutine(ShootArrow(target , 0));
+                StartCoroutine(ShootArrow(target, 0 , enemyLayer = enemyLayer));
+        }
+        //for mine
+        if (attackType == 4)
+        {
+            animator.Play("2_Attack_Bow");
         }
     }
-
-    IEnumerator ShootArrow(IDamageable target , float delayTime)
+    IEnumerator ShootArrow(IDamageable target, float delayTime , int enemyLayer = 0)
     {
         yield return new WaitForSeconds(delayTime);
         //var arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        var arrow = objPool.Get(arrowtype.ToString(), transform.position);
+        var arrow = objPool.Get(GameManager.Instance.objectPoolData.PreloadGameObjects[arrowTypeNum].gameObject.name, transform.position);
         var arrowScript = arrow.GetComponent<Arrow>();
         arrowScript.target = (target as MonoBehaviour).transform;
         arrowScript.shootPoint = transform;
+        arrowScript.enemyLayer = enemyLayer;
         arrowScript.ShootArrow();
     }
 
@@ -232,6 +248,7 @@ public class UnitView : MonoBehaviour
     Sprite originalWeaponLeft = null;
     Sprite originalWeaponRight = null;
     Sprite BuildingWeapon;
+    Sprite MineWeapon;
     public void SaveOriginalWeapon()
     {
         // 確保 leftHand 和 rightHand 不為 null
@@ -241,6 +258,17 @@ public class UnitView : MonoBehaviour
         // 確保 originalWeaponLeft 和 originalWeaponRight 被正確保存
         originalWeaponLeft ??= leftHand?.sprite;
         originalWeaponRight ??= rightHand?.sprite;
+    }
+    public void MineAction()
+    {
+        if (MineWeapon == null)
+        {
+            MineWeapon = Resources.Load<Sprite>("Mine/MineTool");
+        }
+        // 更新武器顯示
+        leftHand.sprite = null;
+        rightHand.sprite = MineWeapon;
+        AttackAnimation(4); // 攻擊動畫
     }
     public void BuildingSpecialtyAction()
     {
@@ -280,6 +308,67 @@ public class UnitView : MonoBehaviour
         }
         return null;
     }
+
+
+    #region 名稱相關功能(測試用)
+    public bool InitName = true;
+    GameObject textObject;
+    TextMeshPro textMeshPro;
+    public void ShowNameOnStart()
+    {
+        if (InitName)
+        {
+            //solution
+            textObject = transform.Find("UnitText")?.gameObject;
+            if (textObject != null)
+                textMeshPro = textObject.GetComponent<TextMeshPro>();
+            if (textObject == null)
+            {
+                textObject = new GameObject("UnitText");
+                textObject.transform.SetParent(this.transform);
+                textMeshPro = textObject.AddComponent<TextMeshPro>();
+                textMeshPro.alignment = TextAlignmentOptions.Center;
+                textMeshPro.fontSize = 24;              // 字體大小
+                textMeshPro.color = UnityEngine.Color.white;              // 文字顏色
+            }
+
+            string formattedName = gameObject.name;
+            textMeshPro.text = formattedName;
+            textObject.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+            textMeshPro.GetComponent<Renderer>().sortingOrder = 10;
+            ChangeNameTagDirection(-1);
+            EnterObjName();
+        }
+    }
+
+    private void EnterObjName()
+    {
+        if (textObject == null)
+            return;
+        //gameObject.name = GameManager.Instance.unitNumber.ToString();
+        textMeshPro.text = gameObject.name;
+    }
+
+    public void ChangeNameTagDirection(float towardDiretion)
+    {
+        if (textObject == null)
+            return;
+        if (towardDiretion < 0)
+        {
+            Vector3 scale = textObject.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(1);
+            textObject.transform.localScale = scale;
+            textObject.transform.localPosition = new Vector3(-0.1f, 1, 0);
+        }
+        else if (towardDiretion > 0)
+        {
+            Vector3 scale = textObject.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(-1);
+            textObject.transform.localScale = scale;
+            textObject.transform.localPosition = new Vector3(-0.1f, 1, 0);
+        }
+    }
+    #endregion
 }
 
 

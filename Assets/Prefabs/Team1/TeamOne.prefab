@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6608692785700260383}
   - component: {fileID: 7893201185081325037}
   m_Layer: 6
-  m_Name: Team1
+  m_Name: TeamOne
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,11 +55,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2b4433cad28d64bafbb408eb71e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamString: Team1
+  UnitFormerName: TeamOne
   isArcher: 0
   stayidle: 0
-  unitStats: {fileID: 0}
-  unitView: {fileID: 0}
+  ActionProb: 0a0000000a0000000a0000000a000000
+  notAttack: 0
 --- !u!114 &3078738542229154796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +85,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   UnitSpecialty: 0
+  ChooseUnitModel: 0
+  ObjType: 0
 --- !u!50 &8149246074813598256
 Rigidbody2D:
   serializedVersion: 4
@@ -119,9 +121,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009, y: 0.3}
+  m_Offset: {x: 0, y: 0.35}
   serializedVersion: 2
-  m_Radius: 0.33
+  m_Radius: 0.45
 --- !u!222 &6608692785700260383
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -143,11 +145,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitFX: {fileID: 4296476322585853860, guid: 59d7e0b6baf297d44b4b454be95a5728, type: 3}
-  arrowPrefab: {fileID: 0}
   KnockDownAni: {fileID: 265852485206464225, guid: 4e7b7ad94c632a742aa890144193a95a, type: 3}
   spriteRenderers: []
   flashMaterial: {fileID: 2100000, guid: 53a0110aecd97f64e9f7f5c0d8f1e33b, type: 2}
   flashDuration: 2
+  arrowtype: 0
+  knockDownFadeTime: 2
+  InitName: 1
 --- !u!1001 &5469982338434928035
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -31,26 +31,33 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
     [SerializeField]
     //true代表有位置
     public List<PositionStatus> buildingPlaceLsit = new List<PositionStatus>();
-    float interval => specialtyModel.BuildingArcherTowerIntervalTime;
     public SpecialtyModel specialtyModel;
     public bool IsPassive { get => false; }
     public float specializeTime => specialtyModel.BuildingArcherTowerTime;
-    int currentTowerCount = 0;
-    int maxTowerCount = 0;
+    float interval;
+
 
     public void SetResource()
     {
         smallArrowTower = Resources.Load<GameObject>("Building/ArrowTower");
+        specialtyModel = ScriptableManager.Instance.AllSpecialtyModel;
+        interval = specialtyModel.BuildingArcherTowerIntervalTime;
+        CheckTowerBuildingPlace();
+    }
+
+    //fix領土變更時做此搜尋
+    public void CheckTowerBuildingPlace()
+    {
         var places = GameObject.FindGameObjectsWithTag("ArcherTowerPlace");
         //fix最大數量要在遊戲中改變
         foreach (var place in places)
         {
             PositionStatus pos = new PositionStatus(new Vector2(place.transform.position.x, place.transform.position.y), true);
             buildingPlaceLsit.Add(pos);
-            maxTowerCount++;
         }
     }
 
+    //由單位多次觸發,注意效能
     public IEnumerator DoSpecialize(Vector3 startPosition, GameObject gameObject, UnitView unitView, UnitStats unitStats)
     {
         //1.確定有空位及準備人物動畫
@@ -83,6 +90,8 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         else
         {
             buildingPlaceLsit[placeNumber].hasSpace = true;
+            EndSpecialityAction(unitView, unitStats);
+            yield break;
         }
 
         // 4.執行專長動作，並在時間結束後停止
@@ -115,7 +124,6 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
     {
         unitView.BuildingSpecialtyFinishAction();
         unitStats.SetUnitState(UnitState.Idle);
-        currentTowerCount++;
     }
 
     void CheckDirection(Vector3 targetPosition, UnitView unitView)
@@ -165,7 +173,6 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
             unitView.StartWalkAnimation(false);
             gameObject.transform.position = targetPosition;
             unitStats.CurrentState = UnitState.Building;
-            print("unitStateBuilding");
         }
     }
 
