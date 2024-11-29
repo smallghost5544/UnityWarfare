@@ -56,10 +56,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2b4433cad28d64bafbb408eb71e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamString: Team1
+  UnitFormerName: 
   isArcher: 0
   stayidle: 1
   ActionProb: 01000000010000000100000001000000
+  notAttack: 0
 --- !u!114 &3078738542229154796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +151,8 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: 53a0110aecd97f64e9f7f5c0d8f1e33b, type: 2}
   flashDuration: 2
   arrowtype: 0
+  knockDownFadeTime: 2
+  InitName: 1
 --- !u!114 &5299027242692279913
 MonoBehaviour:
   m_ObjectHideFlags: 0
