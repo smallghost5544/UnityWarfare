@@ -199,18 +199,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Left: 2852722183679507330
       Right: -7210306655108607268
+      Left: 2852722183679507330
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 188715
-  packageName: 2D Pixel Unit Maker - SPUM
-  packageVersion: 1.6.6
-  assetPath: Assets/SPUM/SPUM_Sprites/Packages/F_SR/3_Pant/F_SR_Pants.png
-  uploadId: 658239

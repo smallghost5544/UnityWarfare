@@ -57,29 +57,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_SpriteEdit.cs" />
-    <Compile Include="Assets\SPUM\Basic_Resources\Package\Editor\SPUM_AssetHelper.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_Eye.cs" />
-    <Compile Include="Assets\SPUM\Script\Editor\SPUM_PreviewMatchingListEditor.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Editor\GroundNoiseMapParametersDrawer.cs" />
-    <Compile Include="Assets\SPUM\Sample\Script\Editor\PlayerManagerEditor.cs" />
-    <Compile Include="Assets\SPUM\Script\Editor\SPUM_AssetExporterWithPreview.cs" />
     <Compile Include="Assets\Scripts\Editor\CustomInspector.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Editor\WaterNoiseMapParametersDrawer.cs" />
-    <Compile Include="Assets\SPUM\Script\Editor\SPUM_MatchingListEditor.cs" />
     <Compile Include="Assets\SPUM\Script\Editor\SPUM_Editor.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Restoring Sorting Layers)\Editor\SortingLayerRestoreManager.cs" />
     <Compile Include="Assets\Scripts\Editor\CustomCharacter.cs" />
     <Compile Include="Assets\Scripts\Editor\CustomMap.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Restoring Sorting Layers)\Editor\SortingLayerRestoreScriptableObject.cs" />
-    <Compile Include="Assets\SPUM\Script\Editor\SPUM_ManagerEditor.cs" />
     <Compile Include="Assets\codeandweb.com\Editor\SpritesheetImporter.cs" />
     <Compile Include="Assets\SPUM\Script\Editor\SPUM_SpriteEditor.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_Sync.cs" />
-    <Compile Include="Assets\SPUM\Script\Editor\SPUM_FolderStructureCloner.cs" />
     <Compile Include="Assets\codeandweb.com\Editor\UIImageSetSizeAndPivot.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Editor\MapGeneratorToolEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\CustomInspectorCharacter.cs" />
     <Compile Include="Assets\SPUM\Sprite_SheetExporter(Beta)\Script\Editor\SPUM_Exporter.cs" />
+    <Compile Include="Assets\SPUM\Sample\Script\Editor\PlayerManagerEditor.cs" />
+    <Compile Include="Assets\SPUM\Basic_Resources\Package\Editor\SPUM_AssetHelper.cs" />
+    <Compile Include="Assets\SPUM\Script\Editor\SPUM_ManagerEditor.cs" />
+    <Compile Include="Assets\SPUM\Script\Editor\SPUM_AssetExporterWithPreview.cs" />
+    <Compile Include="Assets\SPUM\Script\Editor\SPUM_FolderStructureCloner.cs" />
+    <Compile Include="Assets\SPUM\Script\Editor\SPUM_PreviewMatchingListEditor.cs" />
+    <Compile Include="Assets\SPUM\Script\Editor\SPUM_MatchingListEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\codeandweb.com\Editor\SettingsTexturePackerImporter.txt" />
