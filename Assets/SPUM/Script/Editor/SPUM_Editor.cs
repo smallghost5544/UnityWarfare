@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.ShortcutManagement;
 using System.IO;
 using System.Linq;
+using UnityEngine.XR;
 
 //[CustomEditor(typeof(SPUM_Manager))]
 //[CanEditMultipleObjects]
@@ -12,7 +14,6 @@ public class SPUM_Editor : Editor
     // Start is called before the first frame update
     public override void OnInspectorGUI()
     {
-        
         SPUM_Manager SPB = (SPUM_Manager)target;
 
         SPB.CheckVesionFile();

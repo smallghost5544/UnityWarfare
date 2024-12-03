@@ -163,7 +163,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.03125, y: 0.09375}
+  m_Size: {x: 0.09375, y: 0.09375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1180,7 +1180,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.03125, y: 0.09375}
+  m_Size: {x: 0.09375, y: 0.09375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3529,15 +3529,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 164
-  _spriteOBj: {fileID: 4010007391804738328}
   EditChk: 0
   _code: Unit003
   _anim: {fileID: 805398458814916696}
-  _horse: 0
-  _horseString: 
-  UnitTypeChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  UnitType: 
+  spumPackages: []
+  ImageElement: []
+  SpumAnimationData: []
+  IDLE_List: []
+  MOVE_List: []
+  ATTACK_List: []
+  DAMAGED_List: []
+  DEBUFF_List: []
+  DEATH_List: []
+  OTHER_List: []
 --- !u!1 &8166159142038672495
 GameObject:
   m_ObjectHideFlags: 0

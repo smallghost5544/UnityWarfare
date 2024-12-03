@@ -51,15 +51,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 164
-  _spriteOBj: {fileID: 3172100484385308377}
   EditChk: 0
   _code: Unit001
   _anim: {fileID: 1717343784051706314}
-  _horse: 0
-  _horseString: 
-  UnitTypeChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  UnitType: 
+  spumPackages: []
+  ImageElement: []
+  SpumAnimationData: []
+  IDLE_List: []
+  MOVE_List: []
+  ATTACK_List: []
+  DAMAGED_List: []
+  DEBUFF_List: []
+  DEATH_List: []
+  OTHER_List: []
 --- !u!1 &569023908529572112
 GameObject:
   m_ObjectHideFlags: 0

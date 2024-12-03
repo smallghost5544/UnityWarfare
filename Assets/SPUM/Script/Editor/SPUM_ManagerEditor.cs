@@ -15,6 +15,7 @@ public class SPUM_AnimationManagerEditor : Editor
 
         SPUM_Manager manager = (SPUM_Manager)target;
 
+
         if (GUILayout.Button("REGENERATE DATA & LOAD PACKAGES"))
         {
             var folders = AssetDatabase.GetSubFolders("Assets/SPUM/Resources/Addons");
