@@ -28,8 +28,8 @@ public class TestButtonFunctions : MonoBehaviour
     [Header("排隊最大行數")]
     public int rowMaxCount;
     public Transform StartPoint;
-    public Slider rowValueSlider;
-    public Slider columnValueSlider;
+    //public Slider rowValueSlider;
+    //public Slider columnValueSlider;
     public TextMeshProUGUI rowCount;
     public List<GameObject> unitsOnStage = new List<GameObject>();
     public List<UnitController> unitActions = new List<UnitController>();
@@ -44,8 +44,8 @@ public class TestButtonFunctions : MonoBehaviour
     private float nextTriggerTime = 0f;
     private void Update()
     {
-        RowValue = rowValueSlider.value;
-        ColumnValue = columnValueSlider.value;
+        //RowValue = rowValueSlider.value;
+        //ColumnValue = columnValueSlider.value;
         if (Input.GetKey(AddButton))
             AddUnit();
         if (Input.GetKey(DeleteButton))
@@ -119,7 +119,9 @@ public class TestButtonFunctions : MonoBehaviour
         //var obj = ObjectPool.Instance.Get("Team1", initPlace);
         var objPool = ObjectPool.Instance;
         var objData = GameManager.Instance.objectPoolData;
-        var obj = objPool.Get(objData.PreloadGameObjects[unitNumber].gameObject.name, initPlace);
+        //var obj = objPool.Get(objData.PreloadGameObjects[unitNumber].gameObject.name, initPlace);
+        var obj = GameManager.Instance.MainPlayerData.BasicUnit;
+        Instantiate(obj, new Vector3(initPlace.x , initPlace.y ,0) , Quaternion.identity);
         unitsOnStage.Add(obj);
         unitActions.Add(obj.GetComponent<UnitController>());
         onStageCountText.text = "Units on stage: " + unitsOnStage.Count;

@@ -17,12 +17,12 @@ TagManager:
   - 
   - Water
   - UI
-  - Team1
-  - Team2
+  - TeamRed
+  - TeamBlue
   - NeutralObject
   - Building
   - Destroy
-  - 
+  - TeamGreen
   - 
   - 
   - 

@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitStaticData", menuName = "ScriptableObjects/UnitStaticData", order = 1)]
 public class UnitModel : ScriptableObject
 {
-    [Header("角色陣營")]
-    public int Team;
     [Header("角色最大血量")]
     public int MaxHP = 100;
     [Header("攻擊距離")]

@@ -44,18 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517eccc8d9cd5ff4db23d9501581c697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RedArrowTower: {fileID: 3027391540148486894, guid: b03acf1e546c1e04388883a135857752, type: 3}
+  BlueArrowTower: {fileID: 508362508483586667, guid: 25412c0a0330e7c41a7b3ff485bfb021, type: 3}
+  GreenArrowTower: {fileID: 8793946764534451215, guid: c8d9b6b0c7fee6741b95aee094c5e8b4, type: 3}
   specialtyModel: {fileID: 11400000, guid: 58b69c94d1689424bb489a0ae8f44bff, type: 2}
-  BuildingPlace:
-  - {x: 0.37, y: -1.08}
-  - {x: 1.42, y: -2.16}
-  - {x: -0.75, y: 0.029999971}
-  - {x: -1.8199999, y: 0.78}
-  - {x: -2.79, y: 1.7599999}
-  - {x: 2.4299998, y: -3.25}
-  - {x: 3.35, y: -2.17}
-  - {x: -1.87, y: 2.84}
-  - {x: -0.90000004, y: 1.86}
-  - {x: 0.16999999, y: 1.11}
-  - {x: 2.34, y: -1.08}
-  - {x: 1.29, y: 0}
-  buildingProgress: 0

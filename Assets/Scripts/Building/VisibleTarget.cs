@@ -16,6 +16,7 @@ public class VisibleTarget : MonoBehaviour
         {
             Debug.LogError("物件缺少 Renderer 組件！");
         }
+        playerCamera = Camera.main;
     }
 
     void Update()

@@ -103,21 +103,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc974a0b6ab9c64dbd772887a1c6527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TeamColor: 7
+  ChooseUnitModel: 0
+  UnitSpecialty: 3
   CurrentState: 0
   CurrentHP: 100
-  TeamNumer: 7
   CurrentTime: 0
   unitModel: {fileID: 11400000, guid: 7ab7827ef63c7654d93acefd5ce9fb53, type: 2}
-  ShowTarget: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  neutralObjectLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  UnitSpecialty: 3
-  ChooseUnitModel: 0
   ObjType: 0
+  ShowTarget: {fileID: 0}
 --- !u!114 &1687248912676469605
 MonoBehaviour:
   m_ObjectHideFlags: 0

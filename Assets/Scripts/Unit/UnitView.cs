@@ -9,24 +9,24 @@ using UnityEngine.TextCore.Text;
 public enum ArrowType
 {
     unitArrow,
-    towerArrow
+    towerArrow,
+    castleArrow
 }
 public class UnitView : MonoBehaviour
 {
-    Animator animator;
-    Collider2D characterCollider = null;
-    [SerializeField]
-    GameObject hitFX;
+    public ArrowType arrowtype;
     //public GameObject arrowPrefab;
     public GameObject KnockDownAni;
     public SpriteRenderer[] spriteRenderers; // 存儲角色上所有的 SpriteRenderer
     public Material flashMaterial; // 閃爍時使用的紅色材質
     public float flashDuration = 0.1f; // 閃爍持續時間
     private Material[] originalMaterials; // 存儲原始材質
+
     bool onHitRecover = false;
     ObjectPool objPool;
-    public ArrowType arrowtype;
-    int arrowTypeNum = 0;       
+    Animator animator;
+    int arrowTypeNum = 0;
+    Collider2D characterCollider = null;
     void Start()
     {
         // 收集所有 SpriteRenderer 的原始材質
@@ -34,9 +34,14 @@ public class UnitView : MonoBehaviour
         {
             arrowTypeNum = 3;
         }
-        else
+        else if (arrowtype == ArrowType.towerArrow)
         {
             arrowTypeNum = 4;
+        }
+        //castle arrow
+        else
+        {
+            arrowTypeNum = 5;
         }
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         originalMaterials = new Material[spriteRenderers.Length];
@@ -135,20 +140,17 @@ public class UnitView : MonoBehaviour
     /// 更改角色面向
     /// </summary>
     /// <param name="towardDiretion"></param>
-    public void ChangeToward(float towardDiretion)
+    public void ChangeToward(float towardDirection)
     {
-        if (towardDiretion < 0)
-        {
-            Vector3 scale = gameObject.transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(1);
-            gameObject.transform.localScale = scale;
-        }
-        else if (towardDiretion > 0)
-        {
-            Vector3 scale = gameObject.transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(-1);
-            gameObject.transform.localScale = scale;
-        }
+        print("channge");
+        // 獲取當前物件的 localScale
+        Vector3 scale = gameObject.transform.localScale;
+
+        // 設置 X 軸的縮放值，面向左為負，面向右為正
+        scale.x = Mathf.Abs(scale.x) * (towardDirection < 0 ? 1 : -1);
+
+        // 更新物件的 localScale
+        gameObject.transform.localScale = scale;
     }
     public void GetAnimator()
     {
@@ -158,7 +160,7 @@ public class UnitView : MonoBehaviour
     }
     public void GetCollider()
     {
-        characterCollider = gameObject.GetComponent<CircleCollider2D>();
+        characterCollider = gameObject.GetComponent<Collider2D>();
     }
     public void SetColldier(bool setting)
     {
@@ -171,7 +173,8 @@ public class UnitView : MonoBehaviour
 
     public void DieAnimation()
     {
-        animator.SetTrigger("Death");
+        if (animator != null)
+            animator.SetTrigger("Death");
         characterCollider.isTrigger = true;
         StartCoroutine(DestroyFlashEffect());
         // Invoke("InitKnockDownAnimation", 0.5f);
@@ -180,7 +183,7 @@ public class UnitView : MonoBehaviour
     {
         Instantiate(KnockDownAni, transform.position, Quaternion.identity);
     }
-    public void AttackAnimation(int attackType = 0, IDamageable target = null , int enemyLayer = 0)
+    public void AttackAnimation(int attackType = 0, IDamageable target = null, int enemyLayer = 0)
     {
         //可改成switch
         //for melee unit
@@ -194,13 +197,13 @@ public class UnitView : MonoBehaviour
             if (target != null)
                 animator.Play("2_Attack_Bow");
             ChangeToward((target as MonoBehaviour).gameObject.transform.position.x - transform.position.x);
-            StartCoroutine(ShootArrow(target, 0.55f , enemyLayer = enemyLayer));
+            StartCoroutine(ShootArrow(target, 0.55f, enemyLayer = enemyLayer));
         }
         //for tower
         if (attackType == 2)
         {
             if (target != null)
-                StartCoroutine(ShootArrow(target, 0 , enemyLayer = enemyLayer));
+                StartCoroutine(ShootArrow(target, 0, enemyLayer = enemyLayer));
         }
         //for mine
         if (attackType == 4)
@@ -208,7 +211,7 @@ public class UnitView : MonoBehaviour
             animator.Play("2_Attack_Bow");
         }
     }
-    IEnumerator ShootArrow(IDamageable target, float delayTime , int enemyLayer = 0)
+    IEnumerator ShootArrow(IDamageable target, float delayTime, int enemyLayer = 0)
     {
         yield return new WaitForSeconds(delayTime);
         //var arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
@@ -240,7 +243,7 @@ public class UnitView : MonoBehaviour
     IEnumerator DelayFX(float time, Vector3 effectPosition)
     {
         yield return new WaitForSeconds(time);
-        Instantiate(hitFX, effectPosition, Quaternion.identity);
+        //Instantiate(hitFX, effectPosition, Quaternion.identity);
     }
 
     SpriteRenderer leftHand = null;
@@ -367,6 +370,18 @@ public class UnitView : MonoBehaviour
             textObject.transform.localScale = scale;
             textObject.transform.localPosition = new Vector3(-0.1f, 1, 0);
         }
+    }
+
+    public bool ShowAttackRange = false;
+    public float attackRange = 5;
+    public Color gizmoColor = Color.red; // 攻擊範圍顏色
+
+    void OnDrawGizmos()
+    {
+        if (ShowAttackRange == false)
+            return;
+        Gizmos.color = gizmoColor;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
     #endregion
 }

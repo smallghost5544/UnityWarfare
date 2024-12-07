@@ -5,15 +5,24 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using static BuildingTowerSpecialty;
 
+
+public enum BuildingType
+{
+    ArcherTower,
+    Castle
+}
+
 public class BuildingController : MonoBehaviour
 {
     [SerializeField]
     private IDamageable target { get => unitStats.Target; }
-    public string teamString;
     private UnitModel unitModel;
     private UnitStats unitStats;
     private UnitView unitView;
-     SpecialtyModel specialtyModel;
+    SpecialtyModel specialtyModel;
+    public bool NeedBuildingFX = true;
+    [Header("選擇建築物類型")]
+    public BuildingType BuildingTypeChoose;
     private void Awake()
     {
         unitStats = GetComponent<UnitStats>();
@@ -24,21 +33,27 @@ public class BuildingController : MonoBehaviour
         //specialtyModel  = Resources.Load<SpecialtyModel>("ScriptableObjectData/SpecialtyData");
         specialtyModel = ScriptableManager.Instance.AllSpecialtyModel;
     }
+
     private void OnEnable()
     {
-        unitStats.FindMovementArea();
+        unitModel = unitStats.SetUnitModel();
         unitStats.SetCurentHP();
+        unitStats.SetAllLayer();
         unitStats.SetUnitState(UnitState.Building);
         unitView.GetAnimator();
         unitView.GetCollider();
         StopAllCoroutines();
         CancelInvoke();
-        gameObject.layer = unitStats.TeamNumer;
-        StartCoroutine(BuildingScalingFX(specialtyModel.BuildingArcherTowerTime , specialtyModel.BuildingArcherTowerIntervalTime));
+        gameObject.layer = (int)unitStats.TeamColor;
+        if (NeedBuildingFX)
+            StartCoroutine(BuildingScalingFX(specialtyModel.BuildingArcherTowerTime, specialtyModel.BuildingArcherTowerIntervalTime));
         InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
         //是否改成 做完一個動作接續下一個behavior
         InvokeRepeating("UnitBehavior", 0, unitModel.attackCD);
-        Invoke(nameof(FinishBuilding), specialtyModel.BuildingArcherTowerTime);
+        if (NeedBuildingFX)
+            Invoke(nameof(FinishBuilding), specialtyModel.BuildingArcherTowerTime);
+        else
+            FinishBuilding();
     }
     private void OnDisable()
     {
@@ -93,7 +108,7 @@ public class BuildingController : MonoBehaviour
 
     void DirectAttack()
     {
-        unitView.AttackAnimation(unitModel.attackType, target , enemyLayer: unitStats.enemyLayer);
+        unitView.AttackAnimation(unitModel.attackType, target, enemyLayer: unitStats.enemyLayer);
         unitStats.CurrentTime = unitModel.attackCD;
         unitStats.SetUnitState(UnitState.Attack);
         //StartCoroutine(unitStats.Attack(unitModel.attackAnimationHitTime));
@@ -175,7 +190,7 @@ public class BuildingController : MonoBehaviour
     /// <param name="fullTime"></param>
     /// <param name="intervalTime"></param>
     /// <returns></returns>
-    IEnumerator BuildingScalingFX(float fullTime , float intervalTime)
+    IEnumerator BuildingScalingFX(float fullTime, float intervalTime)
     {
         var originalScale = gameObject.transform.localScale;
         var newScale = originalScale;
@@ -192,7 +207,7 @@ public class BuildingController : MonoBehaviour
         gameObject.transform.position = originTransform;
         while (fullTime >= 0)
         {
-            yield return new WaitForSeconds(intervalTime- recoverTime);
+            yield return new WaitForSeconds(intervalTime - recoverTime);
             gameObject.transform.localScale = newScale;
             gameObject.transform.position = changeTransform;
             yield return new WaitForSeconds(recoverTime);

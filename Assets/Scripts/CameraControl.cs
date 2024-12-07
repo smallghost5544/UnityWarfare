@@ -9,18 +9,19 @@ public class CameraControl : MonoBehaviour
 {
     public Camera myCamera;
     public Slider slider;
-    public float dragSpeed = 0.02f; 
+    public float dragSpeed = 0.02f;
 
     private Vector3 dragOrigin;
     void Start()
     {
-        myCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>() ;
+        myCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
-   
+
     void Update()
     {
-        myCamera.orthographicSize = slider.value;
+        if (myCamera != null && slider != null)
+            myCamera.orthographicSize = slider.value;
         MoveCamera();
     }
 

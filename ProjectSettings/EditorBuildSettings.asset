@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ChooseColorScene.unity
+    guid: 4f40270c99c7e634c9e6714e6e050c98
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 437bd582fb5c14d4db5f8390732ad88a
   m_configObjects: {}

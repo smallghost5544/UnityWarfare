@@ -131,6 +131,7 @@
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Space  Orientation\ISpaceOrientation.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_ConvertView.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\LocationModel.cs" />
+    <Compile Include="Assets\Scripts\System\StartSceneController.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Output Models\Vector2Int.cs" />
     <Compile Include="Assets\Scripts\MapTest\SimpleUnitControl.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Model Validation\ValidationError.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Assets\SPUM\Script\Data\SpumAnimationClip.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
+    <Compile Include="Assets\Scripts\System\PlayerGameData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -11,7 +11,7 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         public Vector2 position;
         public bool hasSpace = true;
         public BuildingController builldController;
-        public PositionStatus(Vector2 position, bool status)
+        public PositionStatus(Vector3 position, bool status)
         {
             this.position = position;
             this.hasSpace = status;
@@ -27,7 +27,11 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
     }
 
     [SerializeField]
-    GameObject smallArrowTower = null;
+    GameObject RedArrowTower = null;
+    [SerializeField]
+    GameObject BlueArrowTower = null;
+    [SerializeField]
+    GameObject GreenArrowTower = null;
     [SerializeField]
     //true代表有位置
     public List<PositionStatus> buildingPlaceLsit = new List<PositionStatus>();
@@ -39,7 +43,7 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
 
     public void SetResource()
     {
-        smallArrowTower = Resources.Load<GameObject>("Building/ArrowTower");
+        //smallArrowTower = Resources.Load<GameObject>("Building/ArrowTower");
         specialtyModel = ScriptableManager.Instance.AllSpecialtyModel;
         interval = specialtyModel.BuildingArcherTowerIntervalTime;
         CheckTowerBuildingPlace();
@@ -52,7 +56,7 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         //fix最大數量要在遊戲中改變
         foreach (var place in places)
         {
-            PositionStatus pos = new PositionStatus(new Vector2(place.transform.position.x, place.transform.position.y), true);
+            PositionStatus pos = new PositionStatus(new Vector3(place.transform.position.x, place.transform.position.y , transform.position.z), true);
             buildingPlaceLsit.Add(pos);
         }
     }
@@ -70,10 +74,11 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         var place = buildingPlaceLsit[placeNumber].position;
         buildingPlaceLsit[placeNumber].hasSpace = false;
         float elapsed = 0f;
-        CheckDirection(place, unitView);
         unitStats.SetUnitState(UnitState.DoSpecialty);
         unitView.StartWalkAnimation(true);
-
+        //設立targetPosition避免面向錯誤
+        var unit = gameObject.GetComponent<UnitController>();
+        unit.targetPosition = place;
         //2.行走至建築目標位置
         while (unitStats.CurrentState == UnitState.DoSpecialty)
         {
@@ -84,6 +89,14 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         //3.生成建築物，只生成一次
         if (unitStats.CurrentState == UnitState.Building)
         {
+            GameObject smallArrowTower = BlueArrowTower;
+            if (unitStats.TeamColor == UnitColor.Blue)
+                 smallArrowTower = BlueArrowTower;
+            if (unitStats.TeamColor == UnitColor.Red)
+                smallArrowTower = RedArrowTower;
+            if (unitStats.TeamColor == UnitColor.Green)
+                smallArrowTower = GreenArrowTower;
+
             var buildingController = Instantiate(smallArrowTower, place + new Vector2(0, -0.4f), Quaternion.identity).GetComponent<BuildingController>();
             buildingPlaceLsit[placeNumber].builldController = buildingController;
         }
@@ -126,13 +139,6 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         unitStats.SetUnitState(UnitState.Idle);
     }
 
-    void CheckDirection(Vector3 targetPosition, UnitView unitView)
-    {
-        float direction = targetPosition.x - unitView.transform.position.x;
-        if (Mathf.Abs(direction) > 0.1f)
-            unitView.ChangeToward(direction);
-    }
-
 
     int CheckBuildingPlace()
     {
@@ -163,8 +169,10 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
 
     private void MoveTowardsTarget(GameObject gameObject, UnitStats unitStats, Vector2 targetPosition, UnitView unitView)
     {
+        //CheckDirection(targetPosition, unitView);
         Vector2 currentPosition = gameObject.transform.position;
         Vector2 direction = (targetPosition - currentPosition).normalized;
+        //unitView.ChangeToward(direction.magnitude);
         Vector2 newPosition = currentPosition + direction * unitStats.unitModel.moveSpeed * Time.deltaTime;
         gameObject.transform.position = newPosition;
 

@@ -31,7 +31,7 @@ public class ScriptableManager : MonoBehaviour
     public UnitModel ArcherTowerModel;
     public UnitModel BasicMeleeModel;
     public UnitModel BasicRangeModel;
-
+    public UnitModel CastleModel;
     private void Awake()
     {
         if (_instance == null)

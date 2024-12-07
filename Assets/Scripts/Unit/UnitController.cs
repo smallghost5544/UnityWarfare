@@ -34,6 +34,7 @@ public class UnitController : MonoBehaviour
         }
     }
     private Vector3 lastPosition;
+    [Header("影響物件池生成回收(不同單位不重複)")]
     public string UnitFormerName;
     public bool isArcher = false;
     public bool stayidle = false;
@@ -63,9 +64,10 @@ public class UnitController : MonoBehaviour
     }
     private void OnEnable()
     {
-        unitStats.FindMovementArea();
+        //unitStats.FindMovementArea();
         unitStats.SetCurentHP();
         unitStats.SetSpecialty();
+        unitStats.SetAllLayer();
         unitModel = unitStats.SetUnitModel();
         unitView.ShowNameOnStart();
         unitView.GetAnimator();
@@ -73,12 +75,12 @@ public class UnitController : MonoBehaviour
         unitView.SaveOriginalWeapon();
         StopAllCoroutines();
         CancelInvoke();
-        gameObject.layer = unitStats.TeamNumer;
-        InvokeRepeating("UnitStatsSearch", 0f, unitModel.searchTime);
+        gameObject.layer = (int)unitStats.TeamColor;
+        InvokeRepeating(nameof(UnitStatsSearch), 0f, unitModel.searchTime);
         float randomMoveTime = Random.Range(unitModel.moveTime, unitModel.moveTime);
         float randomStartTime = Random.Range(0, 1);
         //是否改成 做完一個動作接續下一個behavior
-        InvokeRepeating("UnitBehavior", randomStartTime, randomMoveTime);
+        InvokeRepeating(nameof(UnitBehavior), randomStartTime, randomMoveTime);
     }
     private void OnDisable()
     {

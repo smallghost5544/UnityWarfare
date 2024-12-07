@@ -3,12 +3,14 @@ using System;
 using UnityEngine;
 using System.Collections;
 using static TreeEditor.TreeEditorHelper;
+using UnityEditor;
 
 public enum UnitModelType
 {
     BasicMeleeUnitModel,
     BasicRangeUnitModel,
-    ArcherTowerModel
+    ArcherTowerModel,
+    CastleModel
 }
 
 public enum UnitState
@@ -32,34 +34,38 @@ public enum SpecialtyType
 }
 public class UnitStats : MonoBehaviour, IDamageable
 {
+    [Header("角色陣營序號(請選填)")]
+    public UnitColor TeamColor;
+    [Header("角色數值表(請選填)")]
+    public UnitModelType ChooseUnitModel = 0;
+    /// <summary>
+    /// 單位專長的實際功能
+    /// </summary>
+    [Header("選取單位的專長(請單位選填)")]
+    public SpecialtyType UnitSpecialty;
+    [Header("角色動作(起始可選填)")]
     public UnitState CurrentState = UnitState.Idle;
-    [Header("角色目前血量")]
+    [Header("角色目前血量(自動輸入)")]
     public int CurrentHP = 100;
     public int CurrentHp { get => CurrentHP; set => throw new NotImplementedException(); }
-    [Header("角色陣營序號")]
-    //fix 自動填入陣營
-    public int TeamNumer = 0;
     public float CurrentTime = 0;
     public UnitModel unitModel;
     [Header("目前鎖定敵方")]
     public IDamageable Target;
-    public UnitStats ShowTarget;
-    [Header("敵方層級")]
-    //fixx 自動填入對方陣營
+    [Header("敵方層級(自動輸入)")]
     public LayerMask enemyLayer;
-    public LayerMask neutralObjectLayer;
+    public ISpecialty chooseSpecialty;
+    [Header("物資用 單位建築不適用")]
+    public ObjectType ObjType;
+
+
+    //for testing
+    public UnitStats ShowTarget;
     public Action OnDeathAction;
     public Action OnHitAction;
-    [Header("選取單位的專長")]
-    public SpecialtyType UnitSpecialty;
-    /// <summary>
-    /// 單位專長的實際功能
-    /// </summary>
-    public ISpecialty chooseSpecialty;
-    public UnitModelType ChooseUnitModel = 0;
-    public ObjectType ObjType;
     //預設移動區域
-    Collider2D movementArea;
+    public Collider2D movementArea;
+    LayerMask neutralObjectLayer = 8;
 
     public UnitModel SetUnitModel()
     {
@@ -74,6 +80,9 @@ public class UnitStats : MonoBehaviour, IDamageable
             case UnitModelType.ArcherTowerModel:
                 unitModel = ScriptableManager.Instance.ArcherTowerModel;
                 return ScriptableManager.Instance.ArcherTowerModel;
+            case UnitModelType.CastleModel:
+                unitModel = ScriptableManager.Instance.CastleModel;
+                return ScriptableManager.Instance.CastleModel;
             default:
                 return null;
         }
@@ -95,6 +104,12 @@ public class UnitStats : MonoBehaviour, IDamageable
     {
         CurrentHP = unitModel.MaxHP;
     }
+
+    public void SetAllLayer()
+    {
+        enemyLayer = LayerMask.GetMask("TeamRed", "TeamBlue" , "TeamGreen");
+        enemyLayer &= ~(1 << (int)TeamColor);
+    }
     /// <summary>
     /// 找出可移動區域物件
     /// </summary>
@@ -103,49 +118,79 @@ public class UnitStats : MonoBehaviour, IDamageable
         movementArea = GameObject.Find("MoveSpaceCollider").gameObject.GetComponent<PolygonCollider2D>();
     }
 
-    float currentSearchRange = 0;
     /// <summary>
     /// 找尋敵方單位
     /// </summary>
-    public void SearchEnemy()
+    //public void SearchEnemy()
+    //{
+    //    if (Target != null)
+    //    {
+    //        MonoBehaviour targetMonoBehaviour = Target as MonoBehaviour;
+    //        var distance = Vector2.Distance(transform.position, targetMonoBehaviour.transform.position);
+    //        if (distance <= unitModel.AttackRange)
+    //            // 如果當前目標仍在範圍內，則不進行新的搜尋
+    //            return;
+    //        else
+    //            currentSearchRange = distance;
+    //    }
+    //    //會依據敵方標籤搜尋,不會隨便找中立物件
+    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentSearchRange, enemyLayer);
+    //    float closestDistance = Mathf.Infinity;
+    //    Collider2D current = null;
+    //    foreach (Collider2D collider in hitColliders)
+    //    {
+    //        float distance = (transform.position - collider.transform.position).sqrMagnitude;
+    //        //要節省效能時再重新開啟
+    //        //if (distance < unitModel.AttackRange)
+    //        //{
+    //        //    Enemy = collider.GetComponent<UnitController>();
+    //        //    break;
+    //        //}
+    //        if (distance < closestDistance)
+    //        {
+    //            closestDistance = distance;
+    //            current = collider;
+    //        }
+    //    }
+    //    if (current != null)
+    //    {
+    //        Target = current.GetComponent<IDamageable>();
+    //        ShowTarget = Target as UnitStats;
+    //    }
+    //    else
+    //    {
+    //        currentSearchRange = unitModel.SearchRange;
+    //    }
+    //}
+
+    //限定單次可搜尋目標上限
+    private Collider2D[] results = new Collider2D[10];
+    public void  SearchEnemy()
     {
-        if (Target != null)
+        if (Target!= null && Target.CurrentHp <= 0)
         {
-            MonoBehaviour targetMonoBehaviour = Target as MonoBehaviour;
-            var distance = Vector2.Distance(transform.position, targetMonoBehaviour.transform.position);
-            if (distance <= unitModel.AttackRange)
-                // 如果當前目標仍在範圍內，則不進行新的搜尋
-                return;
-            else
-                currentSearchRange = distance;
+            Target = null;
         }
-        //會依據敵方標籤搜尋,不會隨便找中立物件
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentSearchRange, enemyLayer);
-        float closestDistance = Mathf.Infinity;
-        Collider2D current = null;
-        foreach (Collider2D collider in hitColliders)
+        int count = Physics2D.OverlapCircleNonAlloc(transform.position, unitModel.SearchRange, results, enemyLayer);
+
+        Collider2D nearestEnemy = null;
+        float minDistance = float.MaxValue;
+
+        for (int i = 0; i < count; i++)
         {
-            float distance = (transform.position - collider.transform.position).sqrMagnitude;
-            //要節省效能時再重新開啟
-            //if (distance < unitModel.AttackRange)
-            //{
-            //    Enemy = collider.GetComponent<UnitController>();
-            //    break;
-            //}
-            if (distance < closestDistance)
+            Collider2D enemy = results[i];
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+
+            if (distance < minDistance)
             {
-                closestDistance = distance;
-                current = collider;
+                minDistance = distance;
+                nearestEnemy = enemy;
             }
         }
-        if (current != null)
+        if (nearestEnemy != null)
         {
-            Target = current.GetComponent<IDamageable>();
+            Target = nearestEnemy.GetComponent<IDamageable>();
             ShowTarget = Target as UnitStats;
-        }
-        else
-        {
-            currentSearchRange = unitModel.SearchRange;
         }
     }
     /// <summary>
@@ -187,8 +232,12 @@ public class UnitStats : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(hitAnimationStartTime);
         if (Target != null)
             Target.GetHurt(UnityEngine.Random.Range(0, unitModel.AttackDamage));
+        //if (Target.CurrentHp <= 0)
+        //{
+        //    Target = null;
+        //}
     }
-    
+
     public Collider2D FindNeutralObject()
     {
         neutralObjectLayer = LayerMask.GetMask("NeutralObject");

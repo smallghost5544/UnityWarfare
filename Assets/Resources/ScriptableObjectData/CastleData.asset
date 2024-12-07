@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abda61d65bdaba4aa00a07cebcb57fd, type: 3}
   m_Name: CastleData
   m_EditorClassIdentifier: 
-  Team: 0
   MaxHP: 200
-  AttackRange: 15
-  AttackDamage: 20
+  AttackRange: 10
+  AttackDamage: 5
   SearchRange: 15
-  SearchNetutralRange: 10
+  SearchNetutralRange: 0
   moveSpeed: 0
   randomIdleTime: 0
   moveThreshold: 0
   moveTime: 0.1
-  attackCD: 0.3
+  attackCD: 0.8
   currentTime: 0
-  searchTime: 0.3
+  searchTime: 0.8
   attackType: 2
-  attackAnimationHitTime: 1.5
-  usualActionIntervalTime: 0.3
+  attackAnimationHitTime: 0
+  usualActionIntervalTime: 0
