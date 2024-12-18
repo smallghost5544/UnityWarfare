@@ -255,7 +255,7 @@ public class UnitController : MonoBehaviour
     //InvokeRepeat
     void UnitStatsSearch()
     {
-        if (unitStats.CurrentState == UnitState.Building)
+        if (unitStats.CurrentState == UnitState.DoSpecialty)
             return;
         //還沒走到目標前面 目標已消失要換目標
         if (unitStats.Target != null && (target as MonoBehaviour).gameObject.activeSelf == false)

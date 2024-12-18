@@ -142,7 +142,6 @@ public class UnitView : MonoBehaviour
     /// <param name="towardDiretion"></param>
     public void ChangeToward(float towardDirection)
     {
-        print("channge");
         // 獲取當前物件的 localScale
         Vector3 scale = gameObject.transform.localScale;
 
