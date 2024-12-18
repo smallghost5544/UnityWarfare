@@ -79,6 +79,7 @@
     <Compile Include="Assets\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationController.cs" />
+    <Compile Include="Assets\Scripts\System\PlayerGameData.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Data Models\Input Models\GroundNoiseMapParametersModel.cs" />
     <Compile Include="Assets\Scripts\PerformanceTest.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Graphical Map Generation\Graphical Type\GraphicalGenerationType.cs" />
@@ -211,7 +212,6 @@
     <Compile Include="Assets\SPUM\Script\Data\SpumAnimationClip.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Unity Port\Data Models\Basic Data Models\WaterBiom.cs" />
     <Compile Include="Assets\2D Map Generator Tool\Scripts (Map Generator)\Generator\Generators\Tile Map Generation\ImprovedNoise.cs" />
-    <Compile Include="Assets\Scripts\System\PlayerGameData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
