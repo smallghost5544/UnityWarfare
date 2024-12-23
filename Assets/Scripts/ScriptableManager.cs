@@ -26,7 +26,8 @@ public class ScriptableManager : MonoBehaviour
         }
     }
 
-    public ObjectPoolModel AllObjectPoolModel;
+    public AllGameObejctModel AllGameObjectModels;
+    public ObjectPoolModel PreloadObjectPoolModels;
     public SpecialtyModel AllSpecialtyModel;
     public UnitModel ArcherTowerModel;
     public UnitModel BasicMeleeModel;
@@ -44,4 +45,25 @@ public class ScriptableManager : MonoBehaviour
         }
     }
 
+
+    public GameObject FindGameObject(string mainKey, string subKey)
+    {
+        // 遍歷最外層資料
+        foreach (var nestedList in AllGameObjectModels.TeamUnitData)
+        {
+            if (nestedList.key == mainKey) // 匹配主分類 key
+            {
+                // 遍歷內層資料
+                foreach (var pair in nestedList.subPairs)
+                {
+                    if (pair.key == subKey) // 匹配子分類 key
+                    {
+                        return pair.value; // 返回找到的 GameObject
+                    }
+                }
+            }
+        }
+        // 未找到則返回 null
+        return null;
+    }
 }

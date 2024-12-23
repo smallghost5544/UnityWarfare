@@ -9,18 +9,9 @@ public class GameManager : MonoBehaviour
     public Transform TeamOneRespawnPoint;
     public Transform TeamTwoRespawnPoint;
     public List<UnitStats> unitLists = new List<UnitStats>();
-    private static GameManager _instance;
-    ObjectPool objectPool;
     public TestButtonFunctions testButtonFunctions;
-    List<ISpecialty> specialties = new List<ISpecialty>();
-    public ObjectPoolModel objectPoolData => scriptableManager.AllObjectPoolModel;
-    ScriptableManager scriptableManager;
-    public int unitNumber = 0;
-    public UnitColor PlayerChooseColor = UnitColor.Blue;
-    public bool IsPressingCreateUnitButton
-    {
-        get { return isUseCreateButtons(); }
-    }
+
+    private static GameManager _instance;
     public static GameManager Instance
     {
         get
@@ -38,6 +29,18 @@ public class GameManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    ObjectPool objectPool;
+    List<ISpecialty> specialties = new List<ISpecialty>();
+    public ObjectPoolModel objectPoolData => scriptableManager.PreloadObjectPoolModels;
+    public AllGameObejctModel AllGameObejctModels => scriptableManager.AllGameObjectModels;
+    public ScriptableManager scriptableManager;
+    public int unitNumber = 0;
+    public UnitColor PlayerChooseColor = UnitColor.Blue;
+    public bool IsPressingCreateUnitButton
+    {
+        get { return isUseCreateButtons(); }
     }
     public List<PlayerGameData> AllPlayerData = new List<PlayerGameData>();
     public PlayerGameData MainPlayerData;
@@ -140,6 +143,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 遊戲開局設定事項
+    /// </summary>
     void GameDataSetting()
     {
         DistrubuteColor();

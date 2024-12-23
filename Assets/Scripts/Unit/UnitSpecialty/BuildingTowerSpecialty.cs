@@ -90,12 +90,8 @@ public class BuildingTowerSpecialty : MonoBehaviour, ISpecialty
         if (unitStats.CurrentState == UnitState.Building)
         {
             GameObject smallArrowTower = BlueArrowTower;
-            if (unitStats.TeamColor == UnitColor.Blue)
-                 smallArrowTower = BlueArrowTower;
-            if (unitStats.TeamColor == UnitColor.Red)
-                smallArrowTower = RedArrowTower;
-            if (unitStats.TeamColor == UnitColor.Green)
-                smallArrowTower = GreenArrowTower;
+            smallArrowTower =  GameManager.Instance.scriptableManager.
+                FindGameObject(unitStats.TeamColor.ToString() ,"ArcherTower" );
 
             var buildingController = Instantiate(smallArrowTower, place + new Vector2(0, -0.4f), Quaternion.identity).GetComponent<BuildingController>();
             buildingPlaceLsit[placeNumber].builldController = buildingController;

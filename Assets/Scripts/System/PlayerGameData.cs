@@ -20,20 +20,29 @@ public class PlayerGameData : MonoBehaviour
     public GameObject BasicUnit;
     public GameObject CastleObject;
     public GameObject ArcherTowerObject;
-
+    ScriptableManager scriptableManager => GameManager.Instance.scriptableManager;
     public void LoadAllUnit()
     {
         var loadString = GetDataByColor();
         var colorString = playerColor.ToString();
-        BasicUnit = Resources.Load<GameObject>(loadString + colorString + "TeamMelee");
+        string unitKey = "Melee";       // ¤l¤ÀÃþ
+        //BasicUnit = Resources.Load<GameObject>(loadString + colorString + "TeamMelee");
+        //BasicUnit = FindGameObject(colorString, unitKey);
+        BasicUnit = scriptableManager.FindGameObject(colorString, unitKey);
         if (BasicUnit != null)
             print(BasicUnit);
 
-        CastleObject = Resources.Load<GameObject>(loadString + colorString + "Castle");
+        unitKey = "Castle";
+        //CastleObject = Resources.Load<GameObject>(loadString + colorString + "Castle");
+        //CastleObject = FindGameObject(colorString, unitKey);
+        CastleObject = scriptableManager.FindGameObject(colorString, unitKey);
         if (CastleObject != null)
             print(CastleObject);
 
-        ArcherTowerObject = Resources.Load<GameObject>(loadString + colorString + "Tower");
+        unitKey = "Tower";
+        //ArcherTowerObject = Resources.Load<GameObject>(loadString + colorString + "Tower");
+        //ArcherTowerObject = FindGameObject(colorString, unitKey);
+        ArcherTowerObject = scriptableManager.FindGameObject(colorString, unitKey);
         if (ArcherTowerObject != null)
             print(ArcherTowerObject);
 
@@ -60,7 +69,7 @@ public class PlayerGameData : MonoBehaviour
     {
         foreach (var obj in CastlePlaces)
         {
-            Instantiate(CastleObject , obj.transform) ;
+            Instantiate(CastleObject, obj.transform);
         }
 
     }
@@ -74,4 +83,5 @@ public class PlayerGameData : MonoBehaviour
         unitStat.movementArea = UnitMovementArea;
         UnitCount++;
     }
+
 }

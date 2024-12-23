@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2729b05ba7e8894b97fab9081857a86, type: 3}
+  m_Name: AllGameObejctModel
+  m_EditorClassIdentifier: 
+  TeamUnitData:
+  - key: Blue
+    subPairs:
+    - key: Castle
+      value: {fileID: 6305164489151327502, guid: 43c3291c77c43e44eae851f3d4fbe97b, type: 3}
+    - key: ArcherTower
+      value: {fileID: 508362508483586667, guid: 25412c0a0330e7c41a7b3ff485bfb021, type: 3}
+    - key: Melee
+      value: {fileID: 2319102565161797543, guid: d0596c8ff23856a42bc96589a5198fdb, type: 3}
+    - key: Range
+      value: {fileID: 0}
+  - key: Red
+    subPairs:
+    - key: Castle
+      value: {fileID: 5485582190735821919, guid: 19cfaa9e4c3ec0749a91722b834dbc1c, type: 3}
+    - key: ArcherTower
+      value: {fileID: 3027391540148486894, guid: b03acf1e546c1e04388883a135857752, type: 3}
+    - key: Melee
+      value: {fileID: 629974816465994308, guid: 495140f69181e134b819b02f4a2e8ed6, type: 3}
+    - key: Range
+      value: {fileID: 0}
+  - key: Green
+    subPairs:
+    - key: Castle
+      value: {fileID: 3758801597392417446, guid: ec43ea539c0dc044f9fce26241e4be46, type: 3}
+    - key: ArcherTower
+      value: {fileID: 8793946764534451215, guid: c8d9b6b0c7fee6741b95aee094c5e8b4, type: 3}
+    - key: Melee
+      value: {fileID: 4285286942543624344, guid: 574e3d8bbf8b7484fb4593928ce38064, type: 3}
+    - key: Range
+      value: {fileID: 0}
